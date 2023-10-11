@@ -66,7 +66,7 @@ if st.button('Search') and product and website:
             #set by condition
             mask = df['Price'] == minimumPrice
             df.loc[mask, :] = 'background-color: lightgreen'
-            df.loc[~mask,:] = 'background-color: ""'
+            df.loc[~mask,:] = 'background-color: #DFFFFA'
             return df
         
         dataframe = pd.DataFrame({'Description': description, 'Price':price, 'Link':url, 'Website':site})
