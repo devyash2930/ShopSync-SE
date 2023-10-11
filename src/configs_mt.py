@@ -106,18 +106,19 @@ class scrape_target(Thread):
         data = requests.get(api_url, params=params).json()
 
         items = []
-        for p in data['data']['search']['products']:
-            item = {
-                'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                'title': formatTitle(p['item']['product_description']['title']),
-                'price': '$' + str(p['price']['current_retail']),
-                'website': 'target',
-                #'link': shorten_url(p['item']['enrichment']['buy_url'])
-                'link': p['item']['enrichment']['buy_url']
-            }
-            items.append(item)
+        if 'search' in data['data']:
+            for p in data['data']['search']['products']:
+                item = {
+                    'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                    'title': formatTitle(p['item']['product_description']['title']),
+                    'price': '$' + str(p['price']['current_retail']),
+                    'website': 'target',
+                    #'link': shorten_url(p['item']['enrichment']['buy_url'])
+                    'link': p['item']['enrichment']['buy_url']
+                }
+                items.append(item)
 
-        self.result = items
+            self.result = items
 
 class scrape_ebay(Thread):
     def __init__(self, query):
