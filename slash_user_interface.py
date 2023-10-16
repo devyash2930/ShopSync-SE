@@ -28,9 +28,9 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 
 # Display Image
-st.image("assets/slash.png")
+st.image("assets/ShopSync_p.png")
 
-st.write("Slash is a command line tool that scrapes the most popular e-commerce websites to get the best deals on the searched items across multiple websites")
+st.write("ShopSync is an android application, website and a command line tool that scrapes the most popular e-commerce websites to get the best deals on the searched items across these websites.")
 product = st.text_input('Enter the product item name')
 website = st.selectbox('Select the website',('Amazon', 'Walmart', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
 
@@ -121,9 +121,9 @@ text-align: center;
 }
 </style>
 <div class="footer">
-<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/anshulp2912/slash" target="_blank">slash</a></p>
-<p><a style='display: block; text-align: center;' href="https://github.com/anshulp2912/slash/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2021 Rohan Shah</a></p>
-<p>Contributors: Anshul, Bhavya, Darshan, Pragna, Rohan</p>
+<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Kashika08/ShopSync.git" target="_blank">ShopSync</a></p>
+<p><a style='display: block; text-align: center;' href="https://github.com/Kashika08/CSC510_ShopSync_Group40/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2023</a></p>
+<p>Contributors: Kashika, Riya, Sinchana, Sweta</p>
 </div>
 """
 st.markdown(footer,unsafe_allow_html=True)
