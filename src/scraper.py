@@ -12,7 +12,7 @@ from datetime import datetime
 
 
 # local imports
-import src.formattr as form
+import formattr as form
 from src.configs import AMAZON, WALMART, COSTCO, BESTBUY, scrape_ebay, scrape_target
 
 def httpsGet(URL):

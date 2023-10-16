@@ -104,7 +104,6 @@ class scrape_target(Thread):
         }
 
         data = requests.get(api_url, params=params).json()
-
         items = []
         if 'search' in data['data']:
             for p in data['data']['search']['products']:

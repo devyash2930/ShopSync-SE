@@ -197,7 +197,7 @@ def scrape(args, scrapers):
             overall.extend(local)
             if i == len(scrapers):
                 break
-        if scrapers[i] == 'target':
+        if scrapers[i] == '':
             t_tg.join()
             i += 1
             for sort_by in args['sort']:

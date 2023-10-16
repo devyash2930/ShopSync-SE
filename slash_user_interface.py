@@ -13,6 +13,7 @@ from src.main_streamlit import search_items_API
 from src.url_shortener import shorten_url
 import pandas as pd
 import re
+
 #from link_button import link_button
 
 
@@ -51,12 +52,13 @@ if st.button('Search') and product and website:
     price = []
     site = []
     
-    for result in results:
-        if result !={} and result['price']!='':
-            description.append(result['title'])
-            url.append(result['link'])
-            price_str = result['price'] 
-            match = re.search(r'\d+(\.\d{1,2})?', price_str)
+    if results is not None and isinstance(results, list):
+         for result in results:
+            if result !={} and result['price']!='':
+                description.append(result['title'])
+                url.append(result['link'])
+                price_str = result['price'] 
+                match = re.search(r'\d+(\.\d{1,2})?', price_str)
             if match:
                 price_str = match.group(0)
                 price_f = float(price_str)
@@ -77,7 +79,7 @@ if st.button('Search') and product and website:
             df.loc[~mask,:] = 'background-color: #DFFFFA'
             return df
         
-        dataframe = pd.DataFrame({'Description': description, 'Price': [f'{price:.2f}' for price in price], 'Link':url, 'Website':site})
+        dataframe = pd.DataFrame({'Description': description, 'Price':price, 'Link':url, 'Website':site})
         st.balloons()
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
         st.dataframe(dataframe.style.apply(highlight_row, axis=None))
