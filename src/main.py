@@ -17,11 +17,10 @@ import csv
 import nest_asyncio
 
 # local imports
-import src.scraper_mt as scr
+import scraper_mt as scr
 
 
 nest_asyncio.apply()
-
 # response type define
 class jsonScraps(BaseModel):
     timestamp: str
