@@ -87,7 +87,7 @@ if st.button('Search') and product and website:
 
         st.balloons()
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
-        st.dataframe(dataframe.style.apply(highlight_row, axis=None))
+        st.dataframe(dataframe.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>Visit the Website</h1>", unsafe_allow_html=True)
         min_value = min(price)
         min_idx = [i for i, x in enumerate(price) if x == min_value]
