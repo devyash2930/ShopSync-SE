@@ -10,8 +10,7 @@ from datetime import datetime
 import requests
 from ebaysdk.finding import Connection
 
-# local imports
-from src.formattr import formatTitle
+import html
 
 # configs
 WALMART = {
@@ -102,7 +101,7 @@ def scrape_target(query):
     for p in data['data']['search']['products']:
         item = {
             'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-            'title': formatTitle(p['item']['product_description']['title']),
+            'title': html.unescape(p['item']['product_description']['title']),
             'price': '$' + str(p['price']['current_retail']),
             'website': 'target',
             #'link': shorten_url(p['item']['enrichment']['buy_url'])
@@ -142,7 +141,7 @@ def scrape_ebay(query):
     for p in data['searchResult']['item']:
         item = {
             'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-            'title': formatTitle(p['title']),
+            'title': html.unescape(p['title']),
             'price': '$' + p['sellingStatus']['currentPrice']['value'],
             'website': 'ebay',
             #'link': shorten_url(p['viewItemURL'])

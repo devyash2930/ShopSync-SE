@@ -14,6 +14,26 @@ from src.url_shortener import shorten_url
 import pandas as pd
 import re
 
+
+def split_description(description):
+    words = description.split()
+    lines = []
+    line = ""
+    for word in words:
+        if len(line) + len(word) + 1 <= 6:
+            if line:
+                line += " "
+            line += word
+        else:
+            lines.append(line)
+            line = word
+    if line:
+        lines.append(line)
+    return '\n'.join(lines)
+    '''words = description.split()
+    lines = [' '.join(words[i:i+6]) for i in range(0, len(words), 6)]
+    return '\n'.join(lines)'''
+
 #from link_button import link_button
 
 
@@ -80,6 +100,7 @@ if st.button('Search') and product and website:
             return df
         
         dataframe = pd.DataFrame({'Description': description,'Price':[f'{price:.2f}' for price in price],'Link':url,'Website':site})
+        dataframe['Description'] = dataframe['Description'].apply(split_description)
         dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
         dataframe['Product'] = dataframe['Product'].str.replace('[,"]', '', regex=True)
         product_column = dataframe.pop('Product')
