@@ -79,7 +79,12 @@ if st.button('Search') and product and website:
             df.loc[~mask,:] = 'background-color: #DFFFFA'
             return df
         
-        dataframe = pd.DataFrame({'Description': description, 'Price':price, 'Link':url, 'Website':site})
+        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site})
+        dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
+        dataframe['Product'] = dataframe['Product'].str.replace('[,"]', '', regex=True)
+        product_column = dataframe.pop('Product')
+        dataframe.insert(0, 'Product', product_column)
+
         st.balloons()
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
         st.dataframe(dataframe.style.apply(highlight_row, axis=None))
