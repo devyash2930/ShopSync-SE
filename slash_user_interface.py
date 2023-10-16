@@ -12,6 +12,7 @@ import streamlit as st
 from src.main_streamlit import search_items_API
 from src.url_shortener import shorten_url
 import pandas as pd
+import re
 #from link_button import link_button
 
 
@@ -54,7 +55,14 @@ if st.button('Search') and product and website:
         if result!={} and result['price']!='':
             description.append(result['title'])
             url.append(result['link'])
-            price.append(float(''.join(result['price'].split('$')[-1].strip('$').rstrip('0').split(','))))
+            price_str = result['price'] 
+            match = re.search(r'\d+(\.\d{1,2})?', price_str)
+            if match:
+                price_str = match.group(0)
+                price_f = float(price_str)
+                price.append(price_f)
+            else:
+                print("Unable to extract a valid price from the string")
             site.append(result['website'])
             
     if len(price):
