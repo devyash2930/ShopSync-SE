@@ -79,7 +79,7 @@ if st.button('Search') and product and website:
             df.loc[~mask,:] = 'background-color: #DFFFFA'
             return df
         
-        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site})
+        dataframe = pd.DataFrame({'Description': description,'Price':[f'{price:.2f}' for price in price],'Link':url,'Website':site})
         dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
         dataframe['Product'] = dataframe['Product'].str.replace('[,"]', '', regex=True)
         product_column = dataframe.pop('Product')
