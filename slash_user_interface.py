@@ -27,6 +27,7 @@ navbar = """
   align-items: center;
 }
 
+
 .navbar a {
   color: white !important;
   padding: 14px 16px;
@@ -45,10 +46,28 @@ navbar = """
 </div>
 """
 
+def split_description(description):
+    words = description.split()
+    lines = []
+    line = ""
+    for word in words:
+        if len(line) + len(word) + 1 <= 6:
+            if line:
+                line += " "
+            line += word
+        else:
+            lines.append(line)
+            line = word
+    if line:
+        lines.append(line)
+    return '\n'.join(lines)
+    '''words = description.split()
+    lines = [' '.join(words[i:i+6]) for i in range(0, len(words), 6)]
+    return '\n'.join(lines)'''
+
+
 
 st.markdown(navbar, unsafe_allow_html=True)
-
-# Your existing code here...
 
 
 # Display SVG Image
@@ -135,15 +154,20 @@ if st.button('Search') and product and website:
             df.loc[~mask,:] = 'background-color: #DFFFFA'
             return df
         
-        dataframe = pd.DataFrame({'Description': description,'Price':[f'{price:.2f}' for price in price],'Link':url,'Website':site})
+        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site})
+        dataframe['Description'] = dataframe['Description'].apply(split_description)
         dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
         dataframe['Product'] = dataframe['Product'].str.replace('[,"]', '', regex=True)
         product_column = dataframe.pop('Product')
         dataframe.insert(0, 'Product', product_column)
 
+        dataframe['Price'] = dataframe['Price'].apply(lambda x: float(f'{x:.2f}'))
+        dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
+        dataframe = dataframe.sort_values(by='Price', ascending=True)
+
         st.balloons()
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
-        st.dataframe(dataframe.style.apply(highlight_row, axis=None))
+        st.dataframe(dataframe.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>Visit the Website</h1>", unsafe_allow_html=True)
         min_value = min(price)
         min_idx = [i for i, x in enumerate(price) if x == min_value]
