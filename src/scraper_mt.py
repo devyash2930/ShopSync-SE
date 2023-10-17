@@ -49,7 +49,11 @@ class search(Thread):
             self.result = []
 
         # begin parsing page content
-        results = page.find_all(self.config['item_component'], self.config['item_indicator'])
+        try:
+            results = page.find_all(self.config['item_component'], self.config['item_indicator'])
+        except AttributeError as e:
+            print(f"An AttributeError occurred: {e}")
+            results = None
         products = []
         for res in results:
             title = res.select(self.config['title_indicator'])

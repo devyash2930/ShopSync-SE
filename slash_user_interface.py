@@ -166,6 +166,13 @@ if st.button('Search') and product and website:
         dataframe = dataframe.sort_values(by='Price', ascending=True)
         dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
 
+        def add_http_if_not_present(url):
+            if url.startswith('http://') or url.startswith('https://'):
+                return url
+            else:
+                return 'https://' + url
+        dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
+
         st.balloons()
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
         st.dataframe(dataframe.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
