@@ -30,11 +30,12 @@ def formatResult(website, titles, prices, links):
         link = links[0]['href']
     product = {
         'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        "title": formatTitle(title),
+        "title": html.unescape(title),
         "price": price,
         "link": f'www.{website}.com{link}',
         "website": website,
     }
+    print(product['title'])
     if website=='walmart':
         if link[0:4]=='http':
             product['link']=f'{link}'
@@ -78,15 +79,6 @@ def formatSearchQueryForCostco(query):
     formattedQuery = formattedQuery[:-1]
     return formattedQuery
 
-
-def formatTitle(title):
-    """
-    The formatTitle function formats titles extracted from the scraped HTML code.
-    """
-    title = html.unescape(title)
-    if(len(title) > 40):
-        return title[:40] + "..."
-    return title
 
 
 def getNumbers(st):
