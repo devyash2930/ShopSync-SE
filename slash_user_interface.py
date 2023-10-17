@@ -100,7 +100,19 @@ hide_menu_style = """
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
+if 'dataframe' not in st.session_state:
+    st.session_state.dataframe = None
 
+def highlight_row(dataframe):
+    #copy df to new - original data are not changed
+    df = dataframe.copy()
+    df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+    minimumPrice = df['Price'].min()
+    #set by condition
+    mask = df['Price'] == minimumPrice
+    df.loc[mask, :] = 'background-color: lightgreen'
+    df.loc[~mask,:] = 'background-color: #DFFFFA'
+    return df
 
 # Display Image
 # st.image("assets/ShopSync_p.png")
@@ -144,17 +156,6 @@ if st.button('Search') and product and website:
             
     if len(price):
         
-        def highlight_row(dataframe):
-            #copy df to new - original data are not changed
-            df = dataframe.copy()
-            df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
-            minimumPrice = df['Price'].min()
-            #set by condition
-            mask = df['Price'] == minimumPrice
-            df.loc[mask, :] = 'background-color: lightgreen'
-            df.loc[~mask,:] = 'background-color: #DFFFFA'
-            return df
-        
         dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site})
         dataframe['Description'] = dataframe['Description'].apply(split_description)
         dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
@@ -173,20 +174,34 @@ if st.button('Search') and product and website:
                 return 'https://' + url
         dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
 
+        st.cache(dataframe)
+        st.success("Data successfully scraped and cached.")
+
         st.balloons()
-        st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
-        st.dataframe(dataframe.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
-        st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>Visit the Website</h1>", unsafe_allow_html=True)
-        min_value = min(price)
-        min_idx = [i for i, x in enumerate(price) if x == min_value]
-        for minimum_i in min_idx:
-            link_button_url = shorten_url(url[minimum_i].split('\\')[-1])
-            st.write("Cheapest Product [link]("+link_button_url+")")
-            #link_button(site[minimum_i], link_button_url)
+        st.session_state.dataframe = dataframe
+
+    #     st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
+    #     st.dataframe(dataframe.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
+    #     st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>Visit the Website</h1>", unsafe_allow_html=True)
+    #     min_value = min(price)
+    #     min_idx = [i for i, x in enumerate(price) if x == min_value]
+    #     for minimum_i in min_idx:
+    #         link_button_url = shorten_url(url[minimum_i].split('\\')[-1])
+    #         st.write("Cheapest Product [link]("+link_button_url+")")
+    #         #link_button(site[minimum_i], link_button_url)
         
     else:
         st.error('Sorry!, there is no other website with same product')
         
+if 'dataframe' in st.session_state:
+
+    st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
+            
+    st.session_state.dataframe['Price'] = pd.to_numeric(st.session_state.dataframe['Price'], errors='coerce')
+    price_range = st.slider("Price Range", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
+
+    filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (st.session_state.dataframe["Price"] <= price_range[1])]
+    st.dataframe(filtered_df.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
 
 
 # Add footer to UI
