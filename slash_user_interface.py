@@ -147,6 +147,7 @@ if st.button('Search') and product and website:
         def highlight_row(dataframe):
             #copy df to new - original data are not changed
             df = dataframe.copy()
+            df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
             minimumPrice = df['Price'].min()
             #set by condition
             mask = df['Price'] == minimumPrice
@@ -162,8 +163,8 @@ if st.button('Search') and product and website:
         dataframe.insert(0, 'Product', product_column)
 
         dataframe['Price'] = dataframe['Price'].apply(lambda x: float(f'{x:.2f}'))
-        dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
         dataframe = dataframe.sort_values(by='Price', ascending=True)
+        dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
 
         st.balloons()
         st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
