@@ -2,12 +2,12 @@
 |-----|---------|
 |Video|   |
 |workload is spread over the whole team (so one team member is often Xtimes more productive than the others...| Despite the commit count difference, workload was spread evenly|
-|but nevertheless, here is a track record that everyone is contributing a lot| Evidence in GH (Commits)|
-|Number of commits	in GH| Evidence in GH (Commits)|
+|but nevertheless, here is a track record that everyone is contributing a lot| Evidence in GH - [Commits](https://github.com/Kashika08/ShopSync/commits/main)|
+|Number of commits	in GH| Evidence in GH - [Commits](https://github.com/Kashika08/ShopSync/commits/main)|
 |Number of commits: by different people	in GH| Evidence in GH - [Pulse](https://github.com/Kashika08/ShopSync/pulse)|
 |Issues reports: there are many| In GH - [Issues](https://github.com/Kashika08/ShopSync/issues?q=is%3Aopen+is%3Aissue)|
 |Issues are being closed	evidence in GH| [Closed Issues](https://github.com/Kashika08/ShopSync/issues?q=is%3Aissue+is%3Aclosed)|
-|DOI badge: exists	in GH| In GH - Readme.md|
+|DOI badge: exists	in GH| In GH - [Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |Docs: doco generated, format not ugly | in GH| 
 |Docs: what: point descriptions of each class/function (in isolation)| In Codebase |
 |Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| |
