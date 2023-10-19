@@ -26,12 +26,12 @@
 </p>
 
 
-Do you love shopping? Are you in search of some good deals while shopping online?! Slash is here to help you look for the best deals!
+Do you love shopping? Are you in search of some good deals while shopping online?! Shopsync is here to help you look for the best deals!
 
 
-Slash is a publicly accessible web API framework that allows one to scrape the most popular e-commerce websites to get the best deals on the searched items across multiple e-commerce websites. Currently supported websites include [Amazon](https://www.amazon.com/), [Walmart](https://www.walmart.com/), [Target](https://www.target.com/), [BestBuy](https://www.bestbuy.com/), [Costco](https://www.costco.com/) and [EBay](https://www.ebay.com/).
-- **Fast**: With slash, you can save over 50% of your time by comparing deals across websites within seconds
-- **Easy**: Slash introduces easy to use public APIs to filter, sort and search through the search results
+Shopsync is a publicly accessible web API framework that allows one to scrape the most popular e-commerce websites to get the best deals on the searched items across multiple e-commerce websites. Currently supported websites include [Amazon](https://www.amazon.com/), [Walmart](https://www.walmart.com/), [Target](https://www.target.com/), [BestBuy](https://www.bestbuy.com/), [Costco](https://www.costco.com/) and [EBay](https://www.ebay.com/).
+- **Fast**: With Shopsync, you can save over 50% of your time by comparing deals across websites within seconds
+- **Easy**: Shopsync introduces easy to use public APIs to filter, sort and search through the search results
 - **Powerful**: Produces JSON responses that can be easily customised to bring about the desired output
 
 ---
@@ -118,8 +118,8 @@ streamlit run slash_user_interface.py
 ---
 - Improvement of Android User Interface
 - Sorting of results based on price, website
-- Front End implementation of Slash API , ie., converting it into a full stack web application.
-- Chrome Extension using the functionalities of Slash API
+- Front End implementation of Shopsync API , ie., converting it into a full stack web application.
+- Chrome Extension using the functionalities of Shopsync API
 - An iOS application.
 
 :sparkles: Contributors
@@ -142,4 +142,4 @@ We would also like to extend our gratitude to previous group : https://github.co
 
 :email: Support
 ---
-For any queries and help, please reach out to us at: rohan22shah@gmail.com
+For any queries and help, please reach out to us at: kmalick@ncsu.edu, rvgori@ncsu.edu, skshett2@ncsu.edu, spshinde@ncsu.edu
