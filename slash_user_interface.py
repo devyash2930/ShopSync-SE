@@ -165,6 +165,7 @@ if st.button('Search') and product and website:
 
         dataframe['Price'] = dataframe['Price'].apply(lambda x: float(f'{x:.2f}'))
         dataframe = dataframe.sort_values(by='Price', ascending=True)
+        dataframe = dataframe.reset_index(drop=True)
         dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
 
         def add_http_if_not_present(url):
@@ -202,6 +203,19 @@ if 'dataframe' in st.session_state:
 
     filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (st.session_state.dataframe["Price"] <= price_range[1])]
     st.dataframe(filtered_df.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
+
+st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
+
+selected_index = st.selectbox("Select an index to get the corresponding row:", [None] + list(range(len(st.session_state.dataframe))))
+if selected_index is not None:
+    fav =pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
+    if 'fav' in st.session_state:
+        st.session_state.fav = pd.concat([st.session_state.fav, fav], axis=0).drop_duplicates()
+        st.dataframe(st.session_state.fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+
+    else:
+        st.session_state.fav = fav.copy()
+        st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
 
 
 # Add footer to UI
