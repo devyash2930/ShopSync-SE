@@ -126,17 +126,16 @@ streamlit run slash_user_interface.py
 ---
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/anshulp2912"><img src="https://avatars.githubusercontent.com/u/36321866?s=400&u=829f7dc91108ae56805b2a2917b6ec63a1a0d9d0&v=4" width="75px;" alt=""/><br /><sub><b>Anshul Navinbhai Patel</b></sub></a></td>
-    <td align="center"><a href="https://github.com/AgrawalBhavya"><img src="https://avatars.githubusercontent.com/u/52067226?v=4" width="75px;" alt=""/><br /><sub><b>Bhavya Agrawal</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/darshanp228"><img src="https://avatars.githubusercontent.com/u/72122805?v=4" width="75px;" alt=""/><br /><sub><b>Darshan Manharbhai Patel</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/pragna98"><img src="https://avatars.githubusercontent.com/u/46415182?v=4" width="75px;" alt=""/><br /><sub><b>Pragna Bollam</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/rohan22shah"><img src="https://avatars.githubusercontent.com/u/42119767?v=4" width="75px;" alt=""/><br /><sub><b>Rohan Jigarbhai Shah</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/riyagori1203"><img src="https://avatars.githubusercontent.com/u/66380988?s=400&u=abc90228fe33cf1be71f80eec8aa74213134dea9&v=4" width="75px;" alt=""/><br /><sub><b>Anshul Riya Gori</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Kashika08"><img src="https://avatars.githubusercontent.com/u/43812511?v=4" width="75px;" alt=""/><br /><sub><b>Kashika Malick</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/sps-bit"><img src="https://avatars.githubusercontent.com/u/71579349?v=4" width="75px;" alt=""/><br /><sub><b>Sweta Shinde</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/sinchanashetty11"><img src="https://avatars.githubusercontent.com/u/73926660?v=4" width="75px;" alt=""/><br /><sub><b>Sinchana Shetty</b></sub></a><br /></td>
   </tr>
 </table>
 
 ## 🙏 Acknowledgements <a name="Acknowledgement"></a>
 We would like to thank Professor Dr Timothy Menzies for helping us understand the process of building a good Software Engineering project. We would also like to thank the teaching assistants Xiao Ling, Andre Lustosa, Kewen Peng, Weichen Shi for their support throughout the project.
-We would also like to extend our gratitude to previous group : https://github.com/Urvashi74/slash
+We would also like to extend our gratitude to previous group : https://github.com/rohan22shah/slash-phase3
 - [https://streamlit.io/](https://streamlit.io/)
 - [https://shields.io/](https://shields.io/)
 
