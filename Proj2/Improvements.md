@@ -16,6 +16,7 @@ The goal of these UI improvements is to create a more visually appealing, effici
 - **Enhanced Code Clarity:**
    - Refined the existing code for improved readability and maintainability.
    - Addressed and resolved various coding issues and errors.
+   - Performed a cleanup of the code and refactored the code.
 
 - **Elevated User Engagement:**
    - Elevated the overall user experience by implementing user-friendly features.
