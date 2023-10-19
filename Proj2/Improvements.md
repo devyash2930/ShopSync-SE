@@ -12,4 +12,23 @@ Instead of copying and pasting the fetched link for the produc every time into t
 ## 4) Improved the User Interface of the application:
 The goal of these UI improvements is to create a more visually appealing, efficient, and user-centric application that enhances the overall user experience.
 ## 5) Fixed minor issues that were encountered on some links:
-We fixed the issues that we encountered on links that led to errors on the user interface.
+
+- **Enhanced Code Clarity:**
+   - Refined the existing code for improved readability and maintainability.
+   - Addressed and resolved various coding issues and errors.
+
+- **Elevated User Engagement:**
+   - Elevated the overall user experience by implementing user-friendly features.
+   - Included product descriptions to provide users with comprehensive information.
+
+- **Comprehensive Error Resolution:**
+   - Successfully identified and rectified multiple issues within the codebase.
+   - Mitigated errors that were affecting the functionality of the system.
+
+- **Augmented Information Delivery:**
+   - Incorporated product details and descriptions to offer users a more complete understanding of the products on offer.
+   - Ensured that users have access to comprehensive information about the items available for their consideration.
+
+
+
+
