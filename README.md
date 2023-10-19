@@ -26,13 +26,16 @@
 </p>
 
 
-Do you love shopping? Are you in search of some good deals while shopping online?! Shopsync is here to help you look for the best deals!
 
+Are you a shopping enthusiast on the hunt for fantastic online deals? Look no further – Shopsync is your ultimate ally in the quest for the best bargains!
+Shopsync is a publicly accessible web API framework designed for convenient price comparison across popular e-commerce platforms. It supports well-known websites such as Amazon, Walmart, Target, BestBuy, Costco, and eBay. Currently supported websites include [Amazon](https://www.amazon.com/), [Walmart](https://www.walmart.com/), [Target](https://www.target.com/), [BestBuy](https://www.bestbuy.com/), [Costco](https://www.costco.com/) and [EBay](https://www.ebay.com/). 
+The key benefits of using Shopsync are:
 
-Shopsync is a publicly accessible web API framework that allows one to scrape the most popular e-commerce websites to get the best deals on the searched items across multiple e-commerce websites. Currently supported websites include [Amazon](https://www.amazon.com/), [Walmart](https://www.walmart.com/), [Target](https://www.target.com/), [BestBuy](https://www.bestbuy.com/), [Costco](https://www.costco.com/) and [EBay](https://www.ebay.com/).
-- **Fast**: With Shopsync, you can save over 50% of your time by comparing deals across websites within seconds
-- **Easy**: Shopsync introduces easy to use public APIs to filter, sort and search through the search results
-- **Powerful**: Produces JSON responses that can be easily customised to bring about the desired output
+- **Efficiency**: By utilizing Shopsync, you can drastically reduce the time spent comparing deals on various websites, often saving more than 50% of your time.
+
+- **Simplicity**: Shopsync offers user-friendly public APIs that simplify filtering, sorting, and searching for the best deals among search results.
+
+- **Versatility**: It generates JSON responses that are highly adaptable, allowing you to easily tailor the output to suit your specific needs.
 
 ---
 
@@ -70,8 +73,7 @@ Shopsync is a publicly accessible web API framework that allows one to scrape th
 ---
 1. Clone the Github repository to a desired location on your computer. You will need [git](https://git-scm.com/) to be preinstalled on your machine. Once the repository is cloned, you will then ```cd``` into the local repository.
 ```
-git clone https://github.com/rohan22shah/slash-phase3.git
-cd slash
+git clone https://github.com/Kashika08/ShopSync
 ```
 2. This project uses Python 3, so make sure that [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installation/) are preinstalled. All requirements of the project are listed in the ```requirements.txt``` file. Use pip to install all of those.
 ```
@@ -101,26 +103,23 @@ streamlit run slash_user_interface.py
 
 :bulb: Use Case
 ---
-* ***Students***: Students coming to university are generally on a budget and time constraint and generally spend hours wasting time to search for products on Websites. Slash is the perfect tool for these students that slashes all the unnecessary details on a website and helps them get prices for a product across multiple websites.Make the most of this tool in the upcoming Black Friday Sale.
-* ***Data Analysts***: Finding data for any project is one of the most tedious job for a data analyst, and the datasets found might not be the most recent one. Using slash, they can create their own dataset in real time and format it as per their needs so that they can focus on what is actually inportant.
-
+* ***Empowering Students***: University students, often operating on tight budgets and time constraints, typically squander precious hours scouring websites for products. Enter Slash, the ultimate companion for students, slicing away all the superfluous website clutter and swiftly delivering product prices from multiple sources. Maximize the benefits of this invaluable tool during the forthcoming Black Friday Sale, where savings are paramount.
+* ***Elevating Data Analysts***: Data analysts grapple with the formidable task of data acquisition for their projects, a task that can be arduous and plagued by outdated datasets. Slash offers a game-changing solution, enabling analysts to craft real-time datasets tailored to their specifications. With this capability, they can concentrate their efforts on what truly matters, driving impactful results.
 :page_facing_up: Why
 ---
 - In a market where we are spoilt for choices, we often look for the best deals.  
 - The ubiquity of internet access has leveled the retail playing field, making it easy for individuals and businesses to sell products without geographic limitation. In 2020, U.S. e-commerce sales, receiving a boost due to the COVID-19 pandemic, grew 44% and represented more than 21% of total retail sales, according to e-commerce information source Internet Retailer.
 - The growth of e-commerce has not only changed the way customers shop, but also their expectations of how brands approach customer service, personalize communications, and provide customers choices.
 - E-commerce market has prompted cut throat competition amongst dealers, which is discernable through the price patterns for products of major market players. Price cuts are somewhat of a norm now and getting the best deal for your money can sometimes be a hassle (even while online shopping).
-- This is what Slash aims to reduce by giving you an easy to use, all in one place solution for finding the best deals for your products that major market dealers have to offer!
+- This is what Shopsync aims to reduce by giving you an easy to use, all in one place solution for finding the best deals for your products that major market dealers have to offer!
 - Slash in its current form is for students who wish to get the best deals out of every e-commerce site and can be used by anyone who is willing to develop an application that consumes these web APIs.
 - Future scope includes anything from a web application with a frontend or any Android or IOS application that utilises these Web APIs at their backend. Anyone can build their own custom application on top of these web APIs.
 
 :golf: Future Roadmap
 ---
-- Improvement of Android User Interface
-- Sorting of results based on price, website
-- Front End implementation of Shopsync API , ie., converting it into a full stack web application.
 - Chrome Extension using the functionalities of Shopsync API
-- An iOS application.
+- Creating user profiles
+- Price Alert notifications for when the price drops
 
 :sparkles: Contributors
 ---
@@ -134,8 +133,8 @@ streamlit run slash_user_interface.py
 </table>
 
 ## 🙏 Acknowledgements <a name="Acknowledgement"></a>
-We would like to thank Professor Dr Timothy Menzies for helping us understand the process of building a good Software Engineering project. We would also like to thank the teaching assistants Xiao Ling, Andre Lustosa, Kewen Peng, Weichen Shi for their support throughout the project.
-We would also like to extend our gratitude to previous group : https://github.com/rohan22shah/slash-phase3
+We would like to thank Professor Dr Timothy Menzies for helping us understand the process of building a good Software Engineering project. We would also like to thank the teaching assistants Rahul Yedida, Andre Lustosa, Sam Gilson, Xueqi (Sherry) Yang, and Yasitha Rajapaksha for their support throughout the project.
+We would also like to extend our gratitude to the previous group: https://github.com/rohan22shah/slash-phase3
 - [https://streamlit.io/](https://streamlit.io/)
 - [https://shields.io/](https://shields.io/)
 
