@@ -26,7 +26,7 @@
 |Chat channel: exists| 	Link or screenshots |
 |Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people) | Same package, server and config files updated by everyone. |
 |Test cases: a large proportion of the issues related to handling failing cases.|If a test case fails, open an issue and fix it|
-|Evidence that the whole team is using the same tools: everyone can get to all tools and files| |
+|Evidence that the whole team is using the same tools: everyone can get to all tools and files|Same package, server and config files updated by everyone. |
 |Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)	| |
 |Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)| | 
 |Evidence that the members of the team are working across multiple places in the code base	| [Contributors](https://github.com/Kashika08/ShopSync/graphs/contributors)
