@@ -10,7 +10,7 @@
 |DOI badge: exists	in GH| In GH - [Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |Docs: doco generated, format not ugly | in GH| 
 |Docs: what: point descriptions of each class/function (in isolation)| In Codebase |
-|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| |
+|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|In GH - [Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md) |
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing | Yes, animations, videos, motivation etc.|
 |Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.	| Evidence in GH - [Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |Use of version control tools	| [Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md) |
