@@ -65,6 +65,38 @@ def split_description(description):
 
 st.markdown(navbar, unsafe_allow_html=True)
 
+#Title for the application
+title = """
+<div class="header">
+    <div class="t">SHOPSYNC</div>
+    <p>Get the Best Deals At Ease</p>
+</div>
+<style>
+        .header {
+            background-color: #b5bbf9;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .t {
+            font-size: 48px;
+            margin: 0;  /* Remove default margin for the <h1> element */
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .site-title {
+            font-size: 24px;
+            margin: 10px 0;  /* Add some margin to separate the title from the main heading */
+            text-transform: uppercase; /* Uppercase the text */
+        }
+    </style>
+"""
+
+st.markdown(title, unsafe_allow_html=True)
 
 # Display SVG Image
 svg_code = """
@@ -79,6 +111,7 @@ centered_svg_code = f"""
     justify-content: center;
     align-items: center;
     height: 300;
+    padding: 10px;
 }}
 </style>
 <div class="centered-svg">{svg_code}</div>
