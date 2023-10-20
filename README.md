@@ -1,6 +1,6 @@
 <p align="center"><img width="500" src="./assets/shopsync-logos.jpeg"></p>
-
-[![DOI](https://zenodo.org/badge/692918933.svg)](https://zenodo.org/badge/latestdoi/692918933)[![codecov](https://codecov.io/gh/rohan22shah/slash-phase3/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://codecov.io/gh/rohan22shah/slash-phase3)
+[![DOI](https://zenodo.org/badge/692918933.svg)](https://zenodo.org/badge/latestdoi/692918933)
+[![codecov](https://codecov.io/gh/rohan22shah/slash-phase3/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://codecov.io/gh/rohan22shah/slash-phase3)
 [![Build Status](https://app.travis-ci.com/rohan22shah/slash-phase3.svg?branch=main)](https://app.travis-ci.com/rohan22shah/slash-phase3)
 [![Python Style Checker](https://github.com/rohan22shah/slash-phase3/actions/workflows/style_checker.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/style_checker.yml)
 [![Run Tests On Push](https://github.com/rohan22shah/slash-phase3/actions/workflows/unit_test.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/unit_test.yml)
