@@ -209,16 +209,6 @@ if st.button('Search') and product and website:
 
         st.balloons()
         st.session_state.dataframe = dataframe
-
-    #     st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
-    #     st.dataframe(dataframe.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
-    #     st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>Visit the Website</h1>", unsafe_allow_html=True)
-    #     min_value = min(price)
-    #     min_idx = [i for i, x in enumerate(price) if x == min_value]
-    #     for minimum_i in min_idx:
-    #         link_button_url = shorten_url(url[minimum_i].split('\\')[-1])
-    #         st.write("Cheapest Product [link]("+link_button_url+")")
-    #         #link_button(site[minimum_i], link_button_url)
         
     else:
         st.error('Sorry!, there is no other website with same product')
