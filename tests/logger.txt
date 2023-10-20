@@ -1,0 +1,4 @@
+amazon query:laptop
+amazon query:laptop
+amazon query:lenovo
+amazon query:dell
