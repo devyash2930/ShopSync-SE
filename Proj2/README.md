@@ -1,6 +1,6 @@
 |Notes|Marks| Evidence|
 |-----|---|---------|
-|Total|49|
+|Total|94|
 |Video|2|   The video is present in the main README of the document. [Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |workload is spread over the whole team (so one team member is often X times more productive than the others...|2| Despite the commit count difference, workload was spread evenly|
 |but nevertheless, here is a track record that everyone is contributing a lot|2| Evidence in GH - [Commits](https://github.com/Kashika08/ShopSync/commits/main)|
@@ -30,4 +30,20 @@
 |Evidence that the whole team is using the same tools: everyone can get to all tools and files|2| Same package, server, and config files updated by everyone. |
 |Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)|3| Same package, server, and config files updated by everyone. | 
 |Evidence that the members of the team are working across multiple places in the code base	|2| [Contributors](https://github.com/Kashika08/ShopSync/graphs/contributors)
-|Short release cycles| |(hard to see in short projects) project members are committing often enough so that everyone can get your work|
+|Short release cycles|1|(hard to see in short projects) project members are committing often enough so that everyone can get your work|
+|Case Studies of use by you and others|1|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
+|Is the name of your project/software unique|3| In GH|
+|No trademark violations|3|[License](https://github.com/Kashika08/ShopSync/blob/main/LICENSE)|
+|Package that can be deployed without building|2|In GH|
+|Available for free|3|In GH|
+|Publicly available for download|3|In GH|
+|Software hosted in known third party|3|In GH|
+|Documentation clearly available on your website or within your software|3|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
+|Documentation contains quick start guide or not|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
+|Documentation provides instructions to deploy software or not|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
+|Documentation provides guide to software's functions or not|3|[Code Description](https://github.com/Kashika08/ShopSync/blob/main/docs/Code%20Description.pdf)|
+|Documentation provides troubleshooting information, comprehensive API documentation, store under revision control with source code
+,publish release history|1|In GH|
+|How user can get help (descrition)|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
+|Email solely for support|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
+|Ticketing system to manage bug reports and feature requests|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
