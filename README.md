@@ -20,9 +20,9 @@
 
 
 <p align="center">
-    <a href="https://github.com/anshulp2912/cheapBuy/issues/new/choose">Report Bug</a>
+    <a href="https://github.com/Kashika08/ShopSync/issues/new/choose">Report Bug</a>
     ·
-    <a href="https://github.com/anshulp2912/cheapBuy/issues/new/choose">Request Feature</a>
+    <a href="https://github.com/Kashika08/ShopSync/issues/new/choose">Request Feature</a>
 </p>
 
 
