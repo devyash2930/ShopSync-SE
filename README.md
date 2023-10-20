@@ -13,7 +13,6 @@
 <a href="https://github.com/Kashika08/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Kashika08/ShopSync"></a>
 <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Kashika08/ShopSync">
 <a href="https://github.com/Kashika08/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Kashika08/ShopSync"></a>
-<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Kashika08/ShopSync">
 <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Kashika08/ShopSync">
 
 
