@@ -4,8 +4,8 @@ setup(name='slash',
       version='3.0',
       description='Slash is a command line tool that scrapes the most popular e-commerce websites to get the best deals on the searched items across these websites.',
       author='Anshul, Bhavya, Darshan, Pragna, Rohan',
-      author_email='rohan22shah@gmail.com',
-      url='https://github.com/rohan22shah/slash-phase3.git',
+      author_email='kashikamalick@gmail.com',
+      url='https://github.com/Kashika08/ShopSync.git',
       packages=['slash'],
       long_description="""\
             Hands on for the standard github repo files.

@@ -1,20 +1,21 @@
 <p align="center"><img width="500" src="./assets/shopsync-logos.jpeg"></p>
 
-[![DOI](https://zenodo.org/badge/692918933.svg)](https://zenodo.org/badge/latestdoi/692918933)[![codecov](https://codecov.io/gh/rohan22shah/slash-phase3/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://codecov.io/gh/rohan22shah/slash-phase3)
+[![DOI](https://zenodo.org/badge/692918933.svg)](https://zenodo.org/badge/latestdoi/692918933)[![codecov](https://codecov.io/gh/rohan22shah/slash-phase3/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://codecov.io/gh/rohan22shah/ShopSync)
 [![Build Status](https://app.travis-ci.com/rohan22shah/slash-phase3.svg?branch=main)](https://app.travis-ci.com/rohan22shah/slash-phase3)
-[![Run Tests On Push](https://github.com/rohan22shah/slash-phase3/actions/workflows/unit_test.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/unit_test.yml)
-[![Python Application](https://github.com/rohan22shah/slash-phase3/actions/workflows/python-app.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/python-app.yml)
-[![Lint Python](https://github.com/rohan22shah/slash-phase3/actions/workflows/main.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/main.yml)
-[![Running Code Coverage](https://github.com/rohan22shah/slash-phase3/actions/workflows/code_cov.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/code_cov.yml)
-[![Close as a feature](https://github.com/rohan22shah/slash-phase3/actions/workflows/close_as_a_feature.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/close_as_a_feature.yml)
+[![Run Tests On Push](https://github.com/Kashika08/ShopSync/actions/workflows/unit_test.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/unit_test.yml)
+[![Python Application](https://github.com/Kashika08/ShopSync/actions/workflows/python-app.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/python-app.yml)
+[![Lint Python](https://github.com/Kashika08/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/main.yml)
+[![Running Code Coverage](https://github.com/Kashika08/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/code_cov.yml)
+[![Close as a feature](https://github.com/Kashika08/ShopSync/actions/workflows/close_as_a_feature.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/close_as_a_feature.yml)
 
 <!--Badges-->
-<a href="https://github.com/Kashika08/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/rohan22shah/slash-phase3"></a>
-<a href="https://github.com/Kashika08/ShopSync/pulse"><img alt="GitHub forks" src="https://img.shields.io/github/forks/rohan22shah/slash-phase3"></a>
-<a href="https://github.com/rohan22shah/slash-phase3/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/rohan22shah/slash-phase3"></a>
-<a href="https://github.com/Kashika08/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/rohan22shah/slash-phase3"></a>
-<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/rohan22shah/slash-phase3">
-<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/rohan22shah/slash-phase3">
+<a href="https://github.com/Kashika08/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Kashika08/ShopSync"></a>
+<a href="https://github.com/Kashika08/ShopSync/pulse"><img alt="GitHub forks" src="https://img.shields.io/github/forks/Kashika08/ShopSync"></a>
+<a href="https://github.com/Kashika08/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Kashika08/ShopSync"></a>
+<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Kashika08/ShopSync">
+<a href="https://github.com/Kashika08/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Kashika08/ShopSync"></a>
+<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Kashika08/ShopSync">
+<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Kashika08/ShopSync">
 
 
 
@@ -136,7 +137,7 @@ streamlit run slash_user_interface.py
 
 ## 🙏 Acknowledgements <a name="Acknowledgement"></a>
 We would like to thank Professor Dr Timothy Menzies for helping us understand the process of building a good Software Engineering project. We would also like to thank the teaching assistants Rahul Yedida, Andre Lustosa, Sam Gilson, Xueqi (Sherry) Yang, and Yasitha Rajapaksha for their support throughout the project.
-We would also like to extend our gratitude to the previous group: https://github.com/rohan22shah/slash-phase3
+We would also like to extend our gratitude to the previous group: https://github.com/rohan22shah/ShopSync
 - [https://streamlit.io/](https://streamlit.io/)
 - [https://shields.io/](https://shields.io/)
 
