@@ -6,7 +6,6 @@
 [![Python Application](https://github.com/Kashika08/ShopSync/actions/workflows/python-app.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/python-app.yml)
 [![Lint Python](https://github.com/Kashika08/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/main.yml)
 [![Running Code Coverage](https://github.com/Kashika08/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/code_cov.yml)
-[![Close as a feature](https://github.com/Kashika08/ShopSync/actions/workflows/close_as_a_feature.yml/badge.svg)](https://github.com/Kashika08/ShopSync/actions/workflows/close_as_a_feature.yml)
 
 <!--Badges-->
 <a href="https://github.com/Kashika08/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Kashika08/ShopSync"></a>
