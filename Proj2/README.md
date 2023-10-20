@@ -42,8 +42,7 @@
 |Documentation contains quick start guide or not|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |Documentation provides instructions to deploy software or not|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |Documentation provides guide to software's functions or not|3|[Code Description](https://github.com/Kashika08/ShopSync/blob/main/docs/Code%20Description.pdf)|
-|Documentation provides troubleshooting information, comprehensive API documentation, store under revision control with source code
-,publish release history|1|In GH|
+|Documentation provides troubleshooting information, comprehensive API documentation, store under revision control with source code, publish release history|1|In GH|
 |How user can get help (descrition)|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |Email solely for support|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
 |Ticketing system to manage bug reports and feature requests|2|[Readme.md](https://github.com/Kashika08/ShopSync/blob/main/README.md)|
