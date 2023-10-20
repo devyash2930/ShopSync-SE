@@ -121,6 +121,8 @@ streamlit run slash_user_interface.py
 - Chrome Extension using the functionalities of Shopsync API
 - Creating user profiles
 - Price Alert notifications for when the price drops
+- Personalized Recommendations: A recommendation system that suggests products based on a user's previous selections and preferences, increasing user engagement and sales.
+- User Reviews and Ratings: Integrate a user review and rating system, allowing customers to share their experiences and insights on products, increasing trust and transparency.
 
 :sparkles: Contributors
 ---
