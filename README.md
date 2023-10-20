@@ -62,7 +62,7 @@ The key benefits of using Shopsync are:
 :movie_camera: Checkout our video
 ---
 
-[![Slash Phase 3](https://yt-embed.herokuapp.com/embed?v=H1LSa4P-8fM)](https://www.youtube.com/watch?v=H1LSa4P-8fM "SLASH Phase 3")
+[67e5c8f7-e84b-44af-9e86-85f58530d7a3](https://drive.google.com/file/d/1l_lxR0LMvmafhasJv9m0tbxuL5lEIwM8/view?usp=sharing)
 
 ---
 
