@@ -2,7 +2,6 @@
 
 [![DOI](https://zenodo.org/badge/692918933.svg)](https://zenodo.org/badge/latestdoi/692918933)[![codecov](https://codecov.io/gh/rohan22shah/slash-phase3/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://codecov.io/gh/rohan22shah/slash-phase3)
 [![Build Status](https://app.travis-ci.com/rohan22shah/slash-phase3.svg?branch=main)](https://app.travis-ci.com/rohan22shah/slash-phase3)
-[![Python Style Checker](https://github.com/rohan22shah/slash-phase3/actions/workflows/style_checker.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/style_checker.yml)
 [![Run Tests On Push](https://github.com/rohan22shah/slash-phase3/actions/workflows/unit_test.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/unit_test.yml)
 [![Python Application](https://github.com/rohan22shah/slash-phase3/actions/workflows/python-app.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/python-app.yml)
 [![Lint Python](https://github.com/rohan22shah/slash-phase3/actions/workflows/main.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/main.yml)
@@ -10,7 +9,7 @@
 [![Close as a feature](https://github.com/rohan22shah/slash-phase3/actions/workflows/close_as_a_feature.yml/badge.svg)](https://github.com/rohan22shah/slash-phase3/actions/workflows/close_as_a_feature.yml)
 
 <!--Badges-->
-<a href="https://github.com/rohan22shah/slash-phase3/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/rohan22shah/slash-phase3"></a>
+<a href="https://github.com/Kashika08/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/rohan22shah/slash-phase3"></a>
 <a href="https://github.com/rohan22shah/slash-phase3/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/rohan22shah/slash-phase3"></a>
 <a href="https://github.com/rohan22shah/slash-phase3/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/rohan22shah/slash-phase3"></a>
 <a href="https://github.com/rohan22shah/slash-phase3/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/rohan22shah/slash-phase3"></a>
