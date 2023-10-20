@@ -119,11 +119,11 @@ def highlight_row(dataframe):
 
 st.write("ShopSync is an android application, website and a command line tool that scrapes the most popular e-commerce websites to get the best deals on the searched items across these websites.")
 product = st.text_input('Enter the product item name')
-website = st.selectbox('Select the website',('Amazon', 'Walmart', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
+website = st.selectbox('Select the website',('All','Walmart', 'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
 
 website_dict = {
-        'Amazon':'az',
         'Walmart':'wm',
+        'Amazon':'az',
         'Ebay':'eb',
         'BestBuy':'bb',
         'Target':'tg',
@@ -194,7 +194,7 @@ if st.button('Search') and product and website:
     else:
         st.error('Sorry!, there is no other website with same product')
         
-if 'dataframe' in st.session_state:
+if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd.DataFrame):
 
     st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
             
@@ -206,16 +206,18 @@ if 'dataframe' in st.session_state:
 
 st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
 
-selected_index = st.selectbox("Select an index to get the corresponding row:", [None] + list(range(len(st.session_state.dataframe))))
-if selected_index is not None:
-    fav =pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
-    if 'fav' in st.session_state:
-        st.session_state.fav = pd.concat([st.session_state.fav, fav], axis=0).drop_duplicates()
-        st.dataframe(st.session_state.fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+if st.session_state.dataframe is not None:
+    selected_index = st.selectbox("Select an index to get the corresponding row:", [None] + list(range(len(st.session_state.dataframe))))
 
-    else:
-        st.session_state.fav = fav.copy()
-        st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+    if selected_index is not None:
+        fav =pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
+        if 'fav' in st.session_state:
+            st.session_state.fav = pd.concat([st.session_state.fav, fav], axis=0).drop_duplicates()
+            st.dataframe(st.session_state.fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+
+        else:
+            st.session_state.fav = fav.copy()
+            st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
 
 
 # Add footer to UI
