@@ -40,10 +40,6 @@ navbar = """
   color: black;
 }
 </style>
-
-<div class="navbar">
-  <a href="#">Favorites</a>
-</div>
 """
 
 def split_description(description):
