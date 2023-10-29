@@ -7,7 +7,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 from src.main_streamlit import search_items_API
 
-def test_api_ebay():
+def test_api_costco():
     product = 'Airpods'
     site = 'cc'
     result = search_items_API(site, product)
