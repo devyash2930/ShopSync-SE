@@ -100,8 +100,8 @@ streamlit run slash_user_interface.py
 
 :bulb: Use Case
 ---
-* ***Empowering Students***: University students, often operating on tight budgets and time constraints, typically squander precious hours scouring websites for products. Enter Slash, the ultimate companion for students, slicing away all the superfluous website clutter and swiftly delivering product prices from multiple sources. Maximize the benefits of this invaluable tool during the forthcoming Black Friday Sale, where savings are paramount.
-* ***Elevating Data Analysts***: Data analysts grapple with the formidable task of data acquisition for their projects, a task that can be arduous and plagued by outdated datasets. Slash offers a game-changing solution, enabling analysts to craft real-time datasets tailored to their specifications. With this capability, they can concentrate their efforts on what truly matters, driving impactful results.
+* ***Empowering Students***: University students, often operating on tight budgets and time constraints, typically squander precious hours scouring websites for products. Enter ShopSync, the ultimate companion for students, slicing away all the superfluous website clutter and swiftly delivering product prices from multiple sources. Maximize the benefits of this invaluable tool during the forthcoming Black Friday Sale, where savings are paramount.
+* ***Elevating Data Analysts***: Data analysts grapple with the formidable task of data acquisition for their projects, a task that can be arduous and plagued by outdated datasets. ShopSync offers a game-changing solution, enabling analysts to craft real-time datasets tailored to their specifications. With this capability, they can concentrate their efforts on what truly matters, driving impactful results.
   
 :page_facing_up: Why
 ---
