@@ -240,3 +240,56 @@ amazon query:laptop
 amazon query:laptop
 amazon query:lenovo
 amazon query:dell
+amazon query:speaker
+amazon query:underwear
+amazon query:Laptop
+amazon query:JBL flip 5
+amazon query:JBL flip 5
+amazon query:JBL flip 6
+amazon query:Blender
+amazon query:Brita
+amazon query:Brita
+amazon query:Brita
+amazon query:Macbook
+amazon query:Macbook
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:table
+amazon query:JBL flip 5
+amazon query:JBL flip 5
+amazon query:Iphone
+amazon query:Iphone
+amazon query:Iphone
+amazon query:Iphone
+amazon query:Iphone
