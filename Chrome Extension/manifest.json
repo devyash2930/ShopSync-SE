@@ -1,0 +1,11 @@
+{
+  "name": "ShopSync US",
+  "version": "1.0.0",
+  "description": "To fetch the best prices from e-commerce websites",
+  "manifest_version": 3,
+  "author": "Neel Dudheliya",
+  "action":{
+      "default_popup": "index.html",
+      "default_title": "ShopSync"
+  }
+}
