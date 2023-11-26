@@ -22,8 +22,8 @@ jobs:
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
         run: |
-          git config --global user.name 'Kashika08'
-          git config --global user.email 'kashikamalick@gmail.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ Kashika08/ShopSync }}
+          git config --global user.name 'Neel317'
+          git config --global user.email 'neeldudheliya317@gmail.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/Neel317/ShopSync
           git commit -am "Automated autoyapf fixes"
           git push
