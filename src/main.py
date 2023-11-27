@@ -23,6 +23,8 @@ import scraper_mt as scr
 
 nest_asyncio.apply()
 # response type define
+
+
 class jsonScraps(BaseModel):
     timestamp: str
     title: str
@@ -33,7 +35,7 @@ class jsonScraps(BaseModel):
 
 app = FastAPI()
 
-## Handling cors policy
+# Handling cors policy
 origins = ["*"]
 
 app.add_middleware(
@@ -43,6 +45,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 async def read_root():
@@ -123,7 +126,7 @@ async def search_items_API(
         return FileResponse('slash.csv', media_type='application/octet-stream', filename='slash_'+item_name+'.csv')
     else:
         # No results
-        return None
+        return []
 
 
 if __name__ == "__main__":
