@@ -272,7 +272,7 @@ text-align: center;
 }
 </style>
 <div class="footer">
-<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Kashika08/ShopSync.git" target="_blank">ShopSync</a></p>
+<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Neel317/ShopSync" target="_blank">ShopSync</a></p>
 <p><a style='display: block; text-align: center;' href="https://github.com/Kashika08/CSC510_ShopSync_Group40/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2023</a></p>
 <p>Contributors: Kashika, Riya, Sinchana, Sweta</p>
 </div>
