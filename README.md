@@ -1,5 +1,6 @@
 <p align="center"><img width="500" src="./assets/shopsync-logos.jpeg"></p>
 
+[![Made With](https://img.shields.io/badge/made%20with-python-blue)](https://www.python.org/)
 [![DOI](https://zenodo.org/badge/692918933.svg)](https://zenodo.org/badge/latestdoi/692918933)[![codecov](https://codecov.io/gh/Kashika08/ShopSync/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://app.codecov.io/gh/Kashika08/ShopSync)
 [![GitHub stars](https://badgen.net/github/stars/Neel317/ShopSync)](https://badgen.net/github/stars/Neel317/ShopSync)
 [![Build Status](https://app.travis-ci.com/rohan22shah/slash-phase3.svg?branch=main)](https://app.travis-ci.com/rohan22shah/slash-phase3)
