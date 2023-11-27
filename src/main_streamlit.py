@@ -10,9 +10,10 @@ from pydantic import BaseModel
 
 # local imports
 import src.scraper_mt as scr
+import src.configs as conf
 
-cashback = [10, 0, 1, 4, 1, 0]
-companies = ["walmart", "amazon", "ebay", "bestbuy", "target", "costco"]
+cashback = conf.getRakutenList():
+companies = conf.getCompanies()
 
 # response type define
 class jsonScraps(BaseModel):
