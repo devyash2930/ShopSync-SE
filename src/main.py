@@ -16,6 +16,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import csv
 import nest_asyncio
+import sys
+import os
+sys.path.append(os.path.abspath("Slash"))
 
 # local imports
 import scraper_mt as scr
