@@ -193,7 +193,7 @@ if st.button('Search') and product and website:
             
     if len(price):
         
-        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site, 'Rakuten':rakuten_})
+        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site, 'Rakuten':rakuten})
         dataframe['Description'] = dataframe['Description'].apply(split_description)
         dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
         dataframe['Product'] = dataframe['Product'].str.replace('[,"]', '', regex=True)
