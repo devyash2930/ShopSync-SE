@@ -29,3 +29,45 @@
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
 }
+
+.custom-select{
+  width: 200px;
+}
+
+table{
+  margin-top: 12px;
+  vertical-align: middle;
+}
+
+thead{
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+td{ 
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.buy-now{
+  border-radius: 6px !important;
+  background-color: #333 !important;
+  color: white !important;
+  display: inline-block;
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.title{
+  text-align: left;
+}
+
+.website{
+  text-transform: uppercase;
+}
