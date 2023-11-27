@@ -53,11 +53,11 @@ COSTCO = {
 BESTBUY = {
     'site': 'bestbuy',
     'url': 'https://www.bestbuy.com/site/searchpage.jsp?st=',
-    'item_component': 'li',
+    'item_component': 'div',
     'item_indicator': {
-        'class': 'sku-item'
+        'class': 'embedded-sku'
     },
-    'title_indicator': 'h4.sku-header a',
+    'title_indicator': 'h4.sku-title a',
     'price_indicator': 'div.priceView-customer-price span',
     'link_indicator': 'a.image-link',
 }
