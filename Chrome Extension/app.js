@@ -20,10 +20,10 @@ async function fetchDataAndFillTable(url) {
 
   record.forEach(item => {
     tempStr = "<tr>";
-    tempStr += `<td>${item.title}</td>`; 
+    tempStr += `<td class="title">${item.title}</td>`; 
     tempStr += `<td>${item.price}</td>`; 
-    tempStr += `<td>${item.website}</td>`; 
-    tempStr += `<td><button class="buy-now" target="_blank" href='${item.link}'>Buy Now</button></td>`; 
+    tempStr += `<td class="website">${item.website}</td>`; 
+    tempStr += `<td><a class="buy-now" target="_blank" href='${item.link}'>Buy Now</a></td>`; 
     tempStr += "</tr>";
     tableStr += tempStr;
   });
