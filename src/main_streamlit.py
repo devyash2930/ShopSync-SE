@@ -81,4 +81,7 @@ def search_items_API(
         return None
 
 def rakuten():
+    for i in range(len(list_2)):
+        url = "https://www.rakuten.com/search?term=" + list_2[i]
+        response = requests.get(url)
     return list_
