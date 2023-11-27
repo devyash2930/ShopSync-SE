@@ -23,7 +23,7 @@ async function fetchDataAndFillTable(url) {
     tempStr += `<td>${item.title}</td>`; 
     tempStr += `<td>${item.price}</td>`; 
     tempStr += `<td>${item.website}</td>`; 
-    tempStr += `<td><a target="_blank" href='${item.link}'>Link to the Store</a></td>`; 
+    tempStr += `<td><button target="_blank" href='${item.link}'>Buy Now</button></td>`; 
     tempStr += "</tr>";
     tableStr += tempStr;
   });

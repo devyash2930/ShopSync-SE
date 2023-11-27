@@ -33,3 +33,9 @@
 .custom-select{
   width: 200px;
 }
+
+thead{
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
