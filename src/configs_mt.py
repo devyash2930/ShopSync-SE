@@ -11,6 +11,7 @@ import requests
 from ebaysdk.finding import Connection
 from threading import Thread
 import html
+import json
 
 
 # configs
@@ -66,7 +67,7 @@ BESTBUY = {
 # individual scrapers
 class scrape_target(Thread):
     def __init__(self, query):
-        self.result = {}
+        self.result = []
         self.query = query
         super(scrape_target,self).__init__()
 
@@ -84,39 +85,64 @@ class scrape_target(Thread):
             List of items from the dict
         """
 
-        api_url = 'https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v1'
+        # api_url = 'https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v1'
 
-        page = '/s/' + self.query
+        # page = '/s/' + self.query
+        # params = {
+        #     'key': '5938CFDFD3FB4A7DB7C060583C86663C',
+        #     'channel': 'WEB',
+        #     'count': '24',
+        #     'default_purchasability_filter': 'false',
+        #     'include_sponsored': 'true',
+        #     'keyword': self.query,
+        #     'offset': '0',
+        #     'page': page,
+        #     'platform': 'desktop',
+        #     'pricing_store_id': '3991',
+        #     'useragent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0',
+        #     'visitor_id': 'AAA',
+        # }
+
+        # data = requests.get(api_url, params=params).json()
+        # items = []
+        # if 'search' in data['data']:
+        #     for p in data['data']['search']['products']:
+        #         item = {
+        #             'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        #             'title': html.unescape(p['item']['product_description']['title']),
+        #             'price': '$' + str(p['price']['current_retail']),
+        #             'website': 'target',
+        #             #'link': shorten_url(p['item']['enrichment']['buy_url'])
+        #             'link': p['item']['enrichment']['buy_url']
+        #         }
+        #         items.append(item)
+
+        #     self.result = items
+        # set up the request parameters
         params = {
-            'key': '5938CFDFD3FB4A7DB7C060583C86663C',
-            'channel': 'WEB',
-            'count': '24',
-            'default_purchasability_filter': 'false',
-            'include_sponsored': 'true',
-            'keyword': self.query,
-            'offset': '0',
-            'page': page,
-            'platform': 'desktop',
-            'pricing_store_id': '3991',
-            'useragent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0',
-            'visitor_id': 'AAA',
+        'api_key': '5938CFDFD3FB4A7DB7C060583C86663C',
+        'search_term': self.query,
+        'sort_by': 'price_low_to_high',
+        'type': 'search'
         }
 
-        data = requests.get(api_url, params=params).json()
+        # make the http GET request to RedCircle API
+        api_result = requests.get('https://api.redcircleapi.com/request', params).json()
         items = []
-        if 'search' in data['data']:
-            for p in data['data']['search']['products']:
+        # print("Requests Remaining on this account: " + api_result['request_info']['credits_remaining'])
+
+        if (api_result['request_info']['success']):
+            for product in api_result['search_results']:
                 item = {
                     'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                    'title': html.unescape(p['item']['product_description']['title']),
-                    'price': '$' + str(p['price']['current_retail']),
+                    'title': product['product']['title'],
+                    'price': product['offers']['primary']['symbol'] + str(product['offers']['primary']['price']),
                     'website': 'target',
-                    #'link': shorten_url(p['item']['enrichment']['buy_url'])
-                    'link': p['item']['enrichment']['buy_url']
+                    'link': product['product']['link']
                 }
                 items.append(item)
+        self.result = items
 
-            self.result = items
 
 class scrape_ebay(Thread):
     def __init__(self, query):
