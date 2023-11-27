@@ -16,8 +16,8 @@ import os
 sys.path.append(os.path.abspath("Slash"))
 
 # local imports
-import formattr as form
-from configs_mt import AMAZON, WALMART, COSTCO, BESTBUY, scrape_ebay, scrape_target
+import src.formattr as form
+from src.configs_mt import AMAZON, WALMART, COSTCO, BESTBUY, scrape_ebay, scrape_target
 
 
 class search(Thread):
