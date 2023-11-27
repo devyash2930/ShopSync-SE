@@ -39,6 +39,8 @@ class search(Thread):
         """
         if self.config['site'] == 'costco':
             self.query = form.formatSearchQueryForCostco(self.query)
+        elif self.config['site'] == 'target':
+            self.query = self.query
         else:
             self.query = form.formatSearchQuery(self.query)
         URL = self.config['url'] + self.query
@@ -204,7 +206,7 @@ def scrape(args, scrapers):
             overall.extend(local)
             if i == len(scrapers):
                 break
-        if scrapers[i] == '':
+        if scrapers[i] == 'target':
             t_tg.join()
             i += 1
             for sort_by in args['sort']:
