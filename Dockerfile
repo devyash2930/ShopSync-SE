@@ -4,8 +4,8 @@ FROM python:3.9-slim-buster
 
 WORKDIR /ShopSync
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+COPY requirements_docker.txt requirements_docker.txt
+RUN pip3 install -r requirements_docker.txt
 
 COPY . .
 
