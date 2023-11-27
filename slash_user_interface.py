@@ -32,7 +32,6 @@ navbar = """
     max-width: 200rem !important;
 }
 
-
 .navbar a {
   color: white !important;
   padding: 14px 16px;
@@ -344,6 +343,12 @@ a:hover,  a:active {
     color: black;
     text-align: center;
 }
+
+a, a:link, a:visited {
+    text-decoration: none;
+    color: #6c63ff;
+    font-weight: bold;
+    }
 </style>
 <div class="footer">
     <p style='margin-bottom: 4px; display: flex;
