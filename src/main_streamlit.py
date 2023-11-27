@@ -7,9 +7,15 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 
 from typing import Optional
 from pydantic import BaseModel
+from bs4 import BeautifulSoup
+import requests
 
 # local imports
 import src.scraper_mt as scr
+from src.configs import getRakutenList, getCompanies
+
+cashback = getRakutenList()
+companies = getCompanies()
 
 # response type define
 class jsonScraps(BaseModel):
@@ -76,3 +82,20 @@ def search_items_API(
     else:
         # No results
         return None
+
+def rakuten():
+    for i in range(len(companies)):
+        url = "https://www.rakuten.com/search?term=" + companies[i]
+        response = requests.get(url)
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the HTML content of the page
+            soup = BeautifulSoup(response.text, 'html.parser')
+            # Find the element containing the cashback information
+            cashback_element = soup.find('div', {'class': 'css-1i7dpco'})  # Adjust the class based on the actual HTML structure
+            if cashback_element:
+                # Extract the cashback value
+                cashback_value = cashback_element.text.strip()
+                if (cashback_value):
+                    cashback[i] = cashback_value
+    return cashback

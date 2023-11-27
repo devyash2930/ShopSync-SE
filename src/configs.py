@@ -153,3 +153,13 @@ def scrape_ebay(query):
 
 
 CONFIGS = [WALMART, AMAZON, COSTCO, BESTBUY]
+
+def getRakutenList():
+    cashback = [10, 0, 1, 4, 1, 0]
+    return cashback
+
+def getCompanies():
+    companies = ["walmart", "amazon", "ebay", "bestbuy", "target", "costco"]
+    return companies
+
+

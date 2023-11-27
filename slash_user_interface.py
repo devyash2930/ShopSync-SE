@@ -9,8 +9,9 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 import sys
 sys.path.append('../')
 import streamlit as st
-from src.main_streamlit import search_items_API
+from src.main_streamlit import search_items_API, rakuten
 from src.url_shortener import shorten_url
+import src.configs as conf
 import pandas as pd
 import re
 import streamlit
@@ -69,7 +70,7 @@ st.markdown(navbar, unsafe_allow_html=True)
 title = """
 <div class="header">
     <div class="t">SHOPSYNC</div>
-    <p>Get the Best Deals At Ease</p>
+    <p>Discover unparalleled savings effortlessly.</p>
 </div>
 <style>
         .header {
@@ -146,7 +147,7 @@ def highlight_row(dataframe):
 # Display Image
 # st.image("assets/ShopSync_p.png")
 
-st.write("ShopSync is an android application, website and a command line tool that scrapes the most popular e-commerce websites to get the best deals on the searched items across these websites.")
+st.write("ShopSync is a versatile platform comprising an Android application, a user-friendly website, and a command line tool. It adeptly scours the leading e-commerce websites, extracting optimal deals for the searched items across this diverse range of platforms.")
 product = st.text_input('Enter the product item name')
 website = st.selectbox('Select the website',('All','Walmart', 'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
 
@@ -161,12 +162,15 @@ website_dict = {
         }
 # Pass product and website to method
 if st.button('Search') and product and website:
+    rakuten_discount = rakuten()
+    company_list = conf.getCompanies()
     results = search_items_API(website_dict[website], product)
     # Use st.columns based on return values
     description = []
     url = []
     price = []
     site = []
+    rakuten = []
     
     if results is not None and isinstance(results, list):
          for result in results:
@@ -182,10 +186,14 @@ if st.button('Search') and product and website:
             else:
                 print("Unable to extract a valid price from the string")
             site.append(result['website'])
+
+    for i in range(len(site)):
+        k = company_list.index(site[i])
+        rakuten.append(str(rakuten_discount[k]) + "%")
             
     if len(price):
         
-        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site})
+        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site, 'Rakuten':rakuten})
         dataframe['Description'] = dataframe['Description'].apply(split_description)
         dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
         dataframe['Product'] = dataframe['Product'].str.replace('[,"]', '', regex=True)
@@ -264,9 +272,9 @@ text-align: center;
 }
 </style>
 <div class="footer">
-<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Kashika08/ShopSync.git" target="_blank">ShopSync</a></p>
+<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Neel317/ShopSync" target="_blank">ShopSync</a></p>
 <p><a style='display: block; text-align: center;' href="https://github.com/Kashika08/CSC510_ShopSync_Group40/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2023</a></p>
-<p>Contributors: Kashika, Riya, Sinchana, Sweta</p>
+<p>Contributors: Neel, Shubh, Tanay, Tanishq</p>
 </div>
 """
 st.markdown(footer,unsafe_allow_html=True)
