@@ -8,6 +8,8 @@
 [![Python Application](https://github.com/Neel317/ShopSync/actions/workflows/python-app.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/python-app.yml)
 [![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/main.yml)
 [![Running Code Coverage](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml)
+![GitHub code size in bytes](https://img.shields.io/badge/Code%20Size-381,952KB-brightgreen)
+
 
 <!--Badges-->
 <a href="https://github.com/Neel317/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Neel317/ShopSync"></a>
