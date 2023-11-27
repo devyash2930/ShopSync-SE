@@ -163,7 +163,7 @@ website_dict = {
 # Pass product and website to method
 if st.button('Search') and product and website:
     rakuten_discount = rakuten()
-    rakuten_list = conf.getCompanies()
+    company_list = conf.getCompanies()
     results = search_items_API(website_dict[website], product)
     # Use st.columns based on return values
     description = []
@@ -188,8 +188,8 @@ if st.button('Search') and product and website:
             site.append(result['website'])
 
     for i in range(len(site)):
-        k = rakuten_list.index(site[i])
-        rakuten_.append(str(rakuten_discount[k]) + "%")
+        k = company_list.index(site[i])
+        rakuten.append(str(rakuten_discount[k]) + "%")
             
     if len(price):
         
