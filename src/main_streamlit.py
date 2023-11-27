@@ -84,4 +84,8 @@ def rakuten():
     for i in range(len(list_2)):
         url = "https://www.rakuten.com/search?term=" + list_2[i]
         response = requests.get(url)
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the HTML content of the page
+            soup = BeautifulSoup(response.text, 'html.parser')
     return list_
