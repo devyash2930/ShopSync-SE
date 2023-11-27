@@ -12,7 +12,7 @@
 <a href="https://github.com/Kashika08/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Kashika08/ShopSync"></a>
 <a href="https://github.com/Kashika08/ShopSync/pulse"><img alt="GitHub forks" src="https://img.shields.io/github/forks/Kashika08/ShopSync"></a>
 <a href="https://github.com/Kashika08/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Kashika08/ShopSync"></a>
-<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Kashika08/ShopSync">
+<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Neel317/ShopSync">
 <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Kashika08/ShopSync">
 
 
