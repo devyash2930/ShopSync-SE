@@ -293,3 +293,5 @@ amazon query:Iphone
 amazon query:Iphone
 amazon query:Iphone
 amazon query:Iphone
+amazon query:iphone
+amazon query:iphone
