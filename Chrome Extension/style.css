@@ -71,3 +71,7 @@ td{
 .website{
   text-transform: uppercase;
 }
+
+.price-head{
+  cursor: pointer;
+}
