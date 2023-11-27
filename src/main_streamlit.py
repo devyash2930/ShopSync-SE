@@ -90,4 +90,9 @@ def rakuten():
             soup = BeautifulSoup(response.text, 'html.parser')
             # Find the element containing the cashback information
             cashback_element = soup.find('div', {'class': 'css-1i7dpco'})  # Adjust the class based on the actual HTML structure
+            if cashback_element:
+                # Extract the cashback value
+                cashback_value = cashback_element.text.strip()
+                if (cashback_value):
+                    list_[i] = cashback_value
     return list_
