@@ -11,8 +11,8 @@ from pydantic import BaseModel
 # local imports
 import src.scraper_mt as scr
 
-list_ = [10, 0, 1, 4, 1, 0]
-list_2 = ["walmart", "amazon", "ebay", "bestbuy", "target", "costco"]
+cashback = [10, 0, 1, 4, 1, 0]
+companies = ["walmart", "amazon", "ebay", "bestbuy", "target", "costco"]
 
 # response type define
 class jsonScraps(BaseModel):
@@ -81,8 +81,8 @@ def search_items_API(
         return None
 
 def rakuten():
-    for i in range(len(list_2)):
-        url = "https://www.rakuten.com/search?term=" + list_2[i]
+    for i in range(len(companies)):
+        url = "https://www.rakuten.com/search?term=" + companies[i]
         response = requests.get(url)
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
@@ -94,5 +94,5 @@ def rakuten():
                 # Extract the cashback value
                 cashback_value = cashback_element.text.strip()
                 if (cashback_value):
-                    list_[i] = cashback_value
-    return list_
+                    cashback[i] = cashback_value
+    return cashback
