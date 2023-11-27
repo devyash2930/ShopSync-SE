@@ -88,4 +88,6 @@ def rakuten():
         if response.status_code == 200:
             # Parse the HTML content of the page
             soup = BeautifulSoup(response.text, 'html.parser')
+            # Find the element containing the cashback information
+            cashback_element = soup.find('div', {'class': 'css-1i7dpco'})  # Adjust the class based on the actual HTML structure
     return list_
