@@ -11,6 +11,7 @@ sys.path.append('../')
 import streamlit as st
 from src.main_streamlit import search_items_API, rakuten
 from src.url_shortener import shorten_url
+import src.configs as conf
 import pandas as pd
 import re
 import streamlit
@@ -161,6 +162,8 @@ website_dict = {
         }
 # Pass product and website to method
 if st.button('Search') and product and website:
+    rakuten_discount = rakuten()
+    rakuten_list = conf.getCompanies()
     results = search_items_API(website_dict[website], product)
     # Use st.columns based on return values
     description = []
