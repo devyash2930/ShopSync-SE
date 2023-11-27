@@ -47,11 +47,11 @@
     
     <div class="container mt-3" style="width: 450px;">
         <h2 class="text-center">ShopSync</h2>
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="myTable">
             <thead>
             <tr>
                 <th>Title</th>
-                <th>Price</th>
+                <th onclick="sortTable(1)" class="price-head">Price</th>
                 <th>Website</th>
                 <th>Link</th>
             </tr>
@@ -62,4 +62,34 @@
     </div>
 </body>
 <script src="app.js"></script>
+<script>
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("myTable");
+        switching = true;
+        while (switching) {
+          switching = false;
+          rows = table.rows;
+          for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+            x = parseFloat(getNumericValue(rows[i].getElementsByTagName("td")[columnIndex].innerText));
+            y = parseFloat(getNumericValue(rows[i + 1].getElementsByTagName("td")[columnIndex].innerText));
+            if (x > y) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+          if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+          }
+        }
+    }
+
+    function getNumericValue(value) {
+        // Use regular expression to extract numeric part
+        var match = value.match(/\d+(\.\d+)?/);
+        return match ? parseFloat(match[0]) : 0;
+    }
+</script>
 </html>
