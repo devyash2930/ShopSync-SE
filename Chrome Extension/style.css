@@ -56,4 +56,18 @@ td{
   border-radius: 6px !important;
   background-color: #333 !important;
   color: white !important;
+  display: inline-block;
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.title{
+  text-align: left;
+}
+
+.website{
+  text-transform: uppercase;
 }
