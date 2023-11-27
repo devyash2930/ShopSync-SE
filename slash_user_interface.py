@@ -170,6 +170,7 @@ if st.button('Search') and product and website:
     url = []
     price = []
     site = []
+    rakuten = []
     
     if results is not None and isinstance(results, list):
          for result in results:
