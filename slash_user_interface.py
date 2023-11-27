@@ -70,7 +70,7 @@ st.markdown(navbar, unsafe_allow_html=True)
 title = """
 <div class="header">
     <div class="t">SHOPSYNC</div>
-    <p>Get the Best Deals At Ease</p>
+    <p>Discover unparalleled savings effortlessly.</p>
 </div>
 <style>
         .header {
