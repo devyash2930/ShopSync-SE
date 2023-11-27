@@ -147,7 +147,7 @@ def highlight_row(dataframe):
 # Display Image
 # st.image("assets/ShopSync_p.png")
 
-st.write("ShopSync is an android application, website and a command line tool that scrapes the most popular e-commerce websites to get the best deals on the searched items across these websites.")
+st.write("ShopSync is a versatile platform comprising an Android application, a user-friendly website, and a command line tool. It adeptly scours the leading e-commerce websites, extracting optimal deals for the searched items across this diverse range of platforms.")
 product = st.text_input('Enter the product item name')
 website = st.selectbox('Select the website',('All','Walmart', 'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
 
