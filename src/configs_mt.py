@@ -88,7 +88,7 @@ class scrape_target(Thread):
 
         page = '/s/' + self.query
         params = {
-            'key': 'ff457966e64d5e877fdbad070f276d18ecec4a01',
+            'key': '5938CFDFD3FB4A7DB7C060583C86663C',
             'channel': 'WEB',
             'count': '24',
             'default_purchasability_filter': 'false',

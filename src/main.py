@@ -21,7 +21,7 @@ import os
 sys.path.append(os.path.abspath("Slash"))
 
 # local imports
-import scraper_mt as scr
+import scraper as scr
 
 
 nest_asyncio.apply()
