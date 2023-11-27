@@ -293,7 +293,6 @@ amazon query:Iphone
 amazon query:Iphone
 amazon query:Iphone
 amazon query:Iphone
-<<<<<<< HEAD
 amazon query:iPad
 amazon query:iPad
 amazon query:iPad
@@ -317,7 +316,6 @@ amazon query:iPad
 amazon query:iPad
 amazon query:iPad
 amazon query:iPad
-=======
 amazon query:iphone
 amazon query:iphone
 amazon query:iphone
@@ -334,7 +332,12 @@ amazon query:iPad
 amazon query:iPad
 amazon query:iPad
 amazon query:iPad
-amazon query:iPad
-amazon query:iPad
-amazon query:iPad
-amazon query:iPad
+amazon query:bot
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:null
+amazon query:pizza
