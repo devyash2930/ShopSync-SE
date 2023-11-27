@@ -293,7 +293,6 @@ amazon query:Iphone
 amazon query:Iphone
 amazon query:Iphone
 amazon query:Iphone
-<<<<<<< HEAD
 amazon query:iPad
 amazon query:iPad
 amazon query:iPad
@@ -317,13 +316,11 @@ amazon query:iPad
 amazon query:iPad
 amazon query:iPad
 amazon query:iPad
-=======
 amazon query:iphone
 amazon query:iphone
 amazon query:iphone
 amazon query:iphone
 amazon query:iphone
->>>>>>> 193d9b395c989284203bd4d60446536812830a5e
 amazon query:iPad
 amazon query:iPad
 amazon query:iPad
@@ -334,3 +331,12 @@ amazon query:iPad
 amazon query:iPad
 amazon query:iPad
 amazon query:iPad
+amazon query:bot
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:python
+amazon query:null
+amazon query:pizza
