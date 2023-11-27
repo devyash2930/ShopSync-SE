@@ -15,6 +15,7 @@
 <a href="https://github.com/Neel317/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Neel317/ShopSync"></a>
 <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Neel317/ShopSync">
 <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Neel317/ShopSync">
+![GitHub contributors](https://img.shields.io/github/contributors/Neel317/ShopSync)
 
 
 
