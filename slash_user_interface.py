@@ -6,16 +6,16 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 """
 
 # Import Libraries
+import streamlit.components.v1 as components
+import streamlit
+import re
+import pandas as pd
+import src.configs as conf
+from src.url_shortener import shorten_url
+from src.main_streamlit import search_items_API, rakuten
+import streamlit as st
 import sys
 sys.path.append('../')
-import streamlit as st
-from src.main_streamlit import search_items_API, rakuten
-from src.url_shortener import shorten_url
-import src.configs as conf
-import pandas as pd
-import re
-import streamlit
-import streamlit.components.v1 as components
 
 navbar = """
 <style>
@@ -43,6 +43,7 @@ navbar = """
 </style>
 """
 
+
 def split_description(description):
     words = description.split()
     lines = []
@@ -63,10 +64,9 @@ def split_description(description):
     return '\n'.join(lines)'''
 
 
-
 st.markdown(navbar, unsafe_allow_html=True)
 
-#Title for the application
+# Title for the application
 title = """
 <div class="header">
     <div class="t">SHOPSYNC</div>
@@ -74,9 +74,12 @@ title = """
 </div>
 <style>
         .header {
-            background-color: #b5bbf9;
+            background-color: #6c63ff;
             padding: 10px;
             text-align: center;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            color: #efefef;
         }
 
         .t {
@@ -120,7 +123,7 @@ centered_svg_code = f"""
 
 # Use st.markdown to display the centered SVG image
 st.markdown(centered_svg_code, unsafe_allow_html=True)
-#from link_button import link_button
+# from link_button import link_button
 
 # Hide Footer in Streamlit
 hide_menu_style = """
@@ -133,33 +136,36 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 if 'dataframe' not in st.session_state:
     st.session_state.dataframe = None
 
+
 def highlight_row(dataframe):
-    #copy df to new - original data are not changed
+    # copy df to new - original data are not changed
     df = dataframe.copy()
     df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
     minimumPrice = df['Price'].min()
-    #set by condition
+    # set by condition
     mask = df['Price'] == minimumPrice
     df.loc[mask, :] = 'background-color: lightgreen'
-    df.loc[~mask,:] = 'background-color: #DFFFFA'
+    df.loc[~mask, :] = 'background-color: #DFFFFA'
     return df
 
 # Display Image
 # st.image("assets/ShopSync_p.png")
 
+
 st.write("ShopSync is a versatile platform comprising an Android application, a user-friendly website, and a command line tool. It adeptly scours the leading e-commerce websites, extracting optimal deals for the searched items across this diverse range of platforms.")
 product = st.text_input('Enter the product item name')
-website = st.selectbox('Select the website',('All','Walmart', 'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
+website = st.selectbox('Select the website', ('All', 'Walmart',
+                       'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
 
 website_dict = {
-        'Walmart':'wm',
-        'Amazon':'az',
-        'Ebay':'eb',
-        'BestBuy':'bb',
-        'Target':'tg',
-        'Costco':'cc',
-        'All':'all'
-        }
+    'Walmart': 'wm',
+    'Amazon': 'az',
+    'Ebay': 'eb',
+    'BestBuy': 'bb',
+    'Target': 'tg',
+    'Costco': 'cc',
+    'All': 'all'
+}
 # Pass product and website to method
 if st.button('Search') and product and website:
     rakuten_discount = rakuten()
@@ -171,13 +177,13 @@ if st.button('Search') and product and website:
     price = []
     site = []
     rakuten = []
-    
+
     if results is not None and isinstance(results, list):
-         for result in results:
-            if result !={} and result['price']!='':
+        for result in results:
+            if result != {} and result['price'] != '':
                 description.append(result['title'])
                 url.append(result['link'])
-                price_str = result['price'] 
+                price_str = result['price']
                 match = re.search(r'\d+(\.\d{1,2})?', price_str)
             if match:
                 price_str = match.group(0)
@@ -190,17 +196,22 @@ if st.button('Search') and product and website:
     for i in range(len(site)):
         k = company_list.index(site[i])
         rakuten.append(str(rakuten_discount[k]) + "%")
-            
+
     if len(price):
-        
-        dataframe = pd.DataFrame({'Description': description,'Price':price,'Link':url,'Website':site, 'Rakuten':rakuten})
-        dataframe['Description'] = dataframe['Description'].apply(split_description)
-        dataframe['Product'] = dataframe['Description'].str.split().str[:3].str.join(' ')
-        dataframe['Product'] = dataframe['Product'].str.replace('[,"]', '', regex=True)
+
+        dataframe = pd.DataFrame(
+            {'Description': description, 'Price': price, 'Link': url, 'Website': site, 'Rakuten': rakuten})
+        dataframe['Description'] = dataframe['Description'].apply(
+            split_description)
+        dataframe['Product'] = dataframe['Description'].str.split(
+        ).str[:3].str.join(' ')
+        dataframe['Product'] = dataframe['Product'].str.replace(
+            '[,"]', '', regex=True)
         product_column = dataframe.pop('Product')
         dataframe.insert(0, 'Product', product_column)
 
-        dataframe['Price'] = dataframe['Price'].apply(lambda x: float(f'{x:.2f}'))
+        dataframe['Price'] = dataframe['Price'].apply(
+            lambda x: float(f'{x:.2f}'))
         dataframe = dataframe.sort_values(by='Price', ascending=True)
         dataframe = dataframe.reset_index(drop=True)
         dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
@@ -217,38 +228,48 @@ if st.button('Search') and product and website:
 
         st.balloons()
         st.session_state.dataframe = dataframe
-        
+
     else:
         st.error('Sorry!, there is no other website with same product')
-        
+
 if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd.DataFrame):
 
-    st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>", unsafe_allow_html=True)
-            
-    st.session_state.dataframe['Price'] = pd.to_numeric(st.session_state.dataframe['Price'], errors='coerce')
-    price_range = st.slider("Price Range", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
+    st.markdown("<h1 style='text-align: center; color: #1DC5A9;'>RESULT</h1>",
+                unsafe_allow_html=True)
 
-    filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (st.session_state.dataframe["Price"] <= price_range[1])]
-    st.dataframe(filtered_df.style.apply(highlight_row, axis=None), column_config={"Link": st.column_config.LinkColumn("URL to website")},)
+    st.session_state.dataframe['Price'] = pd.to_numeric(
+        st.session_state.dataframe['Price'], errors='coerce')
+    price_range = st.slider("Price Range", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
+    ), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
 
-st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
+    filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (
+        st.session_state.dataframe["Price"] <= price_range[1])]
+    st.dataframe(filtered_df.style.apply(highlight_row, axis=None), column_config={
+                 "Link": st.column_config.LinkColumn("URL to website")},)
+
+st.write('<span style="font-size: 24px;">Add for favorites</span>',
+         unsafe_allow_html=True)
 
 if st.session_state.dataframe is not None:
-    selected_index = st.selectbox("Select an index to get the corresponding row:", [None] + list(range(len(st.session_state.dataframe))))
+    selected_index = st.selectbox("Select an index to get the corresponding row:", [
+                                  None] + list(range(len(st.session_state.dataframe))))
 
     if selected_index is not None:
-        fav =pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
+        fav = pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
         if 'fav' in st.session_state:
-            st.session_state.fav = pd.concat([st.session_state.fav, fav], axis=0).drop_duplicates()
-            st.dataframe(st.session_state.fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+            st.session_state.fav = pd.concat(
+                [st.session_state.fav, fav], axis=0).drop_duplicates()
+            st.dataframe(st.session_state.fav.style, column_config={"Link": st.column_config.LinkColumn(
+                "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
 
         else:
             st.session_state.fav = fav.copy()
-            st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn("URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+            st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn(
+                "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
 
 
 # Add footer to UI
-footer="""<style>
+footer = """<style>
 a:link , a:visited{
 color: blue;
 background-color: transparent;
@@ -277,5 +298,4 @@ text-align: center;
 <p>Contributors: Neel, Shubh, Tanay, Tanishq</p>
 </div>
 """
-st.markdown(footer,unsafe_allow_html=True)
-
+st.markdown(footer, unsafe_allow_html=True)
