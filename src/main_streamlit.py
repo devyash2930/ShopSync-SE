@@ -7,13 +7,15 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 
 from typing import Optional
 from pydantic import BaseModel
+from bs4 import BeautifulSoup
+import requests
 
 # local imports
 import src.scraper_mt as scr
-import src.configs as conf
+from src.configs import getRakutenList, getCompanies
 
-cashback = conf.getRakutenList():
-companies = conf.getCompanies()
+cashback = getRakutenList()
+companies = getCompanies()
 
 # response type define
 class jsonScraps(BaseModel):
