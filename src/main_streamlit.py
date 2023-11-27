@@ -80,4 +80,5 @@ def search_items_API(
         # No results
         return None
 
-
+def rakuten():
+    return list_
