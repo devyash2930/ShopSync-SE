@@ -120,27 +120,31 @@ class scrape_target(Thread):
         #     self.result = items
         # set up the request parameters
         params = {
-        'api_key': '5938CFDFD3FB4A7DB7C060583C86663C',
-        'search_term': self.query,
-        'sort_by': 'best_match',
-        'type': 'search'
-        }
+            'api_key': '5938CFDFD3FB4A7DB7C060583C86663C',
+            'search_term': 'Iphone',
+            'type': 'search',
+            'sort_by': 'best_match'
+            }
 
         # make the http GET request to RedCircle API
         api_result = requests.get('https://api.redcircleapi.com/request', params).json()
         items = []
         # print("Requests Remaining on this account: " + api_result['request_info']['credits_remaining'])
-
+        # print(api_result)
         if (api_result['request_info']['success']):
             for product in api_result['search_results']:
-                item = {
-                    'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                    'title': product['product']['title'],
-                    'price': product['offers']['primary']['symbol'] + str(product['offers']['primary']['price']),
-                    'website': 'target',
-                    'link': product['product']['link']
-                }
+                try:
+                    item = {
+                        'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                        'title': product['product']['title'],
+                        'price': product['offers']['primary']['symbol'] + str(product['offers']['primary']['price']),
+                        'website': 'target',
+                        'link': product['product']['link']
+                    }
+                except:
+                    continue
                 items.append(item)
+            # print(items)
         self.result = items
 
 
