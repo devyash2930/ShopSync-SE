@@ -26,6 +26,8 @@ import scraper as scr
 
 nest_asyncio.apply()
 # response type define
+
+
 class jsonScraps(BaseModel):
     timestamp: str
     title: str
@@ -36,7 +38,7 @@ class jsonScraps(BaseModel):
 
 app = FastAPI()
 
-## Handling cors policy
+# Handling cors policy
 origins = ["*"]
 
 app.add_middleware(
@@ -46,6 +48,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 async def read_root():
