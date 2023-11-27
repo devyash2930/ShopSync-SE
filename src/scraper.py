@@ -11,22 +11,17 @@ import requests
 from datetime import datetime
 from threading import Thread
 
-import sys
-import os
-sys.path.append(os.path.abspath("Slash"))
-
 # local imports
-import src.formattr as form
-from src.configs_mt import AMAZON, WALMART, COSTCO, BESTBUY, scrape_ebay, scrape_target
-
+import formattr as form
+from configs_mt import AMAZON, WALMART, COSTCO, BESTBUY, scrape_ebay, scrape_target
 
 class search(Thread):
     def __init__(self, query, config):
         self.result = {}
         self.query = query
         self.config = config
-        super(search, self).__init__()
-
+        super(search,self).__init__()
+        
     def run(self):
         """Scrape the given config for a specific item
 
@@ -52,11 +47,10 @@ class search(Thread):
         page = self.httpsGet(URL)
         if not page:
             self.result = []
-
+        # print(URL)
         # begin parsing page content
         try:
-            results = page.find_all(
-                self.config['item_component'], self.config['item_indicator'])
+            results = page.find_all(self.config['item_component'], self.config['item_indicator'])
         except AttributeError as e:
             print(f"An AttributeError occurred: {e}")
             results = None
@@ -65,8 +59,10 @@ class search(Thread):
             title = res.select(self.config['title_indicator'])
             price = res.select(self.config['price_indicator'])
             link = res.select(self.config['link_indicator'])
-            product = form.formatResult(
-                self.config['site'], title, price, link)
+            # print("Title =======> ", title)
+            # print("Price =======> ", price)
+            # print("Link =======> ", link)
+            product = form.formatResult(self.config['site'], title, price, link)
             if product['title'] != '' and product['price'] != '' and product['link'] != '':
                 products.append(product)
         self.result = products
@@ -152,7 +148,7 @@ def scrape(args, scrapers):
             if i == len(scrapers):
                 break
         if scrapers[i] == 'ebay':
-            t_eb = scrape_ebay(query)
+            t_eb = scrape_ebay(query)    
             t_eb.start()
             i += 1
             if i == len(scrapers):
@@ -175,13 +171,12 @@ def scrape(args, scrapers):
                 break
 
     i = 0
-    while i < len(scrapers):
+    while i < len(scrapers) :
         if scrapers[i] == 'amazon':
             t_az.join()
             i += 1
             for sort_by in args['sort']:
-                local = form.sortList(t_az.result, sort_by, args['des'])[
-                    :args.get('num', len(t_az.result))]
+                local = form.sortList(t_az.result, sort_by, args['des'])[:args.get('num', len(t_az.result))]
             overall.extend(local)
             if i == len(scrapers):
                 break
@@ -189,8 +184,7 @@ def scrape(args, scrapers):
             t_bb.join()
             i += 1
             for sort_by in args['sort']:
-                local = form.sortList(t_bb.result, sort_by, args['des'])[
-                    :args.get('num', len(t_bb.result))]
+                local = form.sortList(t_bb.result, sort_by, args['des'])[:args.get('num', len(t_bb.result))]
             overall.extend(local)
             if i == len(scrapers):
                 break
@@ -198,8 +192,7 @@ def scrape(args, scrapers):
             t_cc.join()
             i += 1
             for sort_by in args['sort']:
-                local = form.sortList(t_cc.result, sort_by, args['des'])[
-                    :args.get('num', len(t_cc.result))]
+                local = form.sortList(t_cc.result, sort_by, args['des'])[:args.get('num', len(t_cc.result))]
             overall.extend(local)
             if i == len(scrapers):
                 break
@@ -207,8 +200,7 @@ def scrape(args, scrapers):
             t_eb.join()
             i += 1
             for sort_by in args['sort']:
-                local = form.sortList(t_eb.result, sort_by, args['des'])[
-                    :args.get('num', len(t_eb.result))]
+                local = form.sortList(t_eb.result, sort_by, args['des'])[:args.get('num', len(t_eb.result))]
             overall.extend(local)
             if i == len(scrapers):
                 break
@@ -216,8 +208,7 @@ def scrape(args, scrapers):
             t_tg.join()
             i += 1
             for sort_by in args['sort']:
-                local = form.sortList(t_tg.result, sort_by, args['des'])[
-                    :args.get('num', len(t_tg.result))]
+                local = form.sortList(t_tg.result, sort_by, args['des'])[:args.get('num', len(t_tg.result))]
             overall.extend(local)
             if i == len(scrapers):
                 break
@@ -225,8 +216,7 @@ def scrape(args, scrapers):
             t_wm.join()
             i += 1
             for sort_by in args['sort']:
-                local = form.sortList(t_wm.result, sort_by, args['des'])[
-                    :args.get('num', len(t_wm.result))]
+                local = form.sortList(t_wm.result, sort_by, args['des'])[:args.get('num', len(t_wm.result))]
             overall.extend(local)
             if i == len(scrapers):
                 break
@@ -235,9 +225,10 @@ def scrape(args, scrapers):
             if i == len(scrapers):
                 break
 
+
     for sort_by in args['sort']:
         overall = form.sortList(overall, sort_by, args['des'])
 
     print('Before return time: ', datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-
+    
     return overall
