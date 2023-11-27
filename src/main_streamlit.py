@@ -11,6 +11,9 @@ from pydantic import BaseModel
 # local imports
 import src.scraper_mt as scr
 
+list_ = [10, 0, 1, 4, 1, 0]
+list_2 = ["walmart", "amazon", "ebay", "bestbuy", "target", "costco"]
+
 # response type define
 class jsonScraps(BaseModel):
     timestamp: str
@@ -76,3 +79,5 @@ def search_items_API(
     else:
         # No results
         return None
+
+
