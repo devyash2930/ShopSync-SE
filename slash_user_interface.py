@@ -28,6 +28,10 @@ navbar = """
   align-items: center;
 }
 
+.block-container.st-emotion-cache-1y4p8pa.ea3mdgi4{
+    max-width: 200rem !important;
+}
+
 
 .navbar a {
   color: white !important;
@@ -68,11 +72,13 @@ st.markdown(navbar, unsafe_allow_html=True)
 
 # Title for the application
 title = """
-<div class="header">
-    <div class="t">SHOPSYNC</div>
-    <p>Discover unparalleled savings effortlessly.</p>
-</div>
-<style>
+    <div class="wrapper-1">
+        <div class="header">
+            <div class="t">SHOPSYNC</div>
+            <p>Discover unparalleled savings effortlessly.</p>
+        </div>
+    </div>
+    <style>
         .appview-container{
             background-color: #efefef !important;
         }
@@ -317,32 +323,36 @@ if st.session_state.dataframe is not None:
 
 # Add footer to UI
 footer = """<style>
-a:link , a:visited{
-color: blue;
-background-color: transparent;
-text-decoration: underline;
+    a:link , a:visited{
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
 }
 
 a:hover,  a:active {
-color: red;
-background-color: transparent;
-text-decoration: underline;
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
 }
 
 .footer {
-position: fixed;
-left: 0;
-bottom: 0%;
-width: 100%;
-background-color: #DFFFFA;
-color: black;
-text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0%;
+    width: 100%;
+    background-color: #DFFFFA;
+    color: black;
+    text-align: center;
 }
 </style>
 <div class="footer">
-<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Neel317/ShopSync" target="_blank">ShopSync</a></p>
-<p><a style='display: block; text-align: center;' href="https://github.com/Kashika08/CSC510_ShopSync_Group40/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2023</a></p>
-<p>Contributors: Neel, Shubh, Tanay, Tanishq</p>
+    <p style='margin-bottom: 4px; display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;'>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Neel317/ShopSync" target="_blank">ShopSync</a></p>
+    <p style='margin-bottom: 4px;'><a style='display: block; text-align: center;' href="https://github.com/Kashika08/CSC510_ShopSync_Group40/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2023</a></p>
+    <p style='margin-bottom: 8px;'>Contributors: Neel, Shubh, Tanay, Tanishq</p>
 </div>
 """
 st.markdown(footer, unsafe_allow_html=True)
