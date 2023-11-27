@@ -122,7 +122,7 @@ class scrape_target(Thread):
         params = {
         'api_key': '5938CFDFD3FB4A7DB7C060583C86663C',
         'search_term': self.query,
-        'sort_by': 'price_low_to_high',
+        'sort_by': 'best_match',
         'type': 'search'
         }
 
