@@ -123,7 +123,7 @@ async def search_items_API(
         return FileResponse('slash.csv', media_type='application/octet-stream', filename='slash_'+item_name+'.csv')
     else:
         # No results
-        return None
+        return []
 
 
 if __name__ == "__main__":
