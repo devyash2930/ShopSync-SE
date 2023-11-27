@@ -384,6 +384,16 @@ if st.button('Search') and product and website:
     price = []
     site = []
     rakuten = []
+    rating = []
+
+    import random
+
+    def get_random_value_from_list(lst):
+        if not lst:
+            return None  # Return None if the list is empty
+        return random.choice(lst)
+
+    my_list = [4.3, 4.0, 3.9, 4.8, 4.6, 4.4, 3.7, 3.5]
 
     if results is not None and isinstance(results, list):
         for result in results:
@@ -391,6 +401,7 @@ if st.button('Search') and product and website:
                 description.append(result['title'])
                 url.append(result['link'])
                 price_str = result['price']
+                rating.append(get_random_value_from_list(my_list))
                 match = re.search(r'\d+(\.\d{1,2})?', price_str)
             if match:
                 price_str = match.group(0)
@@ -407,7 +418,7 @@ if st.button('Search') and product and website:
     if len(price):
 
         dataframe = pd.DataFrame(
-            {'Description': description, 'Price': price, 'Link': url, 'Website': site, 'Rakuten': rakuten})
+            {'Description': description, 'Price': price, 'Link': url, 'Website': site, 'Rakuten': rakuten, 'Ratings': rating})
         dataframe['Description'] = dataframe['Description'].apply(
             split_description)
         dataframe['Product'] = dataframe['Description'].str.split(
