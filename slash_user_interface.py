@@ -9,7 +9,7 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 import sys
 sys.path.append('../')
 import streamlit as st
-from src.main_streamlit import search_items_API
+from src.main_streamlit import search_items_API, rakuten
 from src.url_shortener import shorten_url
 import pandas as pd
 import re
