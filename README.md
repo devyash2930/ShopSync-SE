@@ -121,6 +121,19 @@ docker stop <CONTAINER_ID>
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
 
+## Reasons to Add Chrome Extension
+
+- **Seamless Integration:**
+  - Allows seamless integration with the user's browser environment, providing a convenient and familiar interface.
+
+- **User Accessibility:**
+  - Enables easy access and use of web scraper functionalities with a single click, catering to users who prefer quick interactions.
+
+- **Enhanced Functionality:**
+  - Adds extra features to extend the web scraper's capabilities beyond a standalone web app, incorporating browser-specific optimizations.
+
+- **Real-time Interactivity:**
+  - Facilitates user interaction in real-time during browsing, empowering them to initiate scraping tasks or customize settings on the fly for an improved user experience.
 
 :bulb: Use Case
 ---
