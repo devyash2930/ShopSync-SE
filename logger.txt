@@ -344,3 +344,7 @@ amazon query:pizza
 amazon query:socks
 amazon query:socks
 amazon query:shoes
+amazon query:iPad
+amazon query:iPad
+amazon query:iPad
+amazon query:iPad
