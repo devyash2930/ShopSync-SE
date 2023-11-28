@@ -97,6 +97,22 @@ python main.py
 streamlit run slash_user_interface.py
 ```
 
+6. To build the Docker image
+```
+docker build -t shopsync .
+```
+7. Run the Docker container
+```
+docker run -p 8501:8501 shopsync2.1
+```
+8. List running containers to get the CONTAINER_ID
+```
+docker ps
+```
+9. To stop container
+```
+docker stop <CONTAINER_ID>
+```
 :computer: Technology Used
 ---
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4F00?style=for-the-badge&logo=streamlit&logoColor=white)
