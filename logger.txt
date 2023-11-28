@@ -341,3 +341,6 @@ amazon query:python
 amazon query:python
 amazon query:null
 amazon query:pizza
+amazon query:socks
+amazon query:socks
+amazon query:shoes

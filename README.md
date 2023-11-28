@@ -155,7 +155,7 @@ docker stop <CONTAINER_ID>
 ### Phase 4:
 
 - [x] Introduced a feature-rich Chrome extension to enhance functionality.
-- [x] Implemented an advanced price filter with ascending ordering for a more tailored user experience.
+- [x] Implemented an advanced filter with ascending & descending ordering for a more tailored user experience.
 - [x] Revamped the user interface, providing a polished and modernized look and feel.
 - [x] Incorporated a Rakuten cashback column to provide users with valuable shopping insights.
 - [x] Added new badges and updated the tech stack to reflect the latest technologies.
