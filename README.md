@@ -9,7 +9,7 @@
 [![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/main.yml)
 [![Running Code Coverage](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml)
 ![GitHub code size in bytes](https://img.shields.io/badge/Code%20Size-381,952KB-brightgreen)
-[![Lines of Code](https://img.shields.io/tokei/lines/github/Neel317/ShopSync)](https://img.shields.io/tokei/lines/github/Neel317/ShopSync)
+![Lines of code](https://img.shields.io/badge/Lines%20of%20Code-127.5k-green)
 
 
 <!--Badges-->
