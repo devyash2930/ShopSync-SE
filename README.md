@@ -137,7 +137,7 @@ docker stop <CONTAINER_ID>
 - ShopSync in its current form is for students who wish to get the best deals out of every e-commerce site and can be used by anyone who is willing to develop an application that consumes these web APIs.
 - Future scope includes anything from a web application with a frontend or any Android or IOS application that utilises these Web APIs at their backend. Anyone can build their own custom application on top of these web APIs.
 
-## Roadmap
+## Deltas
 
 ### Phase 4:
 
