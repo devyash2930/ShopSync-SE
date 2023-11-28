@@ -121,6 +121,64 @@ docker stop <CONTAINER_ID>
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
 
+## Work Flow
+
+<table border="2" bordercolorlight="#b9dcff" bordercolordark="#006fdd">
+
+  <tr style="background: #010203 ">
+    <td valign="top"> 
+      <p style="color: #FF7A59"> Landing Page
+      </p>
+      <a href="./media/Landing_Page.png"> 
+        <img src="./media/Landing_Page.png" >      
+      </a>
+    </td>
+    <td valign="top">
+     <p style="color: #FF7A59"> Sample Query
+      </p>
+     <a href="./media/Query.png">
+        <img src="./media/Query.png"> 
+      </a> 
+    </td>
+  </tr>
+  
+  <tr style="background: #010203;"> 
+    <td valign="top">
+     <p style="color: #FF7A59"> Sample Query Result
+      </p>
+     <a href="./media/Query_result.png">
+        <img src="./media/Query_result.png"> 
+      </a> 
+    </td>
+    <td valign="top"> 
+      <p style="color: #FF7A59"> Filtering Based on Price
+      </p>
+      <a href="./media/Price_filtering.png">
+        <img src="./media/Price_filtering.png"> 
+      </a>
+    </td> 
+  </tr>
+  
+<tr style="background: #010203;"> 
+    <td valign="top">
+     <p style="color: #FF7A59"> Adding Chrome Extension
+      </p>
+     <a href="./media/Manage_extension.png">
+        <img src="./media/Manage_extension.png" height="250"> 
+      </a> 
+    </td>
+    <td valign="top"> 
+      <p style="color: #FF7A59"> Sample Query On Extension
+      </p>
+      <a href="./media/base_extension.png">
+        <img src="./media/base_extension.png" width="200" height="250"> 
+      </a>
+    </td> 
+  </tr>
+  
+</table>
+
+
 ## 🖱️Reasons to Add Chrome Extension
 
 - **Seamless Integration:** Allows seamless integration with the user's browser environment, providing a convenient and familiar interface.
