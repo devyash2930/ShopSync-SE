@@ -23,9 +23,9 @@
 
 
 <p align="center">
-    <a href="https://github.com/Kashika08/ShopSync/issues/new/choose">Report Bug</a>
+    <a href="https://github.com/Neel317/ShopSync/issues/new/choose">Report Bug</a>
     ·
-    <a href="https://github.com/Kashika08/ShopSync/issues/new/choose">Request Feature</a>
+    <a href="https://github.com/Neel317/ShopSync/issues/new/choose">Request Feature</a>
 </p>
 
 
@@ -145,23 +145,24 @@ docker stop <CONTAINER_ID>
 - Personalized Recommendations: A recommendation system that suggests products based on a user's previous selections and preferences, increasing user engagement and sales.
 - User Reviews and Ratings: Integrate a user review and rating system, allowing customers to share their experiences and insights on products, increasing trust and transparency.
 
-:sparkles: Contributors
----
+## Contributors
+
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/riyagori1203"><img src="https://avatars.githubusercontent.com/u/66380988?s=400&u=abc90228fe33cf1be71f80eec8aa74213134dea9&v=4" width="75px;" alt=""/><br /><sub><b>Riya Gori</b></sub></a></td>
-    <td align="center"><a href="https://github.com/Kashika08"><img src="https://avatars.githubusercontent.com/u/43812511?v=4" width="75px;" alt=""/><br /><sub><b>Kashika Malick</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/sps-bit"><img src="https://avatars.githubusercontent.com/u/71579349?v=4" width="75px;" alt=""/><br /><sub><b>Sweta Shinde</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/sinchanashetty11"><img src="https://avatars.githubusercontent.com/u/73926660?v=4" width="75px;" alt=""/><br /><sub><b>Sinchana Shetty</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/tvt15"><img src="https://avatars.githubusercontent.com/u/73994466?s=400&u=dc3cc47577ecc7e1951f798a119e08eb96fdaa3a&v=4" width="75px;" alt=""/><br /><sub><b>Tanishq Todkar</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Shubh-Nisar"><img src="https://avatars.githubusercontent.com/u/65038837?v=4" width="75px;" alt=""/><br /><sub><b>Shubh Nisar</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/tanay306"><img src="https://avatars.githubusercontent.com/u/65588226?s=400&u=7fce2191e29891061aaab91e5d0adcaa95fd6868&v=4" width="75px;" alt=""/><br /><sub><b>Tanay Gandhi</b></sub></a><br /></td>
+     <td align="center"><a href="https://github.com/Neel317"><img src="https://avatars.githubusercontent.com/u/67258403?v=4" width="75px;" alt=""/><br /><sub><b>Neel Dudehliya</b></sub></a><br /></td>
+   
   </tr>
 </table>
 
 ## 🙏 Acknowledgements <a name="Acknowledgement"></a>
 We would like to thank Professor Dr Timothy Menzies for helping us understand the process of building a good Software Engineering project. We would also like to thank the teaching assistants Rahul Yedida, Andre Lustosa, Sam Gilson, Xueqi (Sherry) Yang, and Yasitha Rajapaksha for their support throughout the project.
-We would also like to extend our gratitude to the previous group: https://github.com/rohan22shah/ShopSync
+We would also like to extend our gratitude to the previous group: https://github.com/Kashika08/ShopSync
 - [https://streamlit.io/](https://streamlit.io/)
 - [https://shields.io/](https://shields.io/)
 
 :email: Support
 ---
-For any queries and help, please reach out to us at: kmalick@ncsu.edu, rvgori@ncsu.edu, skshett2@ncsu.edu, spshinde@ncsu.edu
+For any queries and help, please reach out to us at: ttodkar@ncsu.edu, snisar@ncsu.edu, tgandhi@ncsu.edu, ndudhel@ncsu.edu.
