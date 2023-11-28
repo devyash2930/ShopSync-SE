@@ -68,7 +68,14 @@ The key benefits of using Shopsync are:
 :movie_camera: Checkout our video
 ---
 
-[67e5c8f7-e84b-44af-9e86-85f58530d7a3](https://drive.google.com/file/d/1l_lxR0LMvmafhasJv9m0tbxuL5lEIwM8/view?usp=sharing)
+[Phase 2 Video](https://drive.google.com/file/d/1l_lxR0LMvmafhasJv9m0tbxuL5lEIwM8/view?usp=sharing)
+
+---
+
+:blue_book: Project 3 Documentation
+---
+
+[Link to Docs in REPO...](https://github.com/Neel317/ShopSync/tree/main/docs)
 
 ---
 
