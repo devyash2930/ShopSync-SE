@@ -137,9 +137,23 @@ docker stop <CONTAINER_ID>
 - ShopSync in its current form is for students who wish to get the best deals out of every e-commerce site and can be used by anyone who is willing to develop an application that consumes these web APIs.
 - Future scope includes anything from a web application with a frontend or any Android or IOS application that utilises these Web APIs at their backend. Anyone can build their own custom application on top of these web APIs.
 
+## Roadmap
+
+### Phase 4:
+
+- [x] Introduced a feature-rich Chrome extension to enhance functionality.
+- [x] Implemented an advanced price filter with ascending ordering for a more tailored user experience.
+- [x] Revamped the user interface, providing a polished and modernized look and feel.
+- [x] Incorporated a Rakuten cashback column to provide users with valuable shopping insights.
+- [x] Added new badges and updated the tech stack to reflect the latest technologies.
+- [x] Conducted major enhancements to the scraping functionality, expanding data sources to include Amazon, Target, BestBuy and Costco.
+- [x] Integrated a Docker image for streamlined and efficient containerized deployment.
+- [x] Introduced a user ratings column, enabling users to make informed decisions based on product feedback.
+- [x] Crafted an engaging demo video, showcasing the application's enhanced features and capabilities.
+
+
 :golf: Future Roadmap
 ---
-- Chrome Extension using the functionalities of Shopsync API
 - Creating user profiles
 - Price Alert notifications for when the price drops
 - Personalized Recommendations: A recommendation system that suggests products based on a user's previous selections and preferences, increasing user engagement and sales.
