@@ -395,22 +395,41 @@ if st.button('Search') and product and website:
 
     my_list = [4.3, 4.0, 3.9, 4.8, 4.6, 4.4, 3.7, 3.5]
 
+# After the for loop populating the lists
+    print("Lengths of lists:")
+    print("Description length:", len(description))
+    print("URL length:", len(url))
+    print("Price length:", len(price))
+    print("Site length:", len(site))
+    print("Rakuten length:", len(rakuten))
+    print("Rating length:", len(rating))
+
+
     if results is not None and isinstance(results, list):
         for result in results:
             if result != {} and result['price'] != '':
                 description.append(result['title'])
                 url.append(result['link'])
                 price_str = result['price']
-                rating.append(get_random_value_from_list(my_list))
-                match = re.search(r'\d+(\.\d{1,2})?', price_str)
-            if match:
-                price_str = match.group(0)
-                price_f = float(price_str)
-                price.append(price_f)
-            else:
-                print("Unable to extract a valid price from the string")
-            site.append(result['website'])
+                rating_value = get_random_value_from_list(my_list)
 
+                # Clean and extract price
+                clean_price_str = re.sub(r'[^\d\.\,]', '', price_str)  # Remove unwanted characters
+                match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?)', clean_price_str)
+
+                if match:
+                    price_str = match.group(0).replace(',', '')  # Remove commas for conversion
+                    price_f = float(price_str)
+                    price.append(price_f)
+                    rating.append(rating_value)  # Append rating only if price is valid
+                else:
+                    print("Unable to extract a valid price from the string:", price_str)
+                    price.append(None)  # Append None if price extraction fails
+                    rating.append(None)  # Append None for rating if price fails
+
+                site.append(result['website'])
+
+    
     for i in range(len(site)):
         k = company_list.index(site[i])
         rakuten.append(str(rakuten_discount[k]) + "%")
@@ -441,7 +460,7 @@ if st.button('Search') and product and website:
                 return 'https://' + url
         dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
 
-        st.cache(dataframe)
+        st.session_state['dataframe'] = dataframe
         st.success("Data successfully scraped and cached.")
 
         st.balloons()
