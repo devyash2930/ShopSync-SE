@@ -540,9 +540,9 @@ a, a:link, a:visited {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 6px;'>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/Neel317/ShopSync" target="_blank">ShopSync</a></p>
+    gap: 6px;'>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/devyash2930/ShopSync-SE" target="_blank">ShopSync</a></p>
     <p style='margin-bottom: 4px;'><a style='display: block; text-align: center;' href="https://github.com/Kashika08/CSC510_ShopSync_Group40/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2023</a></p>
-    <p style='margin-bottom: 8px;'>Contributors: Neel, Shubh, Tanay, Tanishq</p>
+    <p style='margin-bottom: 8px;'>Contributors: Devyash, Vatsal, Smit</p>
 </div>
 """
 st.markdown(footer, unsafe_allow_html=True)
