@@ -1,5 +1,5 @@
 from setuptools import setup
-
+#comment
 setup(name='slash',
       version='3.0',
       description='Slash is a command line tool that scrapes the most popular e-commerce websites to get the best deals on the searched items across these websites.',
