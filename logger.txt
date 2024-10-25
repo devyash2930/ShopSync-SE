@@ -349,3 +349,7 @@ amazon query:iPad
 amazon query:iPad
 amazon query:iPad
 amazon query:track pant
+amazon query:iphone
+amazon query:iphone
+amazon query:apple
+amazon query:wallet
