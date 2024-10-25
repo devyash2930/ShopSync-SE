@@ -34,7 +34,7 @@ navbar = """
 
 .navbar a {
   color: white !important;
-  padding: 14px 16px;
+  padding: 14px 0;
   text-decoration: none;
   font-size: 18px;
 }
@@ -109,7 +109,7 @@ title = """
 
         .t {
             font-size: 48px;
-            margin: 0;  /* Remove default margin for the <h1> element */
+            margin: 0;
             font-weight: bold;
         }
 
@@ -119,13 +119,16 @@ title = """
 
         .site-title {
             font-size: 24px;
-            margin: 10px 0;  /* Add some margin to separate the title from the main heading */
-            text-transform: uppercase; /* Uppercase the text */
+            margin: 10px 0;
+            text-transform: uppercase;
         }
     </style>
 """
 
-st.markdown(title, unsafe_allow_html=True)
+st.markdown(
+    title, unsafe_allow_html=True
+)
+
 
 # Display SVG Image
 svg_code = """
@@ -345,11 +348,11 @@ if 'dataframe' not in st.session_state:
 
 
 def highlight_row(dataframe):
-
+    # copy df to new - original data are not changed
     df = dataframe.copy()
     df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
     minimumPrice = df['Price'].min()
-
+    # set by condition
     mask = df['Price'] == minimumPrice
     df.loc[mask, :] = 'background-color: lightgreen'
     df.loc[~mask, :] = 'background-color: #DFFFFA'
@@ -484,7 +487,7 @@ if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd
     st.dataframe(filtered_df.style.apply(highlight_row, axis=None), column_config={
                  "Link": st.column_config.LinkColumn("URL to website")},)
 
-    st.write('<span style="font-size: 24px;">Add for favorites</span>',
+st.write('<span style="font-size: 24px;">Add for favorites</span>',
          unsafe_allow_html=True)
 
 if st.session_state.dataframe is not None:
@@ -504,45 +507,76 @@ if st.session_state.dataframe is not None:
             st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn(
                 "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
 
+st.markdown(
+    """
+    <style>
+    /* Main body container adjustments */
+    .block-container {
+        padding-bottom: 0 !important; /* Removes any padding below content */
+    }
+    
+    /* Footer styling for consistency */
+    .footer {
+        position: fixed;  /* Ensures footer sticks to the bottom */
+        bottom: 0;
+        width: 100%;
+        background-color: #DFFFFA;
+        padding: 10px 0; /* Adjusts padding within footer */
+        margin: 0 !important; /* Removes any margin below footer */
+        color: black;
+        text-align: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Add footer to UI
+# Footer HTML
 footer = """<style>
-    a:link , a:visited{
-    color: blue;
-    background-color: transparent;
-    text-decoration: underline;
-}
+    a:link, a:visited {
+        color: blue;
+        background-color: transparent;
+        text-decoration: underline;
+    }
 
-a:hover,  a:active {
-    color: red;
-    background-color: transparent;
-    text-decoration: underline;
-}
+    a:hover, a:active {
+        color: red;
+        background-color: transparent;
+        text-decoration: underline;
+    }
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0%;
-    width: 100%;
-    background-color: #DFFFFA;
-    color: black;
-    text-align: center;
-}
+    body, .main-container, .footer {
+        margin: 0;
+        padding: 0;
+    }
 
-a, a:link, a:visited {
-    text-decoration: none;
-    color: #6c63ff;
-    font-weight: bold;
+    .footer {
+        position: relative;
+        width: 100%;
+        background-color: #DFFFFA;
+        color: black;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 0;
+    }
+
+    a, a:link, a:visited {
+        text-decoration: none;
+        color: #6c63ff;
+        font-weight: bold;
     }
 </style>
+
 <div class="footer">
-    <p style='margin-bottom: 4px; display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;'>Developed with ❤ by <a style='display: block; text-align: center;' href="https://github.com/devyash2930/ShopSync-SE" target="_blank">ShopSync</a></p>
-    <p style='margin-bottom: 4px;'><a style='display: block; text-align: center;' href="https://github.com/Kashika08/CSC510_ShopSync_Group40/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2023</a></p>
-    <p style='margin-bottom: 8px;'>Contributors: Devyash, Vatsal, Smit</p>
+    <p style="margin-top: 4px; display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 6px;">
+        Developed with ❤ by <a href="https://github.com/devyash2930/ShopSync-SE" target="_blank">ShopSync</a>
+    </p>
+    <p style="margin-top: 4px;">
+        <a href="https://github.com/devyash2930/ShopSync-SE/blob/main/LICENSE" target="_blank">MIT License Copyright (c) 2024</a>
+    </p>
+    <p style="margin-top: 8px;">Contributors: Devyash, Vatsal, Smit</p>
 </div>
 """
 st.markdown(footer, unsafe_allow_html=True)
+
