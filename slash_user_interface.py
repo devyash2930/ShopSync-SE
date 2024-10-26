@@ -11,7 +11,7 @@ import re
 import pandas as pd
 import src.configs as conf
 from src.url_shortener import shorten_url
-from src.main_streamlit import search_items_API, rakuten
+from src.main_streamlit import search_items_API
 import streamlit as st
 import sys
 sys.path.append('../')
@@ -186,13 +186,32 @@ loading_placeholder = st.empty()
 if st.session_state.loading:
     st.markdown('<div class="blur"></div>', unsafe_allow_html=True)
 
+# if 'selected_websites' not in st.session_state:
+#     st.session_state.selected_websites = []
+def reset_button():
+    for website_name in website_dict.keys():
+        if website_name.lower() != "all":  # Skip the 'all' entry
+            # continue
+            st.session_state[website_name] = False  # Set checkbox state to False
+    # st.session_state['selected_websites'] = []  # Clear selected websites list
+
+    st.session_state["p"] = False  # Reset the checkbox value
+
+
 # Pass product and website to method
 if st.button('Search') and product and website:
-     # Start loading
+    # Reset selected websites and price range before new search
+    selected_websites = []
+    selected_websites.clear()  # Reset selected websites
+    reset_button()
+    # st.session_state.price_range = (st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max())  # Reset price range
+
+
+    # Start loading
     st.session_state.loading = True
     loading_placeholder.markdown('<div class="loading"><div class="spinner"></div></div>', unsafe_allow_html=True)
 
-    rakuten_discount = rakuten()
+    # rakuten_discount = rakuten()
     company_list = conf.getCompanies()
     results = search_items_API(website_dict[website], product)
     # Use st.columns based on return values
@@ -200,7 +219,7 @@ if st.button('Search') and product and website:
     url = []
     price = []
     site = []
-    rakuten = []
+    # rakuten = []
     rating = []
 
     import random
@@ -218,7 +237,7 @@ if st.button('Search') and product and website:
     print("URL length:", len(url))
     print("Price length:", len(price))
     print("Site length:", len(site))
-    print("Rakuten length:", len(rakuten))
+    # print("Rakuten length:", len(rakuten))
     print("Rating length:", len(rating))
 
 
@@ -247,14 +266,14 @@ if st.button('Search') and product and website:
                 site.append(result['website'])
 
     
-    for i in range(len(site)):
-        k = company_list.index(site[i])
-        rakuten.append(str(rakuten_discount[k]) + "%")
+    # for i in range(len(site)):
+    #     k = company_list.index(site[i])
+    #     rakuten.append(str(rakuten_discount[k]) + "%")
 
     if len(price):
 
         dataframe = pd.DataFrame(
-            {'Description': description, 'Price': price, 'Link': url, 'Website': site, 'Rakuten': rakuten, 'Ratings': rating})
+            {'Description': description, 'Price': price, 'Link': url, 'Website': site,'Ratings': rating})
         dataframe['Description'] = dataframe['Description'].apply(
             split_description)
         dataframe['Product'] = dataframe['Description'].str.split(
@@ -292,22 +311,69 @@ if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd
 
     st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>RESULT</h1>",
                 unsafe_allow_html=True)
-
-    st.session_state.dataframe['Price'] = pd.to_numeric(
-        st.session_state.dataframe['Price'], errors='coerce')
     
-    st.markdown(price_custom_css, unsafe_allow_html=True)
-    st.markdown('<span class="my-label">Price Range</span>', unsafe_allow_html=True)
-    price_range = st.slider("", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
-    ), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
+    col1, col2 = st.columns([1, 2])# adjust the columns for price range and filters
+    with col1:
 
-    filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (
-        st.session_state.dataframe["Price"] <= price_range[1])]
-    st.dataframe(filtered_df.style.apply(highlight_row, axis=None), column_config={
-                 "Link": st.column_config.LinkColumn("URL to website")},)
+        st.session_state.dataframe['Price'] = pd.to_numeric(
+            st.session_state.dataframe['Price'], errors='coerce')
+        
+        st.markdown(price_custom_css, unsafe_allow_html=True)
+        st.markdown('<span class="my-label">Price Range</span>', unsafe_allow_html=True)
+        price_range = st.slider("", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
+        ), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
 
-    st.write('<span style="font-size: 24px;">Add for favorites</span>',
-         unsafe_allow_html=True)
+    with col2:
+        st.markdown('<span class="my-label">Filter by Website</span>', unsafe_allow_html=True)
+
+        # Define the number of checkboxes per row
+        num_columns = 3  
+        columns = st.columns(num_columns)
+
+        # Iterate over the website dictionary and place each checkbox in a column
+        selected_websites = []
+        # selected_websites.clear()
+        for idx, (website_name, website_code) in enumerate(website_dict.items()):
+            if website_name.lower() == "all":
+                continue
+            # Check if the website is in the selected_websites list
+            col = columns[idx % num_columns]  # Place checkbox in the next column
+            is_checked = col.checkbox(website_name, key=website_name)
+             # Check if the checkbox is checked
+            if is_checked:
+                selected_websites.append(website_name.lower())
+
+        reset = st.button('Reset', on_click=reset_button)
+
+
+    # Filter the dataframe by price range and selected websites
+    filtered_df = st.session_state.dataframe[
+        (st.session_state.dataframe["Price"] >= price_range[0]) &
+        (st.session_state.dataframe["Price"] <= price_range[1])
+    ]
+    if selected_websites:
+        filtered_df = filtered_df[filtered_df["Website"].isin(selected_websites)]
+    # filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (
+    #     st.session_state.dataframe["Price"] <= price_range[1])]
+    
+    # Display the filtered dataframe at maximum width
+    st.markdown("<h2 style='text-align: left; color: #343434;'>Filtered Results</h2>", unsafe_allow_html=True)
+    st.dataframe(
+        filtered_df.style.apply(highlight_row, axis=None),
+        column_config={"Link": st.column_config.LinkColumn("URL to website")},
+        use_container_width=True  # Ensure the dataframe uses the maximum width
+    )
+
+    # //////////////////////////////////////////////////////////////////////////////////////////////
+    # Prints the websites names from filter and dataframe to check
+    # st.write("Unique Website values in the dataframe:")
+    # st.write(st.session_state.dataframe["Website"].unique())
+
+    # # Print the selected websites list
+    # st.write("Selected websites for filtering:")
+    # st.write(selected_websites)
+    # st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
+    #///////////////////////////////////////////////////////////////////////////////////////////////
 
 if st.session_state.dataframe is not None:
     selected_index = st.selectbox("Select an index to get the corresponding row:", [
