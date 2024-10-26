@@ -4,7 +4,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import auth
 
-cred = credentials.Certificate('frontend/shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
+# cred = credentials.Certificate('frontend/shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
+cred = credentials.Certificate('frontend/shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
 
 # firebase_admin.initialize_app(cred)
 
