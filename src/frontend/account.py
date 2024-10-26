@@ -5,7 +5,7 @@ from firebase_admin import credentials
 from firebase_admin import auth
 
 # cred = credentials.Certificate('frontend/shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
-cred = credentials.Certificate('frontend/shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
+cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
 
 # firebase_admin.initialize_app(cred)
 
@@ -17,6 +17,7 @@ def app():
     def f():
         try:
             user = auth.get_user_by_email(email)
+            # st.success('Account logged in successfully')
             # print(user.uid)
         
         except:
