@@ -105,6 +105,8 @@ celerybeat.pid
 # myenv/
 new/
 myenv/
+new/
+myenv/
 .env
 .venv
 env/
@@ -130,5 +132,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json
 
 shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json
