@@ -186,7 +186,6 @@ loading_placeholder = st.empty()
 if st.session_state.loading:
     st.markdown('<div class="blur"></div>', unsafe_allow_html=True)
 
-
 # Pass product and website to method
 if st.button('Search') and product and website:
      # Start loading
