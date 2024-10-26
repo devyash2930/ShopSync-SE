@@ -195,7 +195,7 @@ def reset_button():
             st.session_state[website_name] = False  # Set checkbox state to False
     # st.session_state['selected_websites'] = []  # Clear selected websites list
 
-    st.session_state["p"] = False  # Reset the checkbox value
+    # st.session_state["p"] = False  # Reset the checkbox value
 
 
 # Pass product and website to method
@@ -307,6 +307,40 @@ if st.button('Search') and product and website:
     st.session_state.loading = False
     loading_placeholder.empty()  # Remove loading spinner
 
+def style_button_row(clicked_button_ix, n_buttons):
+    def get_button_indices(button_ix):
+        return {
+            'nth_child': button_ix,
+            'nth_last_child': n_buttons - button_ix + 1
+        }
+
+    clicked_style = """
+    div[data-testid*="stHorizontalBlock"] > div:nth-child(%(nth_child)s):nth-last-child(%(nth_last_child)s) button {
+        border-color: rgb(255, 75, 75);
+        color: rgb(255, 75, 75);
+        box-shadow: rgba(255, 75, 75, 0.5) 0px 0px 0px 0.2rem;
+        outline: currentcolor none medium;
+    }
+    """
+    unclicked_style = """
+    div[data-testid*="stHorizontalBlock"] > div:nth-child(%(nth_child)s):nth-last-child(%(nth_last_child)s) button {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.65;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    """
+    style = ""
+    for ix in range(n_buttons):
+        ix += 1
+        if ix == clicked_button_ix:
+            style += clicked_style % get_button_indices(ix)
+        else:
+            style += unclicked_style % get_button_indices(ix)
+    st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
+
 if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd.DataFrame):
 
     st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>RESULT</h1>",
@@ -322,6 +356,26 @@ if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd
         st.markdown('<span class="my-label">Price Range</span>', unsafe_allow_html=True)
         price_range = st.slider("", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
         ), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
+
+        # Create two columns for sorting buttons
+        button_col1, button_col2 = st.columns(2)
+
+        # Add sorting buttons in separate columns
+        with button_col1:
+            sort_asc = st.button("Sort Asc", on_click=style_button_row, kwargs={
+                'clicked_button_ix': 1, 'n_buttons': 3
+            })
+            # sort_asc = st.button("Sort Ascending")
+        with button_col2:
+            sort_desc = st.button("Sort Desc", on_click=style_button_row, kwargs={
+                'clicked_button_ix': 2, 'n_buttons': 3
+            })
+
+        # Sort the DataFrame based on button clicks
+        if sort_asc:
+            st.session_state.dataframe = st.session_state.dataframe.sort_values(by='Price', ascending=True)
+        elif sort_desc:
+            st.session_state.dataframe = st.session_state.dataframe.sort_values(by='Price', ascending=False)
 
     with col2:
         st.markdown('<span class="my-label">Filter by Website</span>', unsafe_allow_html=True)
