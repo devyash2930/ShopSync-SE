@@ -56,7 +56,7 @@ def app():
     </style>
     """
     st.markdown(page_bg, unsafe_allow_html=True)
-    st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434;'>ShopSync</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434;'>Search For the Product to compare</h1>", unsafe_allow_html=True)
     def split_description(description):
         words = description.split()
         lines = []
@@ -88,16 +88,16 @@ def app():
         st.session_state.dataframe = None
 
 
-    def highlight_row(dataframe):
+    # def highlight_row(dataframe):
 
-        df = dataframe.copy()
-        df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
-        minimumPrice = df['Price'].min()
+    #     df = dataframe.copy()
+    #     df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+    #     minimumPrice = df['Price'].min()
 
-        mask = df['Price'] == minimumPrice
-        df.loc[mask, :] = 'background-color: lightgreen'
-        df.loc[~mask, :] = 'background-color: #DFFFFA'
-        return df
+    #     mask = df['Price'] == minimumPrice
+    #     df.loc[mask, :] = 'background-color: lightgreen'
+    #     df.loc[~mask, :] = 'background-color: #DFFFFA'
+    #     return df
 
     # Display Image
     # st.image("assets/ShopSync_p.png")
@@ -122,7 +122,7 @@ def app():
         .stSlider{
         margin-top: -30px;
         margin-left: 5px;
-        width: 500px !important;}
+        width: 400px !important;}
         </style>
         """,
         unsafe_allow_html=True
@@ -150,21 +150,23 @@ def app():
     """
     # Add the custom CSS to the app
     st.markdown(custom_css, unsafe_allow_html=True)
+    prod, web = st.columns(2)
+    with prod:
+        # Create a text input with a custom label
+        st.markdown('<span class="my-label">Enter the product item name</span>', unsafe_allow_html=True)
+        product = st.text_input('', key='product',
+                                placeholder='Type product name...', 
+                                label_visibility="visible",
+                                on_change=None, 
+                                type='default', 
+                                value='')  # Use the custom class
+        # product = st.text_input('Enter the product item name', key='product', help="Enter the name of the product you are searching for")
+        st.markdown(custom_css, unsafe_allow_html=True)
+    with web:
 
-    # Create a text input with a custom label
-    st.markdown('<span class="my-label">Enter the product item name</span>', unsafe_allow_html=True)
-    product = st.text_input('', key='product',
-                            placeholder='Type product name...', 
-                            label_visibility="visible",
-                            on_change=None, 
-                            type='default', 
-                            value='')  # Use the custom class
-    # product = st.text_input('Enter the product item name', key='product', help="Enter the name of the product you are searching for")
-    st.markdown(custom_css, unsafe_allow_html=True)
-
-    # Create a text input with a custom label
-    st.markdown('<span class="my-label">Select Website</span>', unsafe_allow_html=True)
-    website = st.selectbox('', ('All', 'Walmart',
+        # Create a text input with a custom label
+        st.markdown('<span class="my-label">Select Website</span>', unsafe_allow_html=True)
+        website = st.selectbox('', ('All', 'Walmart',
                         'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
 
     website_dict = {
@@ -288,7 +290,7 @@ def app():
 
             dataframe['Price'] = dataframe['Price'].apply(
                 lambda x: float(f'{x:.2f}'))
-            dataframe = dataframe.sort_values(by='Price', ascending=True)
+            # dataframe = dataframe.sort_values(by='Price', ascending=True)
             dataframe = dataframe.reset_index(drop=True)
             dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
 
@@ -415,12 +417,30 @@ def app():
         
         # Display the filtered dataframe at maximum width
         st.markdown("<h2 style='text-align: left; color: #343434;'>Filtered Results</h2>", unsafe_allow_html=True)
-        st.dataframe(
-            filtered_df.style.apply(highlight_row, axis=None),
-            column_config={"Link": st.column_config.LinkColumn("URL to website")},
-            use_container_width=True  # Ensure the dataframe uses the maximum width
+        styled_df = (
+            filtered_df.style
+            # .apply(highlight_row, axis=None)
+            .set_table_attributes('style="width: 100%; border-collapse: collapse;"')
+            .set_properties(**{
+                'text-align': 'center',
+                'font-size': '20px',
+                'border': '1px solid #ddd',
+                'padding': '8px',
+            })
+            .set_table_styles([
+                {'selector': 'thead th', 'props': [('background-color', '#4a4e69'), ('color', 'white'), ('font-weight', 'bold')]},
+                {'selector': 'tbody tr:hover', 'props': [('background-color', '#e8e8e8')]},  # Row hover effect
+                {'selector': 'tbody td', 'props': [('border', '1px solid #ddd')]},  # Border for cells
+            ])
         )
 
+        # Display styled DataFrame
+        st.dataframe(
+            styled_df,
+            column_config={"Link": st.column_config.LinkColumn("URL to website")},
+            use_container_width=True  # Ensure the DataFrame uses the maximum width
+        )
+        st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
         # //////////////////////////////////////////////////////////////////////////////////////////////
         # Prints the websites names from filter and dataframe to check
         # st.write("Unique Website values in the dataframe:")
@@ -429,7 +449,7 @@ def app():
         # # Print the selected websites list
         # st.write("Selected websites for filtering:")
         # st.write(selected_websites)
-        # st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
+       
         #///////////////////////////////////////////////////////////////////////////////////////////////
 
     if st.session_state.dataframe is not None:
