@@ -477,22 +477,32 @@ def app():
 
             # print(fav["Description"])
             # Append the selected favorite item details
-            description = fav["Description"].values[0]  # Assuming single selection
-            link = fav["Link"].values[0]
-            price = fav["Price"].values[0]
-            product = fav["Product"].values[0]
-            # rating = fav["Rating"].values[0]  # Ensure this is an array of numbers
-            website = fav["Website"].values[0]
+            # description = fav["Description"].values[0]  # Assuming single selection
+            # link = fav["Link"].values[0]
+            # price = fav["Price"].values[0]
+            # product = fav["Product"].values[0]
+            # # rating = fav["Rating"].values[0]  # Ensure this is an array of numbers
+            # website = fav["Website"].values[0]
 
-            # Update the user's document in Firestore using ArrayUnion
-            user_fav_ref.set({
-                "Description": firestore.ArrayUnion([description]),
-                "Link": firestore.ArrayUnion([link]),
-                "Price": firestore.ArrayUnion([price]),
-                "Product": firestore.ArrayUnion([product]),
-                # "Rating": firestore.ArrayUnion([rating]),  # Ensure this is a list of numbers
-                "Website": firestore.ArrayUnion([website])
-            }, merge=True)
+            # # Update the user's document in Firestore using ArrayUnion
+            # user_fav_ref.set({
+            #     "Description": firestore.ArrayUnion([description]),
+            #     "Link": firestore.ArrayUnion([link]),
+            #     "Price": firestore.ArrayUnion([price]),
+            #     "Product": firestore.ArrayUnion([product]),
+            #     # "Rating": firestore.ArrayUnion([rating]),  # Ensure this is a list of numbers
+            #     "Website": firestore.ArrayUnion([website])
+            # }, merge=True)
+
+            user_fav_data["Description"].append(fav["Description"].values[0])  # Access the actual value
+            user_fav_data["Link"].append(fav["Link"].values[0])  # Access the actual value
+            user_fav_data["Price"].append(fav["Price"].values[0])  # Access the actual value
+            user_fav_data["Product"].append(fav["Product"].values[0])  # Access the actual value
+            # user_fav_data["Rating"].append(fav["Rating"].values[0])  # Access the actual value
+            user_fav_data["Website"].append(fav["Website"].values[0])  # Access the actual value
+
+            # Update the user's document in Firestore with the new data
+            user_fav_ref.set(user_fav_data)
             
             st.success(f"{product} has been added to your favorites!")
 

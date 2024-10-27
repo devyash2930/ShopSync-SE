@@ -44,6 +44,12 @@ class MultiApp:
                 slash_user_interface.app()
             else:
                 st.warning("You need to log in to access the Home page.")
+            
+        elif app == "Favourites":
+            if st.session_state.get('logged_in'):
+                favourites.app()
+            else:
+                st.warning("You need to log in to access the favourites page.")
         
         elif app == "Logout":
             logout.app()  # Call the logout function
