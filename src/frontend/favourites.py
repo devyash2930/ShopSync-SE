@@ -1,82 +1,84 @@
-import streamlit as st
-import pandas as pd
-from firebase_admin import firestore, auth
+# import streamlit as st
+# from firebase_admin import firestore, auth
+# import pandas as pd
 
-# Firestore client
+# def app():
+#     # Initialize Firestore
+#     db = firestore.client()
+
+#     # Get the current user's UID using the email stored in session state
+#     user = auth.get_user_by_email(st.session_state.user_email)  # Ensure user_email is set in session
+#     uid = user.uid
+
+#     # Reference to the user's document in the "favourites" collection
+#     user_fav_ref = db.collection("favourites").document(uid)
+
+#     # Fetch the user's favorites document
+#     user_fav_doc = user_fav_ref.get()
+
+#     if user_fav_doc.exists:
+#         user_fav_data = user_fav_doc.to_dict()
+
+#         # Convert Firestore data into a DataFrame for display
+#         favorites_df = pd.DataFrame({
+#             "Product": user_fav_data.get("Product", []),
+#             "Description": user_fav_data.get("Description", []),
+#             "Price": user_fav_data.get("Price", []),
+#             "Link": user_fav_data.get("Link", []),
+#             # "Rating": user_fav_data.get("Rating", []),
+#             "Website": user_fav_data.get("Website", [])
+#         })
+
+#         st.title("Your Favorites")
+#         st.dataframe(favorites_df.style.format({
+#             "Link": lambda x: f'<a href="{x}" target="_blank">Link</a>',
+#             "Website": lambda x: f'<a href="{x}" target="_blank">Website</a>',
+#         }), unsafe_allow_html=True)
+
+#         if favorites_df.empty:
+#             st.write("You have no favorites yet.")
+#     else:
+#         st.title("Your Favorites")
+#         st.write("You have no favorites yet.")
+
+
+import streamlit as st
+import firebase_admin
+from firebase_admin import credentials, firestore, auth
+import pandas as pd
 db = firestore.client()
 
-def get_user_uid():
-    """
-    Retrieve the user's UID from Firebase.
-    This example assumes you have the user’s email stored in session state.
-    """
-    # Replace 'user_email' with the appropriate variable in your session state
-    user_email = st.session_state.get("email")  # Ensure email is stored in session on login
-    
-    if user_email:
-        user = auth.get_user_by_email(user_email)
-        return user.uid
-    else:
-        st.sidebar.write("User not logged in.")
-        return None
+def app():
+    st.title("Favorites Page")
 
-def get_user_favourites(user_uid):
-    """
-    Retrieve the favorites of the user from Firestore.
-    """
-    user_fav_ref = db.collection("favourites").document(user_uid)
+    # Fetch the user ID (UID) from Firebase Authentication
+    user_email = st.session_state.user_email  # Ensure this is set
+    user = auth.get_user_by_email(user_email)  # Get the user by email
+    uid = user.uid
+
+    # Reference to the user's document in the "favourites" collection
+    user_fav_ref = db.collection("favourites").document(uid)
     user_fav_doc = user_fav_ref.get()
 
     if user_fav_doc.exists:
-        return user_fav_doc.to_dict()
+        user_fav_data = user_fav_doc.to_dict()
+
+        # Create a DataFrame from the user's favorites
+        favorites_df = pd.DataFrame({
+            "Description": user_fav_data["Description"],
+            "Link": user_fav_data["Link"],
+            "Price": user_fav_data["Price"],
+            "Product": user_fav_data["Product"],
+            # "Rating": user_fav_data["Rating"],
+            "Website": user_fav_data["Website"],
+        })
+
+        # Display the favorites DataFrame
+        st.dataframe(favorites_df.style, column_config={
+            "Link": st.column_config.LinkColumn("URL to Website"),
+            "Button": st.column_config.LinkColumn("Add to fav"),
+        })
     else:
-        return {
-            "Description": [],
-            "Link": [],
-            "Price": [],
-            "Product": [],
-            "Rating": [],
-            "Website": []
-        }
- # Merge ensures that we don't overwrite existing fields
+        st.write("You have no favorites yet.")
 
-def app():
-    user_uid = get_user_uid()
-    if not user_uid:
-        return
-
-    """
-    Display the user's favorites in the Streamlit sidebar.
-    """
-    # Retrieve the user's favorites
-    user_favourites = get_user_favourites(user_uid)
-
-    # Check if there are any favorites
-    if not any(user_favourites.values()):
-        st.sidebar.write("No favorites added yet.")
-        return
-
-    # Convert to DataFrame for easier display
-    favourites_df = pd.DataFrame({
-        "Product": user_favourites["Product"],
-        "Description": user_favourites["Description"],
-        "Price": user_favourites["Price"],
-        "Website": user_favourites["Website"],
-        # "Rating": user_favourites["Rating"],
-        "Link": user_favourites["Link"]
-    })
-
-    # Display favorites in the sidebar
-    st.write("### Your Favorites")
-    for index, row in favourites_df.iterrows():
-        st.sidebar.write(f"**Product:** {row['Product']}")
-        st.sidebar.write(f"Description: {row['Description']}")
-        st.sidebar.write(f"Price: {row['Price']}")
-        st.sidebar.write(f"Website: {row['Website']}")
-        # st.sidebar.write(f"Rating: {row['Rating']}")
-        st.sidebar.markdown(f"[Visit Link]({row['Link']})", unsafe_allow_html=True)
-        st.sidebar.write("---")
-
-# Example usage (you can call this from the main Streamlit app)
-# user = auth.get_user_by_email(st.session_state.email) # Replace with your user email
-# display_favourites_in_sidebar(user.uid)
+# In your main app file, call favourites.app() to use this
