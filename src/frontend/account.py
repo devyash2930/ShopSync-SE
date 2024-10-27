@@ -2,11 +2,17 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import auth
 from firebase_admin import credentials
+import re
 
 # Initialize Firebase Admin SDK (only do this once in your app)
 if not firebase_admin._apps:
     cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
     firebase_admin.initialize_app(cred)
+
+def is_valid_email(email):
+    # Basic regex for validating an email format
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(email_regex, email) is not None
 
 def app():
     st.title('Welcome to :violet[shopsync]')
@@ -18,20 +24,37 @@ def app():
         password = st.text_input('Password', type='password', key='password')
 
         if st.button('Login'):
-            try:
-                # Sign in with email and password using Firebase Auth
-                user = auth.get_user_by_email(email)
-                # Firebase doesn't allow checking passwords directly, so we will simulate a check here
-                # In a real app, you would use Firebase Auth client-side to handle this
-                # Here you might want to store user info in session state for later use
-                st.session_state.logged_in = True
-                st.session_state.user_email = user.email  # Store user email
-                st.success('Logged in successfully!')
-                st.session_state.redirect = 'Home'  # Set redirect state
-                st.rerun()  # Rerun the app to redirect
+            if not is_valid_email(email):
+                st.warning('Invalid email format. Please enter a valid email address.')
+            else:
+                try:
+                    # Attempting to sign in
+                    user = auth.get_user_by_email(email)  # Check if user exists
 
-            except Exception as e:
-                st.warning(f'Login failed: {str(e)}')
+                    # Simulate password check by assuming the user exists
+                    # Note: You cannot check the password directly with Firebase Admin SDK
+                    # In a real app, you should use the Firebase Client SDK for password validation
+
+                    # Simulating password error by raising an error if the password is incorrect
+                    if not password:  # Simulate a check for an empty password
+                        raise ValueError('wrong-password')
+                    
+                    # If user exists and password is assumed correct, log the user in
+                    st.session_state.logged_in = True
+                    st.session_state.user_email = user.email  # Store user email
+                    st.success('Logged in successfully!')
+                    st.session_state.redirect = 'Home'  # Set redirect state
+                    st.rerun()  # Rerun the app to redirect
+
+                except auth.UserNotFoundError:
+                    st.warning('No account found with this email address.')
+                except ValueError as e:
+                    if str(e) == 'wrong-password':
+                        st.warning('Incorrect password. Please try again.')
+                    else:
+                        st.warning(f'Login failed: {str(e)}')
+                except Exception as e:
+                    st.warning(f'Login failed: {str(e)}')
 
     else:
         email = st.text_input('Email Address', key='email_signup')
