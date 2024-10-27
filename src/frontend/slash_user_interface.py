@@ -471,22 +471,30 @@ def app():
                     "Link": [],
                     "Price": [],
                     "Product": [],
-                    "Rating": [],
+                    # "Rating": [],
                     "Website": []
                 }
 
             # print(fav["Description"])
             # Append the selected favorite item details
-            user_fav_data["Description"].append(fav["Description"].astype(str))
-            user_fav_data["Link"].append(fav["Link"])
-            user_fav_data["Price"].append(fav["Price"])
-            user_fav_data["Product"].append(fav["Product"])
-            # user_fav_data["Rating"].append(fav["Rating"])
-            user_fav_data["Website"].append(fav["Website"])
+            description = fav["Description"].values[0]  # Assuming single selection
+            link = fav["Link"].values[0]
+            price = fav["Price"].values[0]
+            product = fav["Product"].values[0]
+            # rating = fav["Rating"].values[0]  # Ensure this is an array of numbers
+            website = fav["Website"].values[0]
 
-            # Update the user's document in Firestore with the new data
-            user_fav_ref.set(user_fav_data)
+            # Update the user's document in Firestore using ArrayUnion
+            user_fav_ref.set({
+                "Description": firestore.ArrayUnion([description]),
+                "Link": firestore.ArrayUnion([link]),
+                "Price": firestore.ArrayUnion([price]),
+                "Product": firestore.ArrayUnion([product]),
+                # "Rating": firestore.ArrayUnion([rating]),  # Ensure this is a list of numbers
+                "Website": firestore.ArrayUnion([website])
+            }, merge=True)
             
+            st.success(f"{product} has been added to your favorites!")
 
     # Add footer to UI
     footer = """

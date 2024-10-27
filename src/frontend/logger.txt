@@ -14,3 +14,4 @@ amazon query:laptop
 amazon query:iphone
 amazon query:apple
 amazon query:apple
+amazon query:laptop

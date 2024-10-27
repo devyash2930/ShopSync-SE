@@ -38,6 +38,7 @@ def get_user_favourites(user_uid):
             "Rating": [],
             "Website": []
         }
+ # Merge ensures that we don't overwrite existing fields
 
 def app():
     user_uid = get_user_uid()
@@ -61,18 +62,18 @@ def app():
         "Description": user_favourites["Description"],
         "Price": user_favourites["Price"],
         "Website": user_favourites["Website"],
-        "Rating": user_favourites["Rating"],
+        # "Rating": user_favourites["Rating"],
         "Link": user_favourites["Link"]
     })
 
     # Display favorites in the sidebar
-    st.sidebar.write("### Your Favorites")
+    st.write("### Your Favorites")
     for index, row in favourites_df.iterrows():
         st.sidebar.write(f"**Product:** {row['Product']}")
         st.sidebar.write(f"Description: {row['Description']}")
         st.sidebar.write(f"Price: {row['Price']}")
         st.sidebar.write(f"Website: {row['Website']}")
-        st.sidebar.write(f"Rating: {row['Rating']}")
+        # st.sidebar.write(f"Rating: {row['Rating']}")
         st.sidebar.markdown(f"[Visit Link]({row['Link']})", unsafe_allow_html=True)
         st.sidebar.write("---")
 
