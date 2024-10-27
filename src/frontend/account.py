@@ -2,10 +2,12 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import auth
 from firebase_admin import credentials
+import base64
+import os
 import re
 
 # Set the theme (optional, replace with your preferred theme)
-st.set_page_config(page_title="ShopSync", layout="centered", initial_sidebar_state="expanded")
+st.set_page_config(page_title="ShopSync", layout="wide", initial_sidebar_state="expanded")
 
 # Initialize Firebase Admin SDK (only do this once in your app)
 if not firebase_admin._apps:
@@ -43,13 +45,72 @@ def app():
     if 'user_email' not in st.session_state:
         st.session_state.user_email = None
     # apply_theme()  # Apply the theme
-
+    
+    image_path = "/home/devyash/Downloads/NCSU/SE/Project/ShopSync-SE/assets/shopsync-logos.jpeg"
+    with open(image_path, "rb") as img_file:
+        encoded_image = base64.b64encode(img_file.read()).decode()
+        st.markdown(
+            """
+            <style>
+            /* Adjust the text input width */
+            .stTextInput {
+                font-size: 400px !important;
+                width: 100% !important;
+                max-width: 500px;
+                margin: auto;
+            }
+            /* Adjust the select box width */
+            .stSelectbox {
+                font-size: 400px !important;
+                width: 100% !important;
+                padding-top: 80px;
+                max-width: 500px;
+                margin: auto;
+            }
+            .stButton{
+            margin-left: 455px;
+            width: 200px !important;}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
     # Main application logic
+    
     if st.session_state.logged_in:
         st.title('Welcome to :violet[shopsync]')
         st.write('You are logged in as:', st.session_state.user_email)
         st.button("Logout", on_click=logout)  # Add logout button
     else:
+        st.markdown(
+        f"""
+        <style>
+        /* Flex container to align image and text */
+        .welcome-container {{
+            display: flex;
+            align-items: center; /* Vertically center-aligns text and image */
+            justify-content: center; /* Center aligns the entire container */
+            gap: 10px; /* Space between the image and text */
+        }}
+        
+        .welcome-text {{
+            font-size: 35px;
+            font-weight: bold;
+            color: #4a4e69; /* Text color */
+        }}
+
+        .welcome-image {{
+            width: 100px;
+            height: 100px;
+        }}
+        </style>
+
+        <div class="welcome-container">
+            <img src="data:image/jpeg;base64,{encoded_image}" class="welcome-image">
+            <div class="welcome-text">Welcome to ShopSync</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
         # Handle login and signup
         choice = st.selectbox('Login/Signup', ['Login', 'Sign up'])
 
