@@ -1,3 +1,4 @@
 amazon query:laptop
 amazon query:laptop
 amazon query:laptop
+amazon query:laptop

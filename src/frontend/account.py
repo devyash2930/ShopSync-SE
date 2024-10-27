@@ -13,24 +13,24 @@ if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
 # Initialize session state variables
-if 'theme' not in st.session_state:
-    st.session_state.theme = 'light'  # Default theme
-if 'logged_in' not in st.session_state:
-    st.session_state.logged_in = False
-if 'user_email' not in st.session_state:
-    st.session_state.user_email = None
+# if 'theme' not in st.session_state:
+# #     st.session_state.theme = 'light'  # Default theme
+# if 'logged_in' not in st.session_state:
+#     st.session_state.logged_in = False
+# if 'user_email' not in st.session_state:
+#     st.session_state.user_email = None
 
-def apply_theme():
-    # Function to apply the theme
-    if st.session_state.theme == 'dark':
-        st.markdown(
-            """
-            <style>
-            .main {background-color: #282828; color: white;}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+# def apply_theme():
+#     # Function to apply the theme
+#     if st.session_state.theme == 'dark':
+#         st.markdown(
+#             """
+#             <style>
+#             .main {background-color: #282828; color: white;}
+#             </style>
+#             """,
+#             unsafe_allow_html=True
+#         )
 
 def is_valid_email(email):
     # Basic regex for validating an email format
@@ -38,7 +38,11 @@ def is_valid_email(email):
     return re.match(email_regex, email) is not None
 
 def app():
-    apply_theme()  # Apply the theme
+    if 'logged_in' not in st.session_state:
+        st.session_state.logged_in = False
+    if 'user_email' not in st.session_state:
+        st.session_state.user_email = None
+    # apply_theme()  # Apply the theme
 
     # Main application logic
     if st.session_state.logged_in:
