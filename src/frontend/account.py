@@ -18,7 +18,7 @@ st.set_page_config(page_title="ShopSync", layout="centered", initial_sidebar_sta
 
 # Initialize Firebase Admin SDK (only do this once in your app)
 if not firebase_admin._apps:
-    cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
+    cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
     firebase_admin.initialize_app(cred)
 
 def is_valid_email(email):
@@ -57,10 +57,15 @@ def app():
     if 'user_email' not in st.session_state:
         st.session_state.user_email = None
 
+    
+
     # Main application logic
     if st.session_state.logged_in:
+        user = auth.get_user_by_email(st.session_state.user_email)
+        # print('User UID:', user.uid)
         st.title('Welcome to :violet[ShopSync]')
         st.write('You are logged in as:', st.session_state.user_email)
+        st.write("Username:",user.uid)
         st.button("Logout", on_click=logout)  # Add logout button
     else:
         # Handle login and signup

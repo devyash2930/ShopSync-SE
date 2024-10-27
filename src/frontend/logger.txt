@@ -3,3 +3,14 @@ amazon query:laptop
 amazon query:laptop
 amazon query:laptop
 amazon query:fruits
+amazon query:iphone
+amazon query:iphone
+amazon query:laptop
+amazon query:laptop
+amazon query:iphone
+amazon query:iphone
+amazon query:iphone
+amazon query:laptop
+amazon query:iphone
+amazon query:apple
+amazon query:apple
