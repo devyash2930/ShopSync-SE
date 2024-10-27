@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import account  # Ensure this module handles user authentication
 import slash_user_interface  # Your home interface
+import logout  # Import the logout module
 
 class MultiApp:
     def __init__(self):
@@ -43,11 +44,7 @@ class MultiApp:
                 st.warning("You need to log in to access the Home page.")
         
         elif app == "Logout":
-            st.session_state.logged_in = False
-            st.session_state.user_email = None
-            st.session_state.redirect = None
-            st.success("Logged out successfully.")
-            st.rerun()
+            logout.app()  # Call the logout function
 
 # To run the app
 if __name__ == '__main__':
