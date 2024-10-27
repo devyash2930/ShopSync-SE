@@ -16,10 +16,12 @@ import configs as conf
 from url_shortener import shorten_url
 from main_streamlit import search_items_API
 import streamlit as st
+from firebase_admin import firestore, auth
 # sys.path.append('../')
 # st.set_page_config(layout= "wide")
 # st.title("ShopSync")
 def app():
+    db = firestore.client()
     page_bg = """
     <style>
         .appview-container {
@@ -438,6 +440,7 @@ def app():
 
         if selected_index is not None:
             fav = pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
+
             if 'fav' in st.session_state:
                 st.session_state.fav = pd.concat(
                     [st.session_state.fav, fav], axis=0).drop_duplicates()
@@ -448,7 +451,42 @@ def app():
                 st.session_state.fav = fav.copy()
                 st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn(
                     "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+            
+            user = auth.get_user_by_email(st.session_state.user_email)  # Replace with actual user email
+            uid = user.uid
 
+            # Reference to the user's document in "favourites" collection
+            user_fav_ref = db.collection("favourites").document(uid)
+
+            # Get the user's current favorites data, or create a new structure if it doesn't exist
+            user_fav_doc = user_fav_ref.get()
+            
+            if user_fav_doc.exists:
+                # If the document exists, retrieve the current data
+                user_fav_data = user_fav_doc.to_dict()
+            else:
+                # Initialize empty arrays if document doesn't exist
+                user_fav_data = {
+                    "Description": [],
+                    "Link": [],
+                    "Price": [],
+                    "Product": [],
+                    "Rating": [],
+                    "Website": []
+                }
+
+            # print(fav["Description"])
+            # Append the selected favorite item details
+            user_fav_data["Description"].append(fav["Description"].astype(str))
+            user_fav_data["Link"].append(fav["Link"])
+            user_fav_data["Price"].append(fav["Price"])
+            user_fav_data["Product"].append(fav["Product"])
+            # user_fav_data["Rating"].append(fav["Rating"])
+            user_fav_data["Website"].append(fav["Website"])
+
+            # Update the user's document in Firestore with the new data
+            user_fav_ref.set(user_fav_data)
+            
 
     # Add footer to UI
     footer = """

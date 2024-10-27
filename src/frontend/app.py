@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 import account  # Ensure this module handles user authentication
 # import src.frontend.slash_user_interface as slash_user_interface # Your home interface
 import slash_user_interface as slash_user_interface
+import favourites
 import logout  # Import the logout module
 
 class MultiApp:
@@ -52,4 +53,5 @@ if __name__ == '__main__':
     app = MultiApp()
     app.add_app("Account", account.app)
     app.add_app("Home", slash_user_interface.app)
+    app.add_app("Favourites", favourites.app)
     app.run()
