@@ -23,12 +23,12 @@ class MultiApp:
                 menu_title='ShopSync',
                 options=['Account', 'Home', 'Favourites', 'Logout'],
                 icons=['person-circle', 'house-fill', 'star-fill', 'box-arrow-right'],
-                menu_icon='chat-text-fill',
+                menu_icon='shop',
                 default_index=default_index,
                 styles={
-                    "container": {"padding": "5!important", "background-color": 'black'},
-                    "icon": {"color": "white", "font-size": "23px"}, 
-                    "nav-link": {"color": "white", "font-size": "20px", "text-align": "left", "margin": "0px", "--hover-color": "blue"},
+                    "container": {"padding": "5!important", "background-color": 'white'},
+                    "icon": {"color": "black", "font-size": "23px"}, 
+                    "nav-link": {"color": "black", "font-size": "20px", "text-align": "left", "margin": "0px", "--hover-color": "blue"},
                     "nav-link-selected": {"background-color": "#02ab21" if st.session_state.get('logged_in') else "#02ab21"},
                 }
             )

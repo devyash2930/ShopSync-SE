@@ -9,7 +9,7 @@ st.set_page_config(page_title="ShopSync", layout="centered", initial_sidebar_sta
 
 # Initialize Firebase Admin SDK (only do this once in your app)
 if not firebase_admin._apps:
-    cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
+    cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
     firebase_admin.initialize_app(cred)
 
 # Initialize session state variables
