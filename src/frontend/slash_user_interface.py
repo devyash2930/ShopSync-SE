@@ -451,7 +451,8 @@ def app():
 
 
     # Add footer to UI
-    footer = """<style>
+    footer = """
+    <style>
         a:link , a:visited{
         color: blue;
         background-color: transparent;
