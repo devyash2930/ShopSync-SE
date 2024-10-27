@@ -1,7 +1,8 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import account  # Ensure this module handles user authentication
-import slash_user_interface  # Your home interface
+# import src.frontend.slash_user_interface as slash_user_interface # Your home interface
+import slash_user_interface as slash_user_interface
 import logout  # Import the logout module
 
 class MultiApp:

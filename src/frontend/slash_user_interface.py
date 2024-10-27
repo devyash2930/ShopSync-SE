@@ -6,8 +6,8 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 """
 
 # Import Libraries
-import sys
 import os
+import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import streamlit.components.v1 as components
 import re
@@ -16,10 +16,8 @@ import configs as conf
 from url_shortener import shorten_url
 from main_streamlit import search_items_API
 import streamlit as st
-
 # sys.path.append('../')
-
-
+# st.set_page_config(layout= "wide")
 # st.title("ShopSync")
 def app():
     page_bg = """
@@ -191,9 +189,27 @@ def app():
     if st.session_state.loading:
         st.markdown('<div class="blur"></div>', unsafe_allow_html=True)
 
+    # if 'selected_websites' not in st.session_state:
+    #     st.session_state.selected_websites = []
+    def reset_button():
+        for website_name in website_dict.keys():
+            if website_name.lower() != "all":  # Skip the 'all' entry
+                # continue
+                st.session_state[website_name] = False  # Set checkbox state to False
+        # st.session_state['selected_websites'] = []  # Clear selected websites list
+
+        # st.session_state["p"] = False  # Reset the checkbox value
+
 
     # Pass product and website to method
     if st.button('Search') and product and website:
+        # Reset selected websites and price range before new search
+        selected_websites = []
+        selected_websites.clear()  # Reset selected websites
+        reset_button()
+        # st.session_state.price_range = (st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max())  # Reset price range
+
+
         # Start loading
         st.session_state.loading = True
         loading_placeholder.markdown('<div class="loading"><div class="spinner"></div></div>', unsafe_allow_html=True)
@@ -260,7 +276,7 @@ def app():
         if len(price):
 
             dataframe = pd.DataFrame(
-                {'Description': description, 'Price': price, 'Link': url, 'Website': site, 'Ratings': rating})
+                {'Description': description, 'Price': price, 'Link': url, 'Website': site,'Ratings': rating})
             dataframe['Description'] = dataframe['Description'].apply(
                 split_description)
             dataframe['Product'] = dataframe['Description'].str.split(
@@ -294,26 +310,127 @@ def app():
         st.session_state.loading = False
         loading_placeholder.empty()  # Remove loading spinner
 
+    def style_button_row(clicked_button_ix, n_buttons):
+        def get_button_indices(button_ix):
+            return {
+                'nth_child': button_ix,
+                'nth_last_child': n_buttons - button_ix + 1
+            }
+
+        clicked_style = """
+        div[data-testid*="stHorizontalBlock"] > div:nth-child(%(nth_child)s):nth-last-child(%(nth_last_child)s) button {
+            border-color: rgb(255, 75, 75);
+            color: rgb(255, 75, 75);
+            box-shadow: rgba(255, 75, 75, 0.5) 0px 0px 0px 0.2rem;
+            outline: currentcolor none medium;
+        }
+        """
+        unclicked_style = """
+        div[data-testid*="stHorizontalBlock"] > div:nth-child(%(nth_child)s):nth-last-child(%(nth_last_child)s) button {
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.65;
+            filter: alpha(opacity=65);
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        """
+        style = ""
+        for ix in range(n_buttons):
+            ix += 1
+            if ix == clicked_button_ix:
+                style += clicked_style % get_button_indices(ix)
+            else:
+                style += unclicked_style % get_button_indices(ix)
+        st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
+
     if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd.DataFrame):
 
         st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>RESULT</h1>",
                     unsafe_allow_html=True)
-
-        st.session_state.dataframe['Price'] = pd.to_numeric(
-            st.session_state.dataframe['Price'], errors='coerce')
         
-        st.markdown(price_custom_css, unsafe_allow_html=True)
-        st.markdown('<span class="my-label">Price Range</span>', unsafe_allow_html=True)
-        price_range = st.slider("", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
-        ), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
+        col1, col2 = st.columns([1, 2])# adjust the columns for price range and filters
+        with col1:
 
-        filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (
-            st.session_state.dataframe["Price"] <= price_range[1])]
-        st.dataframe(filtered_df.style.apply(highlight_row, axis=None), column_config={
-                    "Link": st.column_config.LinkColumn("URL to website")},)
+            st.session_state.dataframe['Price'] = pd.to_numeric(
+                st.session_state.dataframe['Price'], errors='coerce')
+            
+            st.markdown(price_custom_css, unsafe_allow_html=True)
+            st.markdown('<span class="my-label">Price Range</span>', unsafe_allow_html=True)
+            price_range = st.slider("", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
+            ), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
 
-        st.write('<span style="font-size: 24px;">Add for favorites</span>',
-            unsafe_allow_html=True)
+            # Create two columns for sorting buttons
+            button_col1, button_col2 = st.columns(2)
+
+            # Add sorting buttons in separate columns
+            with button_col1:
+                sort_asc = st.button("Sort Asc", on_click=style_button_row, kwargs={
+                    'clicked_button_ix': 1, 'n_buttons': 3
+                })
+                # sort_asc = st.button("Sort Ascending")
+            with button_col2:
+                sort_desc = st.button("Sort Desc", on_click=style_button_row, kwargs={
+                    'clicked_button_ix': 2, 'n_buttons': 3
+                })
+
+            # Sort the DataFrame based on button clicks
+            if sort_asc:
+                st.session_state.dataframe = st.session_state.dataframe.sort_values(by='Price', ascending=True)
+            elif sort_desc:
+                st.session_state.dataframe = st.session_state.dataframe.sort_values(by='Price', ascending=False)
+
+        with col2:
+            st.markdown('<span class="my-label">Filter by Website</span>', unsafe_allow_html=True)
+
+            # Define the number of checkboxes per row
+            num_columns = 3  
+            columns = st.columns(num_columns)
+
+            # Iterate over the website dictionary and place each checkbox in a column
+            selected_websites = []
+            # selected_websites.clear()
+            for idx, (website_name, website_code) in enumerate(website_dict.items()):
+                if website_name.lower() == "all":
+                    continue
+                # Check if the website is in the selected_websites list
+                col = columns[idx % num_columns]  # Place checkbox in the next column
+                is_checked = col.checkbox(website_name, key=website_name)
+                # Check if the checkbox is checked
+                if is_checked:
+                    selected_websites.append(website_name.lower())
+
+            reset = st.button('Reset', on_click=reset_button)
+
+
+        # Filter the dataframe by price range and selected websites
+        filtered_df = st.session_state.dataframe[
+            (st.session_state.dataframe["Price"] >= price_range[0]) &
+            (st.session_state.dataframe["Price"] <= price_range[1])
+        ]
+        if selected_websites:
+            filtered_df = filtered_df[filtered_df["Website"].isin(selected_websites)]
+        # filtered_df = st.session_state.dataframe[(st.session_state.dataframe["Price"] >= price_range[0]) & (
+        #     st.session_state.dataframe["Price"] <= price_range[1])]
+        
+        # Display the filtered dataframe at maximum width
+        st.markdown("<h2 style='text-align: left; color: #343434;'>Filtered Results</h2>", unsafe_allow_html=True)
+        st.dataframe(
+            filtered_df.style.apply(highlight_row, axis=None),
+            column_config={"Link": st.column_config.LinkColumn("URL to website")},
+            use_container_width=True  # Ensure the dataframe uses the maximum width
+        )
+
+        # //////////////////////////////////////////////////////////////////////////////////////////////
+        # Prints the websites names from filter and dataframe to check
+        # st.write("Unique Website values in the dataframe:")
+        # st.write(st.session_state.dataframe["Website"].unique())
+
+        # # Print the selected websites list
+        # st.write("Selected websites for filtering:")
+        # st.write(selected_websites)
+        # st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
+        #///////////////////////////////////////////////////////////////////////////////////////////////
 
     if st.session_state.dataframe is not None:
         selected_index = st.selectbox("Select an index to get the corresponding row:", [
@@ -334,8 +451,7 @@ def app():
 
 
     # Add footer to UI
-    footer = """
-    <style>
+    footer = """<style>
         a:link , a:visited{
         color: blue;
         background-color: transparent;
@@ -375,5 +491,3 @@ def app():
     </div>
     """
     st.markdown(footer, unsafe_allow_html=True)
-
-# app()
