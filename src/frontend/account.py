@@ -6,7 +6,7 @@ import requests
 import base64
 import os
 import re
-import os
+from PIL import Image
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -20,7 +20,7 @@ st.set_page_config(page_title="ShopSync", layout="wide", initial_sidebar_state="
 
 # Initialize Firebase Admin SDK (only do this once in your app)
 if not firebase_admin._apps:
-    cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-5c1cd78bc9.json')
+    cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
     firebase_admin.initialize_app(cred)
 
 def is_valid_email(email):
@@ -60,7 +60,15 @@ def app():
         st.session_state.user_email = None
     # apply_theme()  # Apply the theme
     
-    image_path = "/home/devyash/Downloads/NCSU/SE/Project/ShopSync-SE/assets/shopsync-logos.jpeg"
+    
+
+# Define the absolute path to the image
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    image_path = os.path.join(root_dir, 'assets', 'shopsync-logos.jpeg')
+
+    # image_path = os.path.join('assets', 'shopsync-logos.jpeg')
+
+    # image_path = "ShopSync-SE\assets\shopsync-logos.jpeg"
     with open(image_path, "rb") as img_file:
         encoded_image = base64.b64encode(img_file.read()).decode()
         st.markdown(
