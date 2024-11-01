@@ -2,15 +2,13 @@
 
 [![Made With](https://img.shields.io/badge/made%20with-python-blue)](https://www.python.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10212026.svg)](https://doi.org/10.5281/zenodo.10212026)
-[![codecov](https://codecov.io/gh/Kashika08/ShopSync/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://app.codecov.io/gh/Kashika08/ShopSync)
 [![GitHub stars](https://badgen.net/github/stars/Neel317/ShopSync)](https://badgen.net/github/stars/Neel317/ShopSync)
-[![Build Status](https://app.travis-ci.com/rohan22shah/slash-phase3.svg?branch=main)](https://app.travis-ci.com/rohan22shah/slash-phase3)
-[![Run Tests On Push](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml)
-[![Python Application](https://github.com/Neel317/ShopSync/actions/workflows/python-app.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/python-app.yml)
-[![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/main.yml)
-[![Running Code Coverage](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml)
-![GitHub code size in bytes](https://img.shields.io/badge/Code%20Size-381,952KB-brightgreen)
-![Lines of code](https://img.shields.io/badge/Lines%20of%20Code-127.5k-green)
+[![DOI](https://zenodo.org/badge/866275389.svg)](https://doi.org/10.5281/zenodo.14020467)
+[![codecov](https://codecov.io/github/devyash2930/ShopSync-SE/branch/testing/graph/badge.svg?token=TP83NH85TA)](https://codecov.io/github/devyash2930/ShopSync-SE)
+[![Run Tests On Push](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/unit_test.yml)
+[![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/main.yml)
+[![Running Code Coverage](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/code_cov.yml)
+
 
 
 <!--Badges-->
@@ -82,8 +80,44 @@ https://github.com/Neel317/ShopSync/assets/67258403/5e8856c0-a7d4-45fc-b3ae-7c23
 
 :rocket: Installation
 ---
-Clone the GitHub repository to a desired location on your computer. You will need [git](https://git-scm.com/) preinstalled on your machine. Once the repository is cloned, navigate into the local repository: `git clone https://github.com/devyash2930/ShopSync-SE.git && cd ShopSync-SE`. This project uses Python 3, so ensure that [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installation/) are preinstalled. Create a virtual environment to manage dependencies. For Windows, use `python -m venv myenv` followed by `myenv\Scripts\activate`. For macOS, use `python3 -m venv myenv` followed by `source myenv/bin/activate`. Install all required packages listed in the `requirements.txt` file using `pip install -r requirements.txt`. Navigate to the `src` folder and run the `main.py` file with `cd src && python main.py`. In another terminal, activate the virtual environment again (if needed) and navigate to `src/frontend` to run the Streamlit application using `cd src/frontend && streamlit run app.py`. Open your web browser to explore the website and add any features as needed.
+1. Clone the Github repository to a desired location on your computer. You will need [git](https://git-scm.com/) to be preinstalled on your machine. Once the repository is cloned, you will then ```cd``` into the local repository.
+```
+git clone https://github.com/Neel317/ShopSync.git
+```
+2. This project uses Python 3, so make sure that [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installation/) are preinstalled. All requirements of the project are listed in the ```requirements.txt``` file. Use pip to install all of those.
+```
+pip3 install -r requirements.txt
+```
+4. Once all the requirements are installed, you will have to ```cd``` into the ```src``` folder. Once in the ```src``` folder, use the python command to run the ```main.py``` file.
+```
+cd src
 
+For Mac
+python3 main.py
+
+For Windows
+python main.py
+```
+5. To run streamlit application
+```
+streamlit run slash_user_interface.py
+```
+
+6. To build the Docker image
+```
+docker build -t shopsync .
+```
+7. Run the Docker container
+```
+docker run -p 8501:8501 shopsync2.1
+```
+8. List running containers to get the CONTAINER_ID
+```
+docker ps
+```
+9. To stop container
+```
+docker stop <CONTAINER_ID>
 ```
 :computer: Technology Used
 ---
