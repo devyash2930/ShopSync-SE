@@ -19,6 +19,10 @@ from firebase_admin import firestore, auth
 # sys.path.append('../')
 # st.set_page_config(layout= "wide")
 # st.title("ShopSync")
+
+def fetch_title():
+    return "Home"
+
 def get_firestore_client():
     from firebase_admin import firestore
     return firestore.client()

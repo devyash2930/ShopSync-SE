@@ -48,3 +48,4 @@ amazon query:*
 amazon query:iphone
 amazon query:iphone
 amazon query:iphone
+amazon query:ginger
