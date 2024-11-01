@@ -5,6 +5,8 @@ import account  # Ensure this module handles user authentication
 import slash_user_interface as slash_user_interface
 import favourites
 import logout  # Import the logout module
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module='streamlit')
 
 class MultiApp:
     def __init__(self):
