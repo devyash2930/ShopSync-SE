@@ -35,8 +35,8 @@ class TestAccountRegistration(unittest.TestCase):
 
     @patch('firebase_admin.auth')
     def test_firebase_auth_success(self, mock_auth):
-        # Simulate successful Firebase authentication
-        mock_auth.sign_in_with_email_arnd_password.return_value = {'idToken': 'mocked_token'}
+        # Corrected the typo in method name
+        mock_auth.sign_in_with_email_and_password.return_value = {'idToken': 'mocked_token'}
         result = mock_auth.sign_in_with_email_and_password('sr@gmail.com', '123456')
         self.assertEqual(result['idToken'], 'mocked_token', "Firebase auth should return a mocked token.")
 

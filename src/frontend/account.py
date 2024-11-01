@@ -273,10 +273,6 @@ def signup(username, email, password):
         else:
             raise ValueError("An unexpected error occurred.")
 
-def is_valid_email(email):
-    # Simple regex for validating email format
-    return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
-
 def signup(username, email, password):
     if not username and not email and not password:
         raise ValueError("Please enter the credentials.")
