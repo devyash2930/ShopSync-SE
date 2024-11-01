@@ -141,7 +141,8 @@ def app():
                 margin: auto;
             }
             .stButton{
-            margin-left: 455px;
+            margin: auto;
+            margin-left: 670px !important;
             width: 200px !important;}
             </style>
             """,
