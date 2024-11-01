@@ -20,7 +20,7 @@ class TestAccountRegistration(unittest.TestCase):
         mock_initialize_app.return_value = MagicMock()  # Mock initialize_app
         
         result = initialize_firebase()
-        self.assertTrue(result, "Firebase shoul# Run the tests and print results
+        self.assertTrue(result, "Firebase should Run the tests and print results")
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestAccountRegistration)
     runner = unittest.TextTestRunner()
