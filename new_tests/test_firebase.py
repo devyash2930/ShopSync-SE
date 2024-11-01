@@ -20,15 +20,7 @@ class TestAccountRegistration(unittest.TestCase):
         mock_initialize_app.return_value = MagicMock()  # Mock initialize_app
         
         result = initialize_firebase()
-        self.assertTrue(result, "Firebase should Run the tests and print results")
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestAccountRegistration)
-    runner = unittest.TextTestRunner()
-    result = runner.run(suite)
-    
-    print(f"\nTests run: {result.testsRun}, "
-          f"Failures: {len(result.failures)}, "
-          f"Errors: {len(result.errors)}")d initialize successfully.")
+        self.assertTrue(result, "Firebase should initialize successfully.")
 
     @patch('firebase_admin.initialize_app')
     @patch('firebase_admin.credentials.Certificate')
@@ -38,21 +30,13 @@ if __name__ == '__main__':
         
         with self.assertRaises(FileNotFoundError) as context:
             initialize_firebase()
-        self.assertEqual(str(context.exception)# Run the tests and print results
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestAccountRegistration)
-    runner = unittest.TextTestRunner()
-    result = runner.run(suite)
-    
-    print(f"\nTests run: {result.testsRun}, "
-          f"Failures: {len(result.failures)}, "
-          f"Errors: {len(result.errors)}"), "Firebase initialization failed.")
+        self.assertEqual(str(context.exception), "Firebase initialization failed.")
 
 
     @patch('firebase_admin.auth')
     def test_firebase_auth_success(self, mock_auth):
         # Simulate successful Firebase authentication
-        mock_auth.sign_in_with_email_and_password.return_value = {'idToken': 'mocked_token'}
+        mock_auth.sign_in_with_email_arnd_password.return_value = {'idToken': 'mocked_token'}
         result = mock_auth.sign_in_with_email_and_password('sr@gmail.com', '123456')
         self.assertEqual(result['idToken'], 'mocked_token', "Firebase auth should return a mocked token.")
 
@@ -85,6 +69,7 @@ if __name__ == '__main__':
             mock_firestore_client().collection('users').document('user_id').get()
         self.assertEqual(str(context.exception), "Read failed.", "Reading from Firestore should raise an exception.")
 
+# Run the tests and print results
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestAccountRegistration)
     runner = unittest.TextTestRunner()
