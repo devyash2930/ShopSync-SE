@@ -1,5 +1,3 @@
-# test_registration.py
-
 import unittest
 from unittest.mock import patch
 import sys
@@ -17,27 +15,31 @@ class TestAccountRegistration(unittest.TestCase):
 
     @patch('frontend.account.auth.create_user')
     def test_username_already_exists(self, mock_create_user):
+        # Simulate username already taken error
         mock_create_user.side_effect = Exception("USERNAME_EXISTS")
         with self.assertRaises(ValueError) as context:
-            signup("sr", "new_email@gmail.com", "1233456")
+            signup("sr", "new_email@gmail.com", "123456")
         self.assertEqual(str(context.exception), "The username is already taken.")
 
     @patch('frontend.account.auth.create_user')
     def test_email_already_exists(self, mock_create_user):
+        # Simulate email already registered error
         mock_create_user.side_effect = Exception("EMAIL_EXISTS")
         with self.assertRaises(ValueError) as context:
             signup("new_user", "sr@gmail.com", "123456")
         self.assertEqual(str(context.exception), "The email is already registered.")
 
     def test_password_length(self):
+        # Validate minimum password length requirement
         with self.assertRaises(ValueError) as context:
             signup("new_user", "test@gmail.com", "123")
         self.assertEqual(str(context.exception), "Password must be at least 6 characters long.")
 
     @patch('frontend.account.auth.create_user')
     def test_registration_success(self, mock_create_user):
+        # Simulate successful user creation
         mock_create_user.return_value = True
-        result = signup("lajksdf", "lajksdf@gmail.com", "123456")
+        result = signup("unique_user", "unique_user@gmail.com", "123456")
         self.assertEqual(result, "Account created successfully.")
 
     def test_creds_missing(self):
