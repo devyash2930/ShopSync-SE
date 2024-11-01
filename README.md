@@ -76,7 +76,7 @@ https://github.com/Neel317/ShopSync/assets/67258403/5e8856c0-a7d4-45fc-b3ae-7c23
 ---
 1. Clone the Github repository to a desired location on your computer. You will need [git](https://git-scm.com/) preinstalled on your machine. Once the repository is cloned, you will then ```cd``` into the local repository.
 
-git clone https://github.com/Neel317/ShopSync.git
+    git clone https://github.com/Neel317/ShopSync.git
 
 2. Build the local enviroment
    for mac
@@ -89,15 +89,15 @@ git clone https://github.com/Neel317/ShopSync.git
 
 3. This project uses Python 3, so make sure that [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installation/) are preinstalled. All requirements of the project are listed in the ```requirements.txt``` file. Use pip to install all of those.
 
-pip3 install -r requirements.txt
+    pip3 install -r requirements.txt
 
 4. Once all the requirements are installed, you will have to ```cd``` into the ```src``` folder. Once in the ```src``` folder, use the python command to run the ```main.py``` file.
  
-cd src
+    cd src
 
-For Mac python3 main.py
+    For Mac python3 main.py
 
-For Windows python main.py
+    For Windows python main.py
 
 5. To run the Streamlit application go on different terminal and go to frontend folder:
 streamlit run app.py
@@ -106,10 +106,9 @@ streamlit run app.py
 :computer: Technology Used
 ---
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4F00?style=for-the-badge&logo=streamlit&logoColor=white)
-![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white)
+
 
 ## 🔄 Work Flow
 
@@ -166,27 +165,37 @@ streamlit run app.py
 2. The app's user-friendly interface allows users to easily navigate and find the best deals.
 3. With Shopsync, users can save time and money, enhancing their online shopping experience.
 
+Δ Deltas
+Phase 5:
+- [x] Implemented a robust user authentication system using Firestore for secure access and a personalized experience.
+- [x] Added a dedicated favorites page, allowing users to store and manage preferred items with Firestore persistence.
+- [x] Introduced comprehensive sorting and filtering options, including ascending/descending order and checkboxes for individual company filtering.
+- [x] Implemented a reset button for users to quickly clear selections and start fresh.
+- [x] Enhanced navigation with a sidebar feature for intuitive access to different sections of the application.
+- [x] Significantly improved the user interface with consistent text sizes, interactive checkboxes, and filter buttons for a more engaging experience.
+
 :golf: Future Roadmap
 ---
-- Expand the list of supported e-commerce platforms.
-- Introduce machine learning algorithms for personalized recommendations.
-- Implement a mobile app for easier access on-the-go.
-- Add features for user reviews and ratings of products.
-- Enhance the filtering options to include shipping times and seller ratings.
+- Search History: Users can revisit previous searches for a convenient shopping experience.
+- Cookies: Enhances user experience by remembering preferences and maintaining session information.
+- Images for Items: Each item in search results includes images for better visual engagement.
+- Remove from Favorites: Users can easily manage their favorites by removing items as needed.
 
 :sparkles: Contributors
 ---
-- **Neel Vachharajani** - [Neel317](https://github.com/Neel317)
-- **Kashika Daga** - [Kashika08](https://github.com/Kashika08)
-- **Rohan Shah** - [rohan22shah](https://github.com/rohan22shah)
-- **Jatin Soni** - [jatinSoni](https://github.com/jatinSoni)
-- **Shivansh Bhardwaj** - [Shivansh](https://github.com/Shivansh)
+- **Devyash Shah** - [devyash2930](https://github.com/devyash2930)
+- **Smit Raval** - [smitraval24 ](https://github.com/smitraval24)
+- **Vatsal Patel** - [vatsal-dp](https://github.com/vatsal-dp)
 
 ---
 
 :bulb: Acknowledgement
 ---
-We acknowledge and express gratitude to the contributors, mentors, and community members who have provided their support throughout the development of this project.
+We would like to thank Professor Dr Timothy Menzies for helping us understand the process of building a good Software Engineering project. We would also like to thank the teaching assistants Liwen, Andre Lustosa, Sam Gilson, Rishabh Jain, and Amirali for their support throughout the project. We would also like to extend our gratitude to the previous groups: https://github.com/Kashika08/ShopSync and https://github.com/Neel317/ShopSync
+
+https://streamlit.io/
+
+https://shields.io/
 
 :email: Support
 ---
