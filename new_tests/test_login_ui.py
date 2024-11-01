@@ -2,6 +2,7 @@ import streamlit as st
 import pytest
 import sys
 import os
+from unittest.mock import patch
 
 # Add the src directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
@@ -9,18 +10,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 's
 # Import the app function from the correct module
 from frontend.account import app
 
-from unittest.mock import patch
-
-
 @pytest.fixture
 def reset_session_state():
     """Fixture to reset the Streamlit session state before each test."""
-    st.session_state.show_password = False  # Reset state before each test
-    yield
-    st.session_state.show_password = False  # Reset after the test
+    st.session_state.clear()  # Clear session state before each test
+    st.session_state.show_password = False  # Reset state
 
-
-@patch('firebase_admin.initialize_app')
+@patch('firebase_admin.initialize_app')  # Mock the firebase_admin module
 def test_password_visibility_on(mock_initialize, reset_session_state):
     """Test that the password is shown when the toggle is enabled."""
     # Initially, the password should be hidden
@@ -33,8 +29,7 @@ def test_password_visibility_on(mock_initialize, reset_session_state):
     # Assert that the password is visible
     assert st.session_state.show_password == True  # After toggling, it should be visible
 
-
-@patch('firebase_admin.initialize_app')
+@patch('firebase_admin.initialize_app')  # Mock the firebase_admin module
 def test_password_visibility_off(mock_initialize, reset_session_state):
     """Test that the password is hidden when the toggle is disabled."""
     # Initially, the password should be shown
@@ -50,7 +45,6 @@ def test_password_visibility_off(mock_initialize, reset_session_state):
 
     # Assert that the password is hidden
     assert st.session_state.show_password == False  # After toggling, it should be hidden
-
 
 if __name__ == "__main__":
     pytest.main(['-q', __file__])
