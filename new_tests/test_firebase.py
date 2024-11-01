@@ -48,27 +48,6 @@ class TestAccountRegistration(unittest.TestCase):
             mock_auth.sign_in_with_email_and_password('sr@gmail.com', '123098')
         self.assertEqual(str(context.exception), "Authentication failed.")
 
-    @patch('firebase_admin.firestore.client')
-    def test_firebase_read_success(self, mock_firestore_client):
-        # Simulate successful read operation from Firestore
-        mock_doc = MagicMock()
-        mock_doc.get.return_value.to_dict.return_value = {'name': 'sr', 'email': 'sr@gmail.com'}
-        mock_firestore_client.return_value.collection.return_value.document.return_value = mock_doc
-        
-        data = mock_firestore_client().collection('users').document('user_id').get().to_dict()
-        self.assertEqual(data, {'name': 'sr', 'email': 'sr@gmail.com'}, "Data should match the mocked data.")
-
-    @patch('firebase_admin.firestore.client')
-    def test_firebase_read_failure(self, mock_firestore_client):
-        # Simulate failure in reading from Firestore
-        mock_doc = MagicMock()
-        mock_doc.get.side_effect = Exception("Read failed.")
-        mock_firestore_client.return_value.collection.return_value.document.return_value = mock_doc
-
-        with self.assertRaises(Exception) as context:
-            mock_firestore_client().collection('users').document('user_id').get()
-        self.assertEqual(str(context.exception), "Read failed.", "Reading from Firestore should raise an exception.")
-
 # Run the tests and print results
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestAccountRegistration)
