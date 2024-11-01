@@ -2,30 +2,31 @@ name: Running Code Coverage
 on:
   push:
     branches:
-      - main
+      - testing
   pull_request:
     branches:
-      - main
+      - testing
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Install Python 3.7.17
-      uses: actions/setup-python@v1
+      uses: actions/checkout@v3
+    - name: Install Python 3.10.15
+      uses: actions/setup-python@v3
       with:
-        python-version: 3.7.17
+        python-version: 3.10.15
     - name: Install dependencies
       run: |
         pip install coverage
         pip install pytest-cov
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
         echo requirements installed
     - name: Run the tests
       run: |
-          cd tests
+          cd new_tests
           pytest --cov=./ --cov-report=xml
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
