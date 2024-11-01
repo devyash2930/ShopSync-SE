@@ -63,13 +63,6 @@ https://github.com/user-attachments/assets/3f7740ea-8326-4627-8c4f-3800d20a09fb
 
 ---
 
-:blue_book: Project Documentation
----
-
-[Link to Docs in REPO...](https://github.com/Neel317/ShopSync/tree/main/docs)
-
----
-
 :rocket: Installation
 ---
 1. Clone the Github repository to a desired location on your computer. You will need [git](https://git-scm.com/) preinstalled on your machine. Once the repository is cloned, you will then ```cd``` into the local repository.
