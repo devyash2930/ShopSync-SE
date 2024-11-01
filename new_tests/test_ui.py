@@ -196,3 +196,11 @@ def test_valid_product():
 def test_valid_product_with_spaces():
     assert check_product_input('Valid Product Name')  # Valid product with spaces should return True
 
+def test_empty_product():
+    assert not check_product_input('')  # Empty string should return False
+
+def test_whitespace_product():
+    assert not check_product_input('   ')  # Whitespace should return False
+
+def test_too_short_product():
+    assert not check_product_input('')  # Less than 1 character should return False
