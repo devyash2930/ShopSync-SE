@@ -4,6 +4,7 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 
 @author: slash
 """
+# gh
 # Import Libraries
 import os
 import sys
@@ -19,38 +20,6 @@ from firebase_admin import firestore, auth
 # sys.path.append('../')
 # st.set_page_config(layout= "wide")
 # st.title("ShopSync")
-def get_firestore_client():
-    from firebase_admin import firestore
-    return firestore.client()
-
-def create_app(db_client=None):
-    if db_client is None:
-        db_client = get_firestore_client()
-
-def search_product(website, product_name):
-    return search_items_API(website, product_name)
-
-def check_product_input(product):
-    """Check if the product input is valid based on multiple criteria."""
-    # Check for non-empty input
-    if not product.strip():
-        st.error("Please enter a valid product name.")
-        return False
-    
-    # Check length
-    if len(product) < 1 or len(product) > 100:
-        st.error("Product name must be between 1 and 100 characters.")
-        return False
-    
-    # Check for invalid characters (allowing letters, numbers, spaces, hyphens, and underscores)
-    if not re.match(r'^[\w\s\-]+$', product):
-        st.error("Product name can only contain letters, numbers, spaces, hyphens, and underscores.")
-        return False
-
-    # If all checks pass, return True
-    return True
-
-
 def app():
     db = firestore.client()
     page_bg = """
@@ -89,9 +58,7 @@ def app():
     </style>
     """
     st.markdown(page_bg, unsafe_allow_html=True)
-    st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434;'>Search For the Product to compare</h1>",
-                    unsafe_allow_html=True)
-    # st.markdown('<span class="my-label">Search For the Product to compare</span>', unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434;'>Search For the Product to compare</h1>", unsafe_allow_html=True)
     def split_description(description):
         words = description.split()
         lines = []
@@ -122,6 +89,21 @@ def app():
     if 'dataframe' not in st.session_state:
         st.session_state.dataframe = None
 
+
+    # def highlight_row(dataframe):
+
+    #     df = dataframe.copy()
+    #     df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+    #     minimumPrice = df['Price'].min()
+
+    #     mask = df['Price'] == minimumPrice
+    #     df.loc[mask, :] = 'background-color: lightgreen'
+    #     df.loc[~mask, :] = 'background-color: #DFFFFA'
+    #     return df
+
+    # Display Image
+    # st.image("assets/ShopSync_p.png")
+    # st.markdown('<div class="text-input"></div>', unsafe_allow_html=True)
     st.markdown(
         """
         <style>
@@ -187,7 +169,7 @@ def app():
         # Create a text input with a custom label
         st.markdown('<span class="my-label">Select Website</span>', unsafe_allow_html=True)
         website = st.selectbox('', ('All', 'Walmart',
-                        'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'), key = "website_select")
+                        'Amazon', 'Ebay', 'BestBuy', 'Target', 'Costco', 'All'))
 
     website_dict = {
         'Walmart': 'wm',
@@ -224,14 +206,13 @@ def app():
 
 
     # Pass product and website to method
-    if st.button('Search', key = "search_but") and product and website:
-        if not check_product_input(product):
-            return  # Exit the function early if the input is invalid
-
+    if st.button('Search') and product and website:
         # Reset selected websites and price range before new search
         selected_websites = []
         selected_websites.clear()  # Reset selected websites
         reset_button()
+        # st.session_state.price_range = (st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max())  # Reset price range
+
 
         # Start loading
         st.session_state.loading = True
@@ -239,8 +220,7 @@ def app():
 
         # rakuten_discount = rakuten()
         company_list = conf.getCompanies()
-        # results = search_product(website, product)        
-        results = search_product(website_dict[website], product)
+        results = search_items_API(website_dict[website], product)
         # Use st.columns based on return values
         description = []
         url = []
@@ -292,6 +272,10 @@ def app():
 
                     site.append(result['website'])
 
+        
+        # for i in range(len(site)):
+        #     k = company_list.index(site[i])
+        #     rakuten.append(str(rakuten_discount[k]) + "%")
 
         if len(price):
 
@@ -318,8 +302,11 @@ def app():
                 else:
                     return 'https://' + url
             dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
+
             st.session_state['dataframe'] = dataframe
             st.success("Data successfully scraped and cached.")
+
+            # st.balloons()
             st.session_state.dataframe = dataframe
 
         else:
@@ -363,7 +350,7 @@ def app():
 
     if 'dataframe' in st.session_state and isinstance(st.session_state.dataframe, pd.DataFrame):
 
-        st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Result</h1>",
+        st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>RESULT</h1>",
                     unsafe_allow_html=True)
         
         col1, col2 = st.columns([1, 2])# adjust the columns for price range and filters
@@ -374,7 +361,7 @@ def app():
             
             st.markdown(price_custom_css, unsafe_allow_html=True)
             st.markdown('<span class="my-label">Price Range</span>', unsafe_allow_html=True)
-            price_range = st.slider("",key = "slider", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
+            price_range = st.slider("", min_value=st.session_state.dataframe['Price'].min(), max_value=st.session_state.dataframe['Price'].max(
             ), value=(st.session_state.dataframe['Price'].min(), st.session_state.dataframe['Price'].max()))
 
             # Create two columns for sorting buttons
@@ -382,12 +369,12 @@ def app():
 
             # Add sorting buttons in separate columns
             with button_col1:
-                sort_asc = st.button("Sort Asc", key = "sort_asc", on_click=style_button_row, kwargs={
+                sort_asc = st.button("Sort Asc", on_click=style_button_row, kwargs={
                     'clicked_button_ix': 1, 'n_buttons': 3
                 })
                 # sort_asc = st.button("Sort Ascending")
             with button_col2:
-                sort_desc = st.button("Sort Desc", key = "sort_desc", on_click=style_button_row, kwargs={
+                sort_desc = st.button("Sort Desc", on_click=style_button_row, kwargs={
                     'clicked_button_ix': 2, 'n_buttons': 3
                 })
 
@@ -431,7 +418,7 @@ def app():
         #     st.session_state.dataframe["Price"] <= price_range[1])]
         
         # Display the filtered dataframe at maximum width
-        # st.markdown("<h2 style='text-align: left; color: #343434;'>Filtered Results</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: left; color: #343434;'>Filtered Results</h2>", unsafe_allow_html=True)
         styled_df = (
             filtered_df.style
             # .apply(highlight_row, axis=None)
@@ -455,9 +442,7 @@ def app():
             column_config={"Link": st.column_config.LinkColumn("URL to website")},
             use_container_width=True  # Ensure the DataFrame uses the maximum width
         )
-        st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Add for favourites</h1>",
-                    unsafe_allow_html=True)
-        # st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
+        st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
         # //////////////////////////////////////////////////////////////////////////////////////////////
         # Prints the websites names from filter and dataframe to check
         # st.write("Unique Website values in the dataframe:")
@@ -470,13 +455,8 @@ def app():
         #///////////////////////////////////////////////////////////////////////////////////////////////
 
     if st.session_state.dataframe is not None:
-        st.markdown('<span class="my-label">Select index to add to favourites</span>', unsafe_allow_html=True)
-
-        # Display the selectbox
-        selected_index = st.selectbox("", [None] + list(range(len(st.session_state.get("dataframe", [])))))
-
-        # Close the container div
-        st.markdown("</div></div>", unsafe_allow_html=True)
+        selected_index = st.selectbox("Select an index to get the corresponding row:", [
+                                    None] + list(range(len(st.session_state.dataframe))))
 
         if selected_index is not None:
             fav = pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
@@ -514,6 +494,25 @@ def app():
                     # "Rating": [],
                     "Website": []
                 }
+
+            # print(fav["Description"])
+            # Append the selected favorite item details
+            # description = fav["Description"].values[0]  # Assuming single selection
+            # link = fav["Link"].values[0]
+            # price = fav["Price"].values[0]
+            # product = fav["Product"].values[0]
+            # # rating = fav["Rating"].values[0]  # Ensure this is an array of numbers
+            # website = fav["Website"].values[0]
+
+            # # Update the user's document in Firestore using ArrayUnion
+            # user_fav_ref.set({
+            #     "Description": firestore.ArrayUnion([description]),
+            #     "Link": firestore.ArrayUnion([link]),
+            #     "Price": firestore.ArrayUnion([price]),
+            #     "Product": firestore.ArrayUnion([product]),
+            #     # "Rating": firestore.ArrayUnion([rating]),  # Ensure this is a list of numbers
+            #     "Website": firestore.ArrayUnion([website])
+            # }, merge=True)
 
             user_fav_data["Description"].append(fav["Description"].values[0])  # Access the actual value
             user_fav_data["Link"].append(fav["Link"].values[0])  # Access the actual value
