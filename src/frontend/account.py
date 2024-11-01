@@ -1,4 +1,5 @@
 # account.py
+# account.py
 import streamlit as st
 import firebase_admin
 from firebase_admin import auth
@@ -7,6 +8,7 @@ import requests
 import base64
 import os
 import re
+from PIL import Image
 from PIL import Image
 from dotenv import load_dotenv
 
@@ -60,6 +62,14 @@ def verify_password(email, password):
     elif not password:
         raise ValueError("Password must be provided.")
 
+    # Check for missing fields
+    if not email and not password:
+        raise ValueError("Both email and password must be provided.")
+    elif not email:
+        raise ValueError("Email must be provided.")
+    elif not password:
+        raise ValueError("Password must be provided.")
+
     try:
         response = requests.post(
             f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_WEB_API_KEY}",
@@ -92,6 +102,15 @@ def app():
         st.session_state.user_email = None
     # apply_theme()  # Apply the theme
     
+    
+
+# Define the absolute path to the image
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    image_path = os.path.join(root_dir, 'assets', 'shopsync-logos.jpeg')
+
+    # image_path = os.path.join('assets', 'shopsync-logos.jpeg')
+
+    # image_path = "ShopSync-SE\assets\shopsync-logos.jpeg"
     
 
 # Define the absolute path to the image
@@ -223,6 +242,35 @@ def app():
                         st.warning('The email is already registered. Please use another email or log in.')
                     except Exception as e:
                         st.warning(f'Account creation failed: {str(e)}')
+
+def is_valid_email(email):
+    # Simple regex for validating email format
+    return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
+
+def signup(username, email, password):
+    if not username and not email and not password:
+        raise ValueError("Please enter the credentials.")
+    if not username:
+        raise ValueError("Username is required.")
+    if not email:
+        raise ValueError("Email Address is required.")
+    if not password:
+        raise ValueError("Password is required.")
+    if len(password) < 6:
+        raise ValueError("Password must be at least 6 characters long.")
+    if not is_valid_email(email):
+        raise ValueError("Invalid email format. Please enter a valid email address.")
+
+    try:
+        user = auth.create_user(display_name=username, email=email, password=password)
+        return "Account created successfully."
+    except Exception as e:
+        if "EMAIL_EXISTS" in str(e):
+            raise ValueError("The email is already registered.")
+        elif "USERNAME_EXISTS" in str(e):
+            raise ValueError("The username is already taken.")
+        else:
+            raise ValueError("An unexpected error occurred.")
 
 def is_valid_email(email):
     # Simple regex for validating email format
