@@ -1,7 +1,7 @@
-# test_app.py
-
 import streamlit as st
-import sys,os
+import sys
+import os
+from unittest.mock import patch
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src', 'frontend')))
 
@@ -11,31 +11,32 @@ from logout import fetch_title as logt
 from logout import fetch_state as logst
 from slash_user_interface import fetch_title as slsh
 
-
-def test_fav_navigation():
+# Mocking the Firebase initialization and authentication just in case they're used
+@patch('firebase_admin.initialize_app')
+@patch('firebase_admin.auth')
+def test_fav_navigation(mock_auth, mock_initialize):
     # Define the pages to test
-    assert fav()=="Favourites"
-    # if firebase_admin._apps:
-    #     firebase_admin.delete_app(firebase_admin._apps[0])
+    assert fav() == "Favourites"
 
-def test_acc_navigation():
+@patch('firebase_admin.initialize_app')
+@patch('firebase_admin.auth')
+def test_acc_navigation(mock_auth, mock_initialize):
     # Define the pages to test
-    assert acc()=="Account"
-    # if firebase_admin._apps:
-    #     firebase_admin.delete_app(firebase_admin._apps[0])
+    assert acc() == "Account"
 
-def test_logout():
-    assert logst()==False
+@patch('firebase_admin.initialize_app')
+@patch('firebase_admin.auth')
+def test_logout(mock_auth, mock_initialize):
+    assert logst() == False
 
-def test_logt_navigation():
+@patch('firebase_admin.initialize_app')
+@patch('firebase_admin.auth')
+def test_logt_navigation(mock_auth, mock_initialize):
     # Define the pages to test
-    assert logt()=="Logout"
-    
-    # if firebase_admin._apps:
-    #     firebase_admin.delete_app(firebase_admin._apps[0])
+    assert logt() == "Logout"
 
-def test_slsh_navigation():
+@patch('firebase_admin.initialize_app')
+@patch('firebase_admin.auth')
+def test_slsh_navigation(mock_auth, mock_initialize):
     # Define the pages to test
-    assert slsh()=="Home"
-    # if firebase_admin._apps:
-    #     firebase_admin.delete_app(firebase_admin._apps[0])
+    assert slsh() == "Home"
