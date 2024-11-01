@@ -61,7 +61,7 @@ The key benefits of using Shopsync are:
 :movie_camera: Checkout our video
 ---
 
-https://github.com/Neel317/ShopSync/assets/67258403/5e8856c0-a7d4-45fc-b3ae-7c2397694149
+https://github.com/user-attachments/assets/3f7740ea-8326-4627-8c4f-3800d20a09fb
 
 ---
 
