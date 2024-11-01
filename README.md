@@ -1,16 +1,14 @@
 <p align="center"><img width="500" src="./assets/shopsync-logos.jpeg"></p>
 
 [![Made With](https://img.shields.io/badge/made%20with-python-blue)](https://www.python.org/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10212026.svg)](https://doi.org/10.5281/zenodo.10212026)
-[![codecov](https://codecov.io/gh/Kashika08/ShopSync/branch/main/graph/badge.svg?token=ZJ1AXQ5IFN)](https://app.codecov.io/gh/Kashika08/ShopSync)
 [![GitHub stars](https://badgen.net/github/stars/Neel317/ShopSync)](https://badgen.net/github/stars/Neel317/ShopSync)
-[![Build Status](https://app.travis-ci.com/rohan22shah/slash-phase3.svg?branch=main)](https://app.travis-ci.com/rohan22shah/slash-phase3)
-[![Run Tests On Push](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml)
-[![Python Application](https://github.com/Neel317/ShopSync/actions/workflows/python-app.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/python-app.yml)
-[![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/main.yml)
-[![Running Code Coverage](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml)
-![GitHub code size in bytes](https://img.shields.io/badge/Code%20Size-381,952KB-brightgreen)
-![Lines of code](https://img.shields.io/badge/Lines%20of%20Code-127.5k-green)
+[![DOI](https://zenodo.org/badge/866275389.svg)](https://doi.org/10.5281/zenodo.14020467)
+[![codecov](https://codecov.io/github/devyash2930/ShopSync-SE/branch/testing/graph/badge.svg?token=TP83NH85TA)](https://codecov.io/github/devyash2930/ShopSync-SE)
+[![Run Tests On Push](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/unit_test.yml)
+[![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/main.yml)
+[![Running Code Coverage](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/code_cov.yml)
+
+
 
 <!--Badges-->
 <a href="https://github.com/Neel317/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Neel317/ShopSync"></a>
@@ -18,7 +16,7 @@
 <a href="https://github.com/Neel317/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Neel317/ShopSync"></a>
 <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Neel317/ShopSync">
 <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Neel317/ShopSync">
-![GitHub contributors](https://img.shields.io/github/contributors/Neel317/ShopSync)
+
 
 <p align="center">
     <a href="https://github.com/devyash2930/ShopSync-SE/issues/new/choose">Report Bug</a>
