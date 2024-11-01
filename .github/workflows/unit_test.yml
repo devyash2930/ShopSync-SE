@@ -18,8 +18,6 @@ jobs:
           python-version: 3.10.15
       - name: Install dependencies
         run: |
-          python3 get-pip.py
-          sudo apt install python3-testresources
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           echo requirements installed
