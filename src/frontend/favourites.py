@@ -1,57 +1,34 @@
-# import streamlit as st
-# from firebase_admin import firestore, auth
-# import pandas as pd
-
-# def app():
-#     # Initialize Firestore
-#     db = firestore.client()
-
-#     # Get the current user's UID using the email stored in session state
-#     user = auth.get_user_by_email(st.session_state.user_email)  # Ensure user_email is set in session
-#     uid = user.uid
-
-#     # Reference to the user's document in the "favourites" collection
-#     user_fav_ref = db.collection("favourites").document(uid)
-
-#     # Fetch the user's favorites document
-#     user_fav_doc = user_fav_ref.get()
-
-#     if user_fav_doc.exists:
-#         user_fav_data = user_fav_doc.to_dict()
-
-#         # Convert Firestore data into a DataFrame for display
-#         favorites_df = pd.DataFrame({
-#             "Product": user_fav_data.get("Product", []),
-#             "Description": user_fav_data.get("Description", []),
-#             "Price": user_fav_data.get("Price", []),
-#             "Link": user_fav_data.get("Link", []),
-#             # "Rating": user_fav_data.get("Rating", []),
-#             "Website": user_fav_data.get("Website", [])
-#         })
-
-#         st.title("Your Favorites")
-#         st.dataframe(favorites_df.style.format({
-#             "Link": lambda x: f'<a href="{x}" target="_blank">Link</a>',
-#             "Website": lambda x: f'<a href="{x}" target="_blank">Website</a>',
-#         }), unsafe_allow_html=True)
-
-#         if favorites_df.empty:
-#             st.write("You have no favorites yet.")
-#     else:
-#         st.title("Your Favorites")
-#         st.write("You have no favorites yet.")
-
-
 import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
 import pandas as pd
+import os
+
+def fetch_title():
+    return "Favourites"
+
+def initialize_firebase(suppress_errors=False):
+    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
+    try:
+        # Path to Firebase service account key
+        cred = credentials.Certificate(json_path)
+        firebase_admin.initialize_app(cred)
+        return True
+    except Exception as e:
+        if not suppress_errors:
+            print(f"Error initializing Firebase: {e}")
+        raise e
+
+# Call the function to initialize Firebase
+if not firebase_admin._apps:
+    initialize_firebase()
+
 db = firestore.client()
 
 def app():
-    st.title("Favorites Page")
+    st.title("Favorites")
 
-    # Fetch the user ID (UID) from Firebase Authentication
+    # Fetch the user ID (UID) from Firebase git stasAuthentication
     user_email = st.session_state.user_email  # Ensure this is set
     user = auth.get_user_by_email(user_email)  # Get the user by email
     uid = user.uid

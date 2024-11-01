@@ -1,3 +1,4 @@
+# account.py
 import streamlit as st
 import firebase_admin
 from firebase_admin import auth
@@ -6,7 +7,7 @@ import requests
 import base64
 import os
 import re
-import os
+from PIL import Image
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -18,10 +19,26 @@ FIREBASE_WEB_API_KEY = os.getenv("FIREBASE_WEB_API_KEY")  # Set your key here if
 # Set the theme (optional, replace with your preferred theme)
 st.set_page_config(page_title="ShopSync", layout="wide", initial_sidebar_state="expanded")
 
-# Initialize Firebase Admin SDK (only do this once in your app)
+def initialize_firebase(suppress_errors=False):
+    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
+    try:
+        # Path to Firebase service account key
+        cred = credentials.Certificate(json_path)
+        firebase_admin.initialize_app(cred)
+        return True
+    except Exception as e:
+        if not suppress_errors:
+            print(f"Error initializing Firebase: {e}")
+        raise e
+
+# Call the function to initialize Firebase
 if not firebase_admin._apps:
-    cred = credentials.Certificate('shopsync-se-firebase-adminsdk-nkzuw-5c1cd78bc9.json')
-    firebase_admin.initialize_app(cred)
+    initialize_firebase()
+
+# Rest of your code remains the same...
+
+def fetch_title():
+    return "Account"
 
 def is_valid_email(email):
     # Basic regex for validating an email format
@@ -30,13 +47,20 @@ def is_valid_email(email):
 
 def verify_password(email, password):
     """Verify email and password using Firebase REST API."""
+    # Check for missing fields
+    if not email and not password:
+        raise ValueError("Both email and password must be provided.")
+    elif not email:
+        raise ValueError("Email must be provided.")
+    elif not password:
+        raise ValueError("Password must be provided.")
+
     try:
         response = requests.post(
             f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_WEB_API_KEY}",
             json={"email": email, "password": password, "returnSecureToken": True}
         )
         response_data = response.json()
-        # st.write("Response Data:", response_data)  # Log the response for debugging
 
         if "idToken" in response_data:
             return True  # Successful login
@@ -53,6 +77,7 @@ def verify_password(email, password):
         st.warning(f"Login failed: {str(e)}")
         return False
 
+
 def app():
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
@@ -60,7 +85,15 @@ def app():
         st.session_state.user_email = None
     # apply_theme()  # Apply the theme
     
-    image_path = "/home/devyash/Downloads/NCSU/SE/Project/ShopSync-SE/assets/shopsync-logos.jpeg"
+    
+
+# Define the absolute path to the image
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    image_path = os.path.join(root_dir, 'assets', 'shopsync-logos.jpeg')
+
+    # image_path = os.path.join('assets', 'shopsync-logos.jpeg')
+
+    # image_path = "ShopSync-SE\assets\shopsync-logos.jpeg"
     with open(image_path, "rb") as img_file:
         encoded_image = base64.b64encode(img_file.read()).decode()
         st.markdown(
@@ -183,6 +216,35 @@ def app():
                         st.warning('The email is already registered. Please use another email or log in.')
                     except Exception as e:
                         st.warning(f'Account creation failed: {str(e)}')
+
+def is_valid_email(email):
+    # Simple regex for validating email format
+    return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
+
+def signup(username, email, password):
+    if not username and not email and not password:
+        raise ValueError("Please enter the credentials.")
+    if not username:
+        raise ValueError("Username is required.")
+    if not email:
+        raise ValueError("Email Address is required.")
+    if not password:
+        raise ValueError("Password is required.")
+    if len(password) < 6:
+        raise ValueError("Password must be at least 6 characters long.")
+    if not is_valid_email(email):
+        raise ValueError("Invalid email format. Please enter a valid email address.")
+
+    try:
+        user = auth.create_user(display_name=username, email=email, password=password)
+        return "Account created successfully."
+    except Exception as e:
+        if "EMAIL_EXISTS" in str(e):
+            raise ValueError("The email is already registered.")
+        elif "USERNAME_EXISTS" in str(e):
+            raise ValueError("The username is already taken.")
+        else:
+            raise ValueError("An unexpected error occurred.")
 
 def logout():
     # Clear session state on logout
