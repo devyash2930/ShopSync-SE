@@ -1,10 +1,10 @@
 import unittest
-from unittest.mock import patch, MagicMock
-import sys 
+from unittest.mock import patch
+import sys
 import os
 import warnings
-warnings.filterwarnings("ignore", category=UserWarning, module='streamlit')
 
+warnings.filterwarnings("ignore", category=UserWarning, module='streamlit')
 
 # Add the src directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
@@ -14,9 +14,8 @@ from frontend.account import is_valid_email, verify_password
 
 class TestAccountFunctions(unittest.TestCase):
 
-    @patch('frontend.account.firebase_admin.initialize_app')
     @patch('frontend.account.requests.post')
-    def test_login_success(self, mock_post, mock_initialize_app):
+    def test_login_success(self, mock_post):
         # Arrange
         email = "sr@gmail.com"
         password = "123456"
@@ -29,17 +28,17 @@ class TestAccountFunctions(unittest.TestCase):
         result = verify_password(email, password)
 
         # Assert
-        self.assertTrue(result)
+        self.assertTrue(result, "Expected login to succeed with valid credentials.")
 
     def test_invalid_email_format(self):
         # Act
         result = is_valid_email("invalid-email")
+        
         # Assert
-        self.assertFalse(result)
+        self.assertFalse(result, "Expected email format validation to fail.")
 
-    @patch('frontend.account.firebase_admin.auth')
     @patch('frontend.account.requests.post')
-    def test_account_does_not_exist(self, mock_post, mock_auth):
+    def test_account_does_not_exist(self, mock_post):
         # Arrange
         email = "rs@gmail.com"
         password = "123456"
@@ -54,11 +53,10 @@ class TestAccountFunctions(unittest.TestCase):
         result = verify_password(email, password)
 
         # Assert
-        self.assertFalse(result)
+        self.assertFalse(result, "Expected login to fail when account does not exist.")
 
-    @patch('frontend.account.firebase_admin.auth')
     @patch('frontend.account.requests.post')
-    def test_invalid_credentials(self, mock_post, mock_auth):
+    def test_invalid_credentials(self, mock_post):
         # Arrange
         email = "sr@gmail.com"
         password = "123890"
@@ -73,12 +71,9 @@ class TestAccountFunctions(unittest.TestCase):
         result = verify_password(email, password)
 
         # Assert
-        self.assertFalse(result)
+        self.assertFalse(result, "Expected login to fail with invalid credentials.")
 
-    @patch('frontend.account.firebase_admin.auth')
-    @patch('frontend.account.requests.post')
-    def test_missing_both_fields(self, mock_post, mock_auth):
-        # Arrange & Act & Assert
+    def test_missing_both_fields(self):
         with self.assertRaises(ValueError) as context:
             verify_password("", "")
         self.assertEqual(str(context.exception), "Both email and password must be provided.")
@@ -96,7 +91,3 @@ class TestAccountFunctions(unittest.TestCase):
 # Run the tests
 if __name__ == '__main__':
     unittest.main()
-    print(f"Tests run: {unittest.TestResult().testsRun}, "
-          f"Failures: {len(unittest.TestResult().failures)}, "
-          f"Errors: {len(unittest.TestResult().errors)}")
-
