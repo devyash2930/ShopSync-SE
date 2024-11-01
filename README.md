@@ -21,9 +21,9 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/Neel317/ShopSync)
 
 <p align="center">
-    <a href="https://github.com/Neel317/ShopSync/issues/new/choose">Report Bug</a>
+    <a href="https://github.com/devyash2930/ShopSync-SE/issues/new/choose">Report Bug</a>
     ·
-    <a href="https://github.com/Neel317/ShopSync/issues/new/choose">Request Feature</a>
+    <a href="https://github.com/devyash2930/ShopSync-SE/issues/new/choose">Request Feature</a>
 </p>
 
 Are you a shopping enthusiast on the hunt for fantastic online deals? Look no further – Shopsync is your ultimate ally in the quest for the best bargains! Shopsync is a publicly accessible web API framework designed for convenient price comparison across popular e-commerce platforms. It supports well-known websites such as Amazon, Walmart, Target, BestBuy, Costco, and eBay. Currently supported websites include [Amazon](https://www.amazon.com/), [Walmart](https://www.walmart.com/), [Target](https://www.target.com/), [BestBuy](https://www.bestbuy.com/), [Costco](https://www.costco.com/) and [EBay](https://www.ebay.com/).
@@ -115,34 +115,34 @@ streamlit run app.py
 <table border="2" bordercolorlight="#b9dcff" bordercolordark="#006fdd">
   <tr style="background: #010203 ">
     <td valign="top"> 
-      <p style="color: #FF7A59"> Landing Page
+      <p style="color: #FF7A59"> Login Page
       </p>
-      <a href="./media/Landing_Page.png"> 
-        <img src="./media/Landing_Page.png" >      
+      <a href="./media/Login.jpg"> 
+        <img src="./media/Login.jpg" >      
       </a>
     </td>
     <td valign="top">
-     <p style="color: #FF7A59"> Sample Query
+     <p style="color: #FF7A59"> Signup Page
       </p>
-     <a href="./media/Query.png">
-        <img src="./media/Query.png"> 
+     <a href="./media/Signup.jpg">
+        <img src="./media/Signup.jpg"> 
       </a> 
     </td>
   </tr>
   
   <tr style="background: #010203;"> 
     <td valign="top">
-     <p style="color: #FF7A59"> Sample Query Result
+     <p style="color: #FF7A59"> Home
       </p>
-     <a href="./media/Query_result.png">
-        <img src="./media/Query_result.png"> 
+     <a href="./media/Home.png">
+        <img src="./media/Home.png"> 
       </a> 
     </td>
     <td valign="top"> 
-      <p style="color: #FF7A59"> Filtering Based on Price
+      <p style="color: #FF7A59"> Favourites
       </p>
-      <a href="./media/Filter.png"> 
-        <img src="./media/Filter.png">      
+      <a href="./media/Favourites.png"> 
+        <img src="./media/Favourites.png">      
       </a>
     </td>
   </tr>
