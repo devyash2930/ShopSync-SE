@@ -19,21 +19,26 @@ FIREBASE_WEB_API_KEY = os.getenv("FIREBASE_WEB_API_KEY")  # Set your key here if
 # Set the theme (optional, replace with your preferred theme)
 st.set_page_config(page_title="ShopSync", layout="wide", initial_sidebar_state="expanded")
 
-def initialize_firebase(suppress_errors=False):
-    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-se-firebase-adminsdk-nkzuw-ca6838f54f.json')
+def initialize_firebase(mock=False):
+    if mock:
+        # Mock initialization for testing purposes
+        if not firebase_admin._apps:
+            firebase_admin.initialize_app()
+        return True
+
+    json_path = os.path.join(os.path.dirname(__file__), 'sopsync-se-firebase-adminsdk-nkzuw-5c1cd78bc9.json')
     try:
         # Path to Firebase service account key
         cred = credentials.Certificate(json_path)
         firebase_admin.initialize_app(cred)
         return True
     except Exception as e:
-        if not suppress_errors:
-            print(f"Error initializing Firebase: {e}")
+        print(f"Error initializing Firebase: {e}")
         raise e
 
 # Call the function to initialize Firebase
-if not firebase_admin._apps:
-    initialize_firebase()
+# if not firebase_admin._apps:
+#     initialize_firebase()
 
 # Rest of your code remains the same...
 
@@ -79,6 +84,8 @@ def verify_password(email, password):
 
 
 def app():
+    if not firebase_admin._apps:
+        initialize_firebase(mock=False)
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
     if 'user_email' not in st.session_state:
