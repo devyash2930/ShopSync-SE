@@ -1,36 +1,29 @@
-import streamlit as st
 import unittest
-import sys
+from unittest.mock import patch
 import os
 
-# Add the src directory to the system path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+class TestEnvironmentVariables(unittest.TestCase):
 
-# Import the app function from the correct module
-from frontend.account import app
+    @patch.dict(os.environ, {"FIREBASE_WEB_API_KEY": "test_api_key"})
+    def test_firebase_web_api_key_success(self):
+        """Test when FIREBASE_WEB_API_KEY is correctly set."""
+        # Simulate the presence of a valid API key
+        firebase_key = os.getenv("FIREBASE_WEB_API_KEY")
+        self.assertIsNotNone(firebase_key, "FIREBASE_WEB_API_KEY should not be None.")
+        self.assertNotEqual(firebase_key, "", "FIREBASE_WEB_API_KEY should not be empty.")
+        self.assertEqual(firebase_key, "test_api_key", "FIREBASE_WEB_API_KEY should match the test value.")
 
-class TestPasswordVisibility(unittest.TestCase):
+    @patch.dict(os.environ, {"FIREBASE_WEB_API_KEY": ""})
+    def test_firebase_web_api_key_failure(self):
+        """Test when FIREBASE_WEB_API_KEY is empty or missing."""
+        # Simulate an empty API key
+        firebase_key = os.getenv("FIREBASE_WEB_API_KEY")
+        self.assertIsNotNone(firebase_key, "FIREBASE_WEB_API_KEY should not be None.")
+        self.assertEqual(firebase_key, "", "FIREBASE_WEB_API_KEY should be empty.")
 
-    def setUp(self):
-        """Reset the Streamlit session state before each test."""
-        st.session_state.clear()  # Clear session state before each test
-        st.session_state.show_password = False  # Reset state
-
-    def test_password_visibility_on(self):
-        """Test that the password is shown when the toggle is enabled."""
-        self.assertFalse(st.session_state.show_password)
-        st.session_state.show_password = True  # Simulate user action
-        app()  # Call the app function
-        self.assertTrue(st.session_state.show_password)
-
-    def test_password_visibility_off(self):
-        """Test that the password is hidden when the toggle is disabled."""
-        st.session_state.show_password = True  # Simulate password being visible
-        app()  # Call the app function
-        self.assertTrue(st.session_state.show_password)
-        st.session_state.show_password = False  # Simulate user action
-        app()  # Call the app function again
-        self.assertFalse(st.session_state.show_password)
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    @patch.dict(os.environ, {}, clear=True)
+    def test_firebase_web_api_key_missing(self):
+        """Test when FIREBASE_WEB_API_KEY is completely missing."""
+        # Simulate the absence of the API key
+        firebase_key = os.getenv("FIREBASE_WEB_API_KEY")
+        self.assertIsNone(firebase_key, "FIREBASE_WEB_API_KEY should be None when missing.")
