@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10212026.svg)](https://doi.org/10.5281/zenodo.10212026)
 [![GitHub stars](https://badgen.net/github/stars/Neel317/ShopSync)](https://badgen.net/github/stars/Neel317/ShopSync)
 [![DOI](https://zenodo.org/badge/866275389.svg)](https://doi.org/10.5281/zenodo.14020467)
-[![codecov]([![codecov](https://codecov.io/github/devyash2930/ShopSync-SE/graph/badge.svg?token=TP83NH85TA)](https://codecov.io/github/devyash2930/ShopSync-SE))
+[![codecov](https://codecov.io/github/devyash2930/ShopSync-SE/branch/testing/graph/badge.svg?token=TP83NH85TA)](https://codecov.io/github/devyash2930/ShopSync-SE)
 [![Run Tests On Push](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/unit_test.yml)
 [![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/main.yml)
 [![Running Code Coverage](https://github.com/Neel317/ShopSync/actions/workflows/code_cov.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/code_cov.yml)
