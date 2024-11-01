@@ -34,17 +34,3 @@ amazon query:laptop
 amazon query:laptop
 amazon query:laptop
 amazon query:mixer
-amazon query:apple
-amazon query:apple
-amazon query:apple
-amazon query:apple
-amazon query:apple
-amazon query:apple
-amazon query:banana
-amazon query:apple
-amazon query:iphone
-amazon query:iphone
-amazon query:*
-amazon query:iphone
-amazon query:iphone
-amazon query:iphone
