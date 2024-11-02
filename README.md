@@ -20,6 +20,15 @@
     <a href="https://github.com/devyash2930/ShopSync-SE/issues/new/choose">Request Feature</a>
 </p>
 
+---
+
+:movie_camera: Checkout our video
+---
+
+https://github.com/user-attachments/assets/39785a3c-5a0f-46cc-8b87-db6da02b9a70
+
+---
+
 Are you a shopping enthusiast on the hunt for fantastic online deals? Look no further – Shopsync is your ultimate ally in the quest for the best bargains! Shopsync is a publicly accessible web API framework designed for convenient price comparison across popular e-commerce platforms. It supports well-known websites such as Amazon, Walmart, Target, BestBuy, Costco, and eBay. Currently supported websites include [Amazon](https://www.amazon.com/), [Walmart](https://www.walmart.com/), [Target](https://www.target.com/), [BestBuy](https://www.bestbuy.com/), [Costco](https://www.costco.com/) and [EBay](https://www.ebay.com/).
 
 The key benefits of using Shopsync are:
