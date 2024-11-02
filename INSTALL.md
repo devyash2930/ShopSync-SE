@@ -14,7 +14,7 @@ Before you begin, ensure you have the following installed:
 
 1. Clone the Github repository to a desired location on your computer. You will need git preinstalled on your machine. Once the repository is cloned, you will then cd into the local repository.
 
-    git clone https://github.com/Neel317/ShopSync.git
+    git clone https://github.com/devyash2930/ShopSync-SE.git
 
 2. Build the local enviroment for mac make env: python3 -m venv venv run env : source venv/bin/activate
 
