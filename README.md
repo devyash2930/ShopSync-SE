@@ -12,10 +12,6 @@
 
 <!--Badges-->
 <a href="https://github.com/Neel317/ShopSync/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Neel317/ShopSync"></a>
-<a href="https://github.com/Neel317/ShopSync/pulse"><img alt="GitHub forks" src="https://img.shields.io/github/forks/Neel317/ShopSync"></a>
-<a href="https://github.com/Neel317/ShopSync/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Neel317/ShopSync"></a>
-<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/Neel317/ShopSync">
-<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Neel317/ShopSync">
 
 
 <p align="center">
