@@ -33,8 +33,6 @@ The key benefits of using Shopsync are:
 <p align="center">
   <a href="#movie_camera-checkout-our-video">Checkout our video</a>
   ::
-  <a href="#rocket-installation">Installation</a>
-  ::
   <a href="#computer-technology-used">Technology Used</a>
   ::
   <a href="#bulb-use-case">Use Case</a>
@@ -59,35 +57,6 @@ https://github.com/user-attachments/assets/3f7740ea-8326-4627-8c4f-3800d20a09fb
 
 ---
 
-:rocket: Installation
----
-1. Clone the Github repository to a desired location on your computer. You will need [git](https://git-scm.com/) preinstalled on your machine. Once the repository is cloned, you will then ```cd``` into the local repository.
-
-    git clone https://github.com/Neel317/ShopSync.git
-
-2. Build the local enviroment
-   for mac
-   make env: python3 -m venv venv
-   run env : source venv/bin/activate
-
-   for windows
-   make env: python -m venv venv
-   run env : venv\Scripts\activate
-
-3. This project uses Python 3, so make sure that [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installation/) are preinstalled. All requirements of the project are listed in the ```requirements.txt``` file. Use pip to install all of those.
-
-    pip3 install -r requirements.txt
-
-4. Once all the requirements are installed, you will have to ```cd``` into the ```src``` folder. Once in the ```src``` folder, use the python command to run the ```main.py``` file.
- 
-    cd src
-
-    For Mac python3 main.py
-
-    For Windows python main.py
-
-5. To run the Streamlit application go on different terminal and go to frontend folder:
-streamlit run app.py
 
 
 :computer: Technology Used
