@@ -16,6 +16,8 @@ from url_shortener import shorten_url
 from main_streamlit import search_items_API
 import streamlit as st
 from firebase_admin import firestore, auth
+from bs4 import BeautifulSoup
+import requests
 # sys.path.append('../')
 # st.set_page_config(layout= "wide")
 # st.title("ShopSync")
@@ -32,8 +34,144 @@ def create_app(db_client=None):
         db_client = get_firestore_client()
 
 def search_product(website, product_name):
-    return search_items_API(website, product_name)
+    results = search_items_API(website, product_name)
+    print(results)
+    return results
 
+    
+
+def search_walmart_product(query):
+    api_key = "YOUR_WALMART_API_KEY"
+    url = f"https://api.walmartlabs.com/v1/search"
+    params = {
+        "query": query,
+        "format": "json",
+        "apiKey": api_key
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("name"),
+            "price": f"${item.get('salePrice', 'N/A')}",
+            "link": item.get("productUrl"),
+            "image_url": item.get("thumbnailImage", "https://via.placeholder.com/150")
+        } for item in data.get("items", [])]
+    return []
+
+def search_amazon_product(query):
+    url = "https://amazon24.p.rapidapi.com/api/product"
+    headers = {
+        "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",
+        "X-RapidAPI-Host": "amazon24.p.rapidapi.com"
+    }
+    params = {"country": "US", "keyword": query}
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": product.get("title"),
+            "price": product.get("price"),
+            "link": product.get("link"),
+            "image_url": product.get("thumbnail")
+        } for product in data.get("docs", [])]
+    return []
+
+def search_ebay_product(query):
+    app_id = "YOUR_EBAY_APP_ID"
+    url = "https://svcs.ebay.com/services/search/FindingService/v1"
+    params = {
+        "OPERATION-NAME": "findItemsByKeywords",
+        "SERVICE-VERSION": "1.0.0",
+        "SECURITY-APPNAME": app_id,
+        "RESPONSE-DATA-FORMAT": "JSON",
+        "keywords": query
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("title")[0],
+            "price": item.get("sellingStatus", [{}])[0].get("currentPrice", [{}])[0].get("__value__"),
+            "link": item.get("viewItemURL", ["#"])[0],
+            "image_url": item.get("galleryURL", ["https://via.placeholder.com/150"])[0]
+        } for item in data.get("findItemsByKeywordsResponse", [{}])[0].get("searchResult", [{}])[0].get("item", [])]
+    return []
+
+def search_bestbuy_product(query):
+    api_key = "YOUR_BESTBUY_API_KEY"
+    url = f"https://api.bestbuy.com/v1/products((search={query}))"
+    params = {
+        "format": "json",
+        "apiKey": api_key
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": product.get("name"),
+            "price": product.get("salePrice"),
+            "link": product.get("url"),
+            "image_url": product.get("image")
+        } for product in data.get("products", [])]
+    return []
+
+def search_target_product(query):
+    url = "https://target1.p.rapidapi.com/products/v3/search"
+    headers = {
+        "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",
+        "X-RapidAPI-Host": "target1.p.rapidapi.com"
+    }
+    params = {"keyword": query, "count": 10}
+
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("title"),
+            "price": item.get("price", {}).get("formatted_current_price"),
+            "link": item.get("url"),
+            "image_url": item.get("images", [{}])[0].get("base_url") + item.get("images", [{}])[0].get("primary")
+        } for item in data.get("data", {}).get("search", {}).get("products", [])]
+    return []
+
+def search_costco_product(query):
+    url = "https://costco4.p.rapidapi.com/search"
+    headers = {
+        "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",
+        "X-RapidAPI-Host": "costco4.p.rapidapi.com"
+    }
+    params = {"q": query}
+
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("name"),
+            "price": item.get("price"),
+            "link": item.get("url"),
+            "image_url": item.get("image")
+        } for item in data.get("products", [])]
+    return []
+
+
+def fetch_image_from_bing(product_name):
+    api_key = "YOUR_BING_API_KEY"
+    search_url = "https://api.bing.microsoft.com/v7.0/images/search"
+    headers = {"Ocp-Apim-Subscription-Key": api_key}
+    params = {"q": product_name, "count": 1}  # Limit to 1 image for speed
+
+    try:
+        response = requests.get(search_url, headers=headers, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            if "value" in data and len(data["value"]) > 0:
+                return data["value"][0]["contentUrl"]  # Return the first image URL
+    except Exception as e:
+        print(f"Error fetching image: {e}")
+    
+    return "https://via.placeholder.com/150"  # Default image if no result
+     
 def check_product_input(product):
     """Check if the product input is valid based on multiple criteria."""
     # Check for non-empty input

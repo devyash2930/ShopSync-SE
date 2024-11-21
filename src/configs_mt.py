@@ -24,20 +24,24 @@ WALMART = {
     },
     'title_indicator': 'span.lh-title',
     'price_indicator': 'div.lh-copy',
-    'link_indicator': 'a'
+    'link_indicator': 'a',
+    'image_indicator': 'absolute top-0 left-0',
+    'review_indicator': 'span.stars-container'
 }
 
-AMAZON = {
-    'site': 'amazon',
-    'url': 'https://www.amazon.com/s?k=',
-    'item_component': 'div',
-    'item_indicator': {
-        'data-component-type': 's-search-result'
-    },
-    'title_indicator': 'h2 a span',
-    'price_indicator': 'span.a-price span',
-    'link_indicator': 'h2 a.a-link-normal'
-}
+# AMAZON = {
+#     'site': 'amazon',
+#     'url': 'https://www.amazon.com/s?k=',
+#     'item_component': 'div',
+#     'item_indicator': {
+#         'data-component-type': 's-search-result'
+#     },
+#     'title_indicator': 'h2 a span',
+#     'price_indicator': 'span.a-price span',
+#     'link_indicator': 'h2 a.a-link-normal',
+#     'image_indicator': 'img.s-image',
+#     'review_indicator': 'span.a-declarative a i span'
+# }
 
 COSTCO = {
     'site': 'costco',
@@ -49,6 +53,8 @@ COSTCO = {
     'title_indicator': 'span a',
     'price_indicator': 'div.price',
     'link_indicator': 'span.description a',
+    'image_indicator': 'img.product-image',
+    'review_indicator': 'div.reviews-container'  
 }
 
 BESTBUY = {
@@ -61,6 +67,8 @@ BESTBUY = {
     'title_indicator': 'h4.sku-title a',
     'price_indicator': 'div.priceView-customer-price span',
     'link_indicator': 'a.image-link',
+    'image_indicator': 'img.product-image',
+    'review_indicator': 'div.c-ratings-reviews p'  
 }
 
 
@@ -194,4 +202,4 @@ class scrape_ebay(Thread):
         self.result = items
 
 
-CONFIGS = [WALMART, AMAZON, COSTCO, BESTBUY]
+CONFIGS = [WALMART, COSTCO, BESTBUY]

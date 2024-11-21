@@ -67,10 +67,20 @@ class search(Thread):
             title = res.select(self.config['title_indicator'])
             price = res.select(self.config['price_indicator'])
             link = res.select(self.config['link_indicator'])
-            product = form.formatResult(
-                self.config['site'], title, price, link)
+            image = res.select(self.config['image_indicator'])
+            review = res.select(self.config['review_indicator'])
+            product = form.formatResult(self.config['site'], title, price, link)
+
+            #print("Raw Title Data:", title)  # Debugging image
+            print("Raw Image Data:", image)  # Debugging image
+            print("Raw Review Data:", review)  # Debugging review
+            
+            product['image_url'] = image[0]['src'] if image else "https://via.placeholder.com/150"
+            product['review'] = review[0].text.strip() if review else "No Reviews"
+
             if product['title'] != '' and product['price'] != '' and product['link'] != '':
                 products.append(product)
+                
         self.result = products
 
     def httpsGet(self, URL):
