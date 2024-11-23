@@ -416,17 +416,20 @@ def app():
                     description.append(result['title'])
                     url.append(result['link'])
                     price_str = result['price']
-                    rating_value = get_random_value_from_list(my_list)
-
+                    rating_value = result.get('review', '0')  # Safely access 'review'
+                    print(rating_value)
+                    image = result['image_url']
                     # Clean and extract price
                     clean_price_str = re.sub(r'[^\d\.\,]', '', price_str)  # Remove unwanted characters
                     match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?)', clean_price_str)
-
+                    rating_matches = re.findall(r"\d+(?:\.\d+)?", rating_value)
+                    print(rating_matches)
+                    rating_float = [float(match) for match in rating_matches[:1]]
                     if match:
                         price_str = match.group(0).replace(',', '')  # Remove commas for conversion
                         price_f = float(price_str)
                         price.append(price_f)
-                        rating.append(rating_value)  # Append rating only if price is valid
+                        rating.append(rating_float)  # Append rating only if price is valid
                     else:
                         print("Unable to extract a valid price from the string:", price_str)
                         price.append(None)  # Append None if price extraction fails
