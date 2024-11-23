@@ -35,7 +35,7 @@ def create_app(db_client=None):
 
 def search_product(website, product_name):
     results = search_items_API(website, product_name)
-    print(results)
+    #print(results)
     return results
 
     
@@ -390,6 +390,7 @@ def app():
         site = []
         # rakuten = []
         rating = []
+        image = []
 
         import random
 
@@ -418,7 +419,7 @@ def app():
                     price_str = result['price']
                     rating_value = result.get('review', '0')  # Safely access 'review'
                     print(rating_value)
-                    image = result['image_url']
+                    image.append(result['image_url'])
                     # Clean and extract price
                     clean_price_str = re.sub(r'[^\d\.\,]', '', price_str)  # Remove unwanted characters
                     match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?)', clean_price_str)
@@ -441,7 +442,22 @@ def app():
         if len(price):
 
             dataframe = pd.DataFrame(
-                {'Description': description, 'Price': price, 'Link': url, 'Website': site,'Ratings': rating})
+                {'Image_URL': image, 'Description': description, 'Price': price, 'Link': url, 'Website': site,'Ratings': rating})
+            
+            def add_http_if_not_present(url):
+                if url.startswith('http://') or url.startswith('https://'):
+                    return url
+                else:
+                    return 'https://' + url
+            dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
+
+            dataframe['Image'] = dataframe.apply(
+                lambda row: f'<a href="{row["Link"]}" target="_blank"><img src="{row["Image_URL"]}" style="width:50px;height:50px;"></a>',
+                axis=1
+            )
+            
+            dataframe = dataframe.drop(["Image_URL", "Link"], axis=1)
+
             dataframe['Description'] = dataframe['Description'].apply(
                 split_description)
             dataframe['Product'] = dataframe['Description'].str.split(
@@ -458,13 +474,23 @@ def app():
             dataframe = dataframe.reset_index(drop=True)
             dataframe['Price'] = dataframe['Price'].apply(lambda x: f'{x:.2f}' if x is not None else 'N/A')
 
-            def add_http_if_not_present(url):
-                if url.startswith('http://') or url.startswith('https://'):
-                    return url
-                else:
-                    return 'https://' + url
-            dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
+
             st.session_state['dataframe'] = dataframe
+
+            styled_table = (
+                dataframe.style
+                .set_properties(**{'text-align': 'center'})
+                .set_table_styles([
+                    {"selector": "th", "props": [("text-align", "center")]},
+                    {"selector": "td", "props": [("text-align", "center")]}
+                ])
+            )
+            
+            # st.markdown(
+            #     styled_table.to_html(escape=False),  # Allow HTML content
+            #     unsafe_allow_html=True
+            # )
+
             st.success("Data successfully scraped and cached.")
             st.session_state.dataframe = dataframe
 
@@ -596,13 +622,26 @@ def app():
         )
 
         # Display styled DataFrame
-        st.dataframe(
-            styled_df,
-            column_config={"Link": st.column_config.LinkColumn("URL to website")},
-            use_container_width=True  # Ensure the DataFrame uses the maximum width
+        # st.dataframe(
+        #     styled_df,
+        #     column_config={"Link": st.column_config.LinkColumn("URL to website")},
+        #     use_container_width=True  # Ensure the DataFrame uses the maximum width
+        # )
+        styled_table = (
+                filtered_df.style
+                .set_properties(**{'text-align': 'center'})
+                .set_table_styles([
+                    {"selector": "th", "props": [("text-align", "center")]},
+                    {"selector": "td", "props": [("text-align", "center")]}
+                ])
+            )
+            
+        st.markdown(
+            styled_table.to_html(escape=False),  # Allow HTML content
+            unsafe_allow_html=True
         )
-        st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Add for favourites</h1>",
-                    unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Add for favourites</h1>",
+        #             unsafe_allow_html=True)
         # st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
         # //////////////////////////////////////////////////////////////////////////////////////////////
         # Prints the websites names from filter and dataframe to check
