@@ -449,10 +449,11 @@ def app():
             dataframe.insert(0, 'Product', product_column)
 
             dataframe['Price'] = dataframe['Price'].apply(
-                lambda x: float(f'{x:.2f}'))
+                lambda x: float(f'{float(x):.2f}') if pd.notnull(x) and str(x).replace('.', '', 1).isdigit() else None
+            )
             # dataframe = dataframe.sort_values(by='Price', ascending=True)
             dataframe = dataframe.reset_index(drop=True)
-            dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
+            dataframe['Price'] = dataframe['Price'].apply(lambda x: f'{x:.2f}' if x is not None else 'N/A')
 
             def add_http_if_not_present(url):
                 if url.startswith('http://') or url.startswith('https://'):
