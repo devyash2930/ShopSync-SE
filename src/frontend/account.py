@@ -27,8 +27,8 @@ def initialize_firebase(mock=False):
         if not firebase_admin._apps:
             firebase_admin.initialize_app()
         return True
+    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-9ecdc-firebase-adminsdk-60nyc-7e5a173fe8.json')
 
-    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
     try:
         # Path to Firebase service account key
         cred = credentials.Certificate(json_path)

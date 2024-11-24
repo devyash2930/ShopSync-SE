@@ -49,3 +49,8 @@ amazon query:iphone
 amazon query:iphone
 amazon query:iphone
 amazon query:ginger
+amazon query:watch
+amazon query:bag
+amazon query:shirt
+amazon query:bag
+amazon query:iphone
