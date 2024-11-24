@@ -388,7 +388,6 @@ def app():
         url = []
         price = []
         site = []
-        # rakuten = []
         rating = []
         image = []
 
@@ -655,63 +654,68 @@ def app():
         #///////////////////////////////////////////////////////////////////////////////////////////////
 
     if st.session_state.dataframe is not None:
+        # Add a label for the selectbox
         st.markdown('<span class="my-label">Select index to add to favourites</span>', unsafe_allow_html=True)
 
-        # Display the selectbox
-        selected_index = st.selectbox("", [None] + list(range(len(st.session_state.get("dataframe", [])))))
+        # Create a selectbox to choose an index from the dataframe
+        selected_index = st.selectbox(
+            "", 
+            [None] + list(range(len(st.session_state.dataframe))),  # Include 'None' for no selection
+            format_func=lambda x: f"Row {x}" if x is not None else "Select a row"
+        )
 
         # Close the container div
         st.markdown("</div></div>", unsafe_allow_html=True)
 
+        # Check if a valid row is selected
         if selected_index is not None:
-            fav = pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
+            # Extract the selected row with required columns
+            fav_row = st.session_state.dataframe.loc[
+                [selected_index], 
+                ['Product', 'Description', 'Price', 'Website', 'Ratings', 'Image']
+            ]
 
+            fav_row['Ratings'] = fav_row['Ratings'].apply(lambda x: x[0] if isinstance(x, list) and len(x) > 0 else None)
+
+            # Append the row to the favorites table in session state
             if 'fav' in st.session_state:
                 st.session_state.fav = pd.concat(
-                    [st.session_state.fav, fav], axis=0).drop_duplicates()
-                st.dataframe(st.session_state.fav.style, column_config={"Link": st.column_config.LinkColumn(
-                    "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
-
+                    [st.session_state.fav, fav_row], axis=0
+                ).drop_duplicates()
             else:
-                st.session_state.fav = fav.copy()
-                st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn(
-                    "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+                st.session_state.fav = fav_row
+
+            styled_table = (
+                st.session_state.fav.style
+                .set_properties(**{'text-align': 'center'})
+                .set_table_styles([
+                    {"selector": "th", "props": [("text-align", "center")]},
+                    {"selector": "td", "props": [("text-align", "center")]}
+                ])
+            )
             
+            st.markdown(
+                styled_table.to_html(escape=False),  # Allow HTML content
+                unsafe_allow_html=True
+            )
+            #st.dataframe(st.session_state.fav[['Product', 'Description', 'Price', 'Website', 'Ratings', 'Image']], use_container_width=True)
+
+            # Save the favorites table to Firestore
             user = auth.get_user_by_email(st.session_state.user_email)  # Replace with actual user email
             uid = user.uid
 
             # Reference to the user's document in "favourites" collection
             user_fav_ref = db.collection("favourites").document(uid)
 
-            # Get the user's current favorites data, or create a new structure if it doesn't exist
-            user_fav_doc = user_fav_ref.get()
-            
-            if user_fav_doc.exists:
-                # If the document exists, retrieve the current data
-                user_fav_data = user_fav_doc.to_dict()
-            else:
-                # Initialize empty arrays if document doesn't exist
-                user_fav_data = {
-                    "Description": [],
-                    "Link": [],
-                    "Price": [],
-                    "Product": [],
-                    # "Rating": [],
-                    "Website": []
-                }
+            # Convert favorites table to a dictionary format compatible with Firestore
+            user_fav_data = st.session_state.fav[['Product', 'Description', 'Price', 'Website', 'Ratings', 'Image']].to_dict(orient='list')
 
-            user_fav_data["Description"].append(fav["Description"].values[0])  # Access the actual value
-            user_fav_data["Link"].append(fav["Link"].values[0])  # Access the actual value
-            user_fav_data["Price"].append(fav["Price"].values[0])  # Access the actual value
-            user_fav_data["Product"].append(fav["Product"].values[0])  # Access the actual value
-            # user_fav_data["Rating"].append(fav["Rating"].values[0])  # Access the actual value
-            user_fav_data["Website"].append(fav["Website"].values[0])  # Access the actual value
-
-            # Update the user's document in Firestore with the new data
+            # Save to Firestore
             user_fav_ref.set(user_fav_data)
-            
-            st.success(f"{product} has been added to your favorites!")
 
+            st.success(f"{st.session_state.dataframe.loc[selected_index, 'Product']} has been added to your favorites!")
+        
+       
     # Add footer to UI
     footer = """
     <style>
