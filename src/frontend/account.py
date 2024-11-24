@@ -11,6 +11,10 @@ import re
 from PIL import Image
 from PIL import Image
 from dotenv import load_dotenv
+import json
+import slash_user_interface as slash_user_interface
+from streamlit_cookies_controller import CookieController
+import time
 
 # Load environment variables from .env file
 load_dotenv()
@@ -209,6 +213,26 @@ def app():
                         # If login successful, update session state
                         st.session_state.logged_in = True
                         st.session_state.user_email = email
+
+                        # Update the tokens json file
+                        with open('tokens.json') as openfile:
+                            json_object = json.load(openfile)
+
+                        controller = CookieController()
+                        token = controller.get("csrftoken")
+
+                        tokenData = {
+                            "email": email,
+                            "expiration": time.time() + 70000
+                        }
+                        
+                        json_object["tokens"][token] = tokenData
+
+                        json_output = json.dumps(json_object, indent=4)
+
+                        with open('tokens.json', 'w') as openfile:
+                            openfile.write(json_output)
+
                         st.success('Logged in successfully!')
                         st.rerun()  # Rerun the app to reflect login state
 
@@ -299,6 +323,19 @@ def signup(username, email, password):
             raise ValueError("An unexpected error occurred.")
 
 def logout():
+    # Delete token on logout
+    with open('tokens.json', 'r') as openfile:
+        json_object = json.load(openfile)
+    controller = CookieController()
+    token = controller.get("csrftoken")
+
+    del json_object["tokens"][token]
+
+    json_output = json.dumps(json_object, indent=4)
+
+    with open('tokens.json', 'w') as openfile:
+        openfile.write(json_output)
+
     # Clear session state on logout
     st.session_state.logged_in = False
     st.session_state.user_email = None
