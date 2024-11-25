@@ -162,7 +162,7 @@ def app():
         }
         .stSlider{
         margin-top: -30px;
-        margin-left: -50px;
+        margin-left: -65px;
         width: 400px !important;}
         </style>
         """,
@@ -387,7 +387,7 @@ def app():
         st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Result</h1>",
                     unsafe_allow_html=True)
         
-        col1, col2 = st.columns([1, 2])# adjust the columns for price range and filters
+        col1, col2 = st.columns([1, 1])# adjust the columns for price range and filters
         with col1:
 
             st.session_state.dataframe['Price'] = pd.to_numeric(
