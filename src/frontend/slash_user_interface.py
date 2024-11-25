@@ -7,6 +7,7 @@ This code is licensed under MIT license (see LICENSE.MD for details)
 # Import Libraries
 import os
 import sys
+import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import streamlit.components.v1 as components
 import re
@@ -383,6 +384,32 @@ def app():
         company_list = conf.getCompanies()
         # results = search_product(website, product)        
         results = search_product(website_dict[website], product)
+
+        user = auth.get_user_by_email(st.session_state.user_email)  # Replace with actual user email
+        uid = user.uid
+
+        # Reference to the user's document in "hisourites" collection
+        user_his_ref = db.collection("history").document(uid)
+
+        # Get the user's current hisorites data, or create a new structure if it doesn't exist
+        user_his_doc = user_his_ref.get()
+        
+        if user_his_doc.exists:
+            # If the document exists, retrieve the current data
+            user_his_data = user_his_doc.to_dict()
+        else:
+            # Initialize empty arrays if document doesn't exist
+            user_his_data = {
+                "Search": [],
+                "Timestamp": []
+            }
+
+        user_his_data["Search"].append(product)  # Access the actual value
+        user_his_data["Timestamp"].append(time.time())  # Access the actual value
+
+        # Update the user's document in Firestore with the new data
+        user_his_ref.set(user_his_data)
+
         # Use st.columns based on return values
         description = []
         url = []
