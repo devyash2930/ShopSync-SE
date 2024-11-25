@@ -56,3 +56,13 @@ amazon query:bag
 amazon query:iphone
 amazon query:dunks
 amazon query:banana
+amazon query:t shirt
+amazon query:apple
+amazon query:banana
+amazon query:apple
+amazon query:water
+amazon query:glass
+amazon query:popcorn
+amazon query:plate
+amazon query:banana
+amazon query:wine

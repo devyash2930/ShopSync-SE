@@ -153,7 +153,7 @@ def app():
         /* Align checkboxes to the right */
         div[data-testid="stHorizontalBlock"] {
             display: flex;
-            justify-content: flex-end; /* Align checkboxes to the right */
+            justify-content: right; /* Align checkboxes to the right */
         }
 
         label {
@@ -162,7 +162,7 @@ def app():
         }
         .stSlider{
         margin-top: -30px;
-        margin-left: 5px;
+        margin-left: -50px;
         width: 400px !important;}
         </style>
         """,
