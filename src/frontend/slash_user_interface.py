@@ -276,15 +276,32 @@ def app():
             margin-top: -40px;
         }
         /* Adjust the select box width */
+        # .stSelectbox {
+        #     font-size: 400px !important;
+        #     width: 100% !important;
+        #     max-width: 500px;
+        #     margin-top: -40px;
+        # }
         .stSelectbox {
             font-size: 400px !important;
             width: 100% !important;
             max-width: 500px;
             margin-top: -40px;
         }
+
+        /* Align checkboxes to the right */
+        div[data-testid="stHorizontalBlock"] {
+            display: flex;
+            justify-content: right; /* Align checkboxes to the right */
+        }
+
+        label {
+            margin-left: auto; /* Push label text to the left */
+            text-align: right; /* Align text to the right */
+        }
         .stSlider{
         margin-top: -30px;
-        margin-left: 5px;
+        margin-left: -65px;
         width: 400px !important;}
         </style>
         """,
@@ -564,7 +581,7 @@ def app():
         st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Result</h1>",
                     unsafe_allow_html=True)
         
-        col1, col2 = st.columns([1, 2])# adjust the columns for price range and filters
+        col1, col2 = st.columns([1, 1])# adjust the columns for price range and filters
         with col1:
 
             st.session_state.dataframe['Price'] = pd.to_numeric(
