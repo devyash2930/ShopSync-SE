@@ -5,6 +5,11 @@ import account  # Ensure this module handles user authentication
 import slash_user_interface as slash_user_interface
 import favourites
 import logout  # Import the logout module
+import json
+import history
+import slash_user_interface as slash_user_interface
+import time
+from streamlit_cookies_controller import CookieController
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module='streamlit')
 
@@ -19,14 +24,40 @@ class MultiApp:
         })
     
     def run(self):
+        # See if already logged in
+        with open('tokens.json', 'r') as openfile:
+            json_object = json.load(openfile)
+        controller = CookieController()
+        token = controller.get("csrftoken")
+        
+        if token not in json_object["tokens"]:
+            if 'logged_in' not in st.session_state:
+                st.session_state.logged_in = False
+            if 'user_email' not in st.session_state:
+                st.session_state.user_email = None
+        else:
+            if time.time() > json_object["tokens"][token]["expiration"]:
+                del json_object["tokens"][token]
+
+                json_output = json.dumps(json_object, indent=4)
+
+                with open('tokens.json', 'w') as openfile:
+                    openfile.write(json_output)
+
+                st.session_state.logged_in = False
+                st.session_state.user_email = None
+            else:
+                st.session_state.logged_in = True
+                st.session_state.user_email = json_object["tokens"][token]["email"]
+                
         # Determine the default selected app based on login status
         default_index = 0 if not st.session_state.get('logged_in') else 1
 
         with st.sidebar:
             app = option_menu(
                 menu_title='ShopSync',
-                options=['Account', 'Home', 'Favourites', 'Logout'],
-                icons=['person-circle', 'house-fill', 'star-fill', 'box-arrow-right'],
+                options=['Account', 'Home', 'Favourites', 'History', 'Logout'],
+                icons=['person-circle', 'house-fill', 'star-fill', 'box-arrow-right', 'box-arrow-right'],
                 menu_icon='shop',
                 default_index=default_index,
                 styles={
@@ -52,7 +83,13 @@ class MultiApp:
                 favourites.app()
             else:
                 st.warning("You need to log in to access the favourites page.")
-        
+                
+        elif app == "History":
+            if st.session_state.get('logged_in'):
+                history.app()
+            else:
+                st.warning("You need to log in to access the history page.")
+
         elif app == "Logout":
             logout.app()  # Call the logout function
 
@@ -62,4 +99,5 @@ if __name__ == '__main__':
     app.add_app("Account", account.app)
     app.add_app("Home", slash_user_interface.app)
     app.add_app("Favourites", favourites.app)
+    app.add_app("History", history.app)
     app.run()

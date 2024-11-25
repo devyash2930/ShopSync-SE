@@ -44,8 +44,8 @@ def app(firestore_client=None):
 
         # Convert user's favorites into a DataFrame
         favorites_df = pd.DataFrame({
+            "Image_URL": user_fav_data["Image_URL"],
             "Description": user_fav_data["Description"],
-            "Link": user_fav_data["Link"],
             "Price": user_fav_data["Price"],
             "Product": user_fav_data["Product"],
             "Website": user_fav_data["Website"],

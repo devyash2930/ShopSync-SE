@@ -59,6 +59,8 @@ BESTBUY = {
     'title_indicator': 'h4.sku-header a',
     'price_indicator': 'div.priceView-customer-price span',
     'link_indicator': 'a.image-link',
+    'image_indicator': 'image.primary-image', 
+    'review_indicator': 'span.ugc-c-review-average'
 }
 
 
