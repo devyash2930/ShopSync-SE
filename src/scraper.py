@@ -13,7 +13,7 @@ from threading import Thread
 
 # local imports
 import formattr as form
-from configs_mt import AMAZON, WALMART, COSTCO, BESTBUY, scrape_ebay, scrape_target
+from configs_mt import WALMART, COSTCO, BESTBUY, scrape_ebay, scrape_target
 
 class search(Thread):
     def __init__(self, query, config):
@@ -61,12 +61,19 @@ class search(Thread):
             title = res.select(self.config['title_indicator'])
             price = res.select(self.config['price_indicator'])
             link = res.select(self.config['link_indicator'])
-            # print("Title =======> ", title)
-            # print("Price =======> ", price)
-            # print("Link =======> ", link)
+            image = res.select(self.config['image_indicator'])
+            review = res.select(self.config['review_indicator'])
             product = form.formatResult(self.config['site'], title, price, link)
+
+            #print("Raw Image Data:", image)  # Debugging image
+            #print("Raw Review Data:", review)  # Debugging review
+
+            product['image_url'] = image[0]['src'] if image else "https://via.placeholder.com/150"
+            product['review'] = review[0].text.strip() if review else "0 0 0"
+
             if product['title'] != '' and product['price'] != '' and product['link'] != '':
                 products.append(product)
+                
         self.result = products
 
     def httpsGet(self, URL):
@@ -130,14 +137,14 @@ def scrape(args, scrapers):
 
     i = 0
     while i < len(scrapers):
-        if scrapers[i] == 'amazon':
-            t_az = search(query, AMAZON)
-            t_az.start()
-            i += 1
-            if i == len(scrapers):
-                break
+        # if scrapers[i] == 'amazon':
+        #     t_az = search(query, AMAZON)
+        #     t_az.start()
+        #     i += 1
+        #     if i == len(scrapers):
+        #         break
         if scrapers[i] == 'bestbuy':
-            print("Bestbuy")
+            #print("Bestbuy")
             t_bb = search(query, BESTBUY)
             t_bb.start()
             i += 1
@@ -157,6 +164,7 @@ def scrape(args, scrapers):
                 break
         if scrapers[i] == 'target':
             t_tg = scrape_target(query)
+            # t_tg = search(query, TARGET)
             t_tg.start()
             i += 1
             if i == len(scrapers):
@@ -174,14 +182,14 @@ def scrape(args, scrapers):
 
     i = 0
     while i < len(scrapers) :
-        if scrapers[i] == 'amazon':
-            t_az.join()
-            i += 1
-            for sort_by in args['sort']:
-                local = form.sortList(t_az.result, sort_by, args['des'])[:args.get('num', len(t_az.result))]
-            overall.extend(local)
-            if i == len(scrapers):
-                break
+        # if scrapers[i] == 'amazon':
+        #     t_az.join()
+        #     i += 1
+        #     for sort_by in args['sort']:
+        #         local = form.sortList(t_az.result, sort_by, args['des'])[:args.get('num', len(t_az.result))]
+        #     overall.extend(local)
+        #     if i == len(scrapers):
+        #         break
         if scrapers[i] == 'bestbuy':
             t_bb.join()
             i += 1

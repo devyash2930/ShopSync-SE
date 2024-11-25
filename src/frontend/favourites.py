@@ -14,7 +14,7 @@ def initialize_firebase(mock=False):
             firebase_admin.initialize_app()
         return True
 
-    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-se-firebase-adminsdk-nkzuw-e871ea65d4.json')
+    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-9ecdc-firebase-adminsdk-60nyc-a335ead1ea.json')
     try:
         # Path to Firebase service account key
         cred = credentials.Certificate(json_path)
@@ -50,8 +50,8 @@ def app(firestore_client=None):
 
         # Create a DataFrame from the user's favorites
         favorites_df = pd.DataFrame({
+            "Image_URL": user_fav_data["Image_URL"],
             "Description": user_fav_data["Description"],
-            "Link": user_fav_data["Link"],
             "Price": user_fav_data["Price"],
             "Product": user_fav_data["Product"],
             "Website": user_fav_data["Website"],

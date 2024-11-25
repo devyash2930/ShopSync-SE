@@ -16,6 +16,8 @@ from url_shortener import shorten_url
 from main_streamlit import search_items_API
 import streamlit as st
 from firebase_admin import firestore, auth
+from bs4 import BeautifulSoup
+import requests
 # sys.path.append('../')
 # st.set_page_config(layout= "wide")
 # st.title("ShopSync")
@@ -32,8 +34,144 @@ def create_app(db_client=None):
         db_client = get_firestore_client()
 
 def search_product(website, product_name):
-    return search_items_API(website, product_name)
+    results = search_items_API(website, product_name)
+    #print(results)
+    return results
 
+    
+
+def search_walmart_product(query):
+    api_key = "YOUR_WALMART_API_KEY"
+    url = f"https://api.walmartlabs.com/v1/search"
+    params = {
+        "query": query,
+        "format": "json",
+        "apiKey": api_key
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("name"),
+            "price": f"${item.get('salePrice', 'N/A')}",
+            "link": item.get("productUrl"),
+            "image_url": item.get("thumbnailImage", "https://via.placeholder.com/150")
+        } for item in data.get("items", [])]
+    return []
+
+def search_amazon_product(query):
+    url = "https://amazon24.p.rapidapi.com/api/product"
+    headers = {
+        "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",
+        "X-RapidAPI-Host": "amazon24.p.rapidapi.com"
+    }
+    params = {"country": "US", "keyword": query}
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": product.get("title"),
+            "price": product.get("price"),
+            "link": product.get("link"),
+            "image_url": product.get("thumbnail")
+        } for product in data.get("docs", [])]
+    return []
+
+def search_ebay_product(query):
+    app_id = "YOUR_EBAY_APP_ID"
+    url = "https://svcs.ebay.com/services/search/FindingService/v1"
+    params = {
+        "OPERATION-NAME": "findItemsByKeywords",
+        "SERVICE-VERSION": "1.0.0",
+        "SECURITY-APPNAME": app_id,
+        "RESPONSE-DATA-FORMAT": "JSON",
+        "keywords": query
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("title")[0],
+            "price": item.get("sellingStatus", [{}])[0].get("currentPrice", [{}])[0].get("__value__"),
+            "link": item.get("viewItemURL", ["#"])[0],
+            "image_url": item.get("galleryURL", ["https://via.placeholder.com/150"])[0]
+        } for item in data.get("findItemsByKeywordsResponse", [{}])[0].get("searchResult", [{}])[0].get("item", [])]
+    return []
+
+def search_bestbuy_product(query):
+    api_key = "YOUR_BESTBUY_API_KEY"
+    url = f"https://api.bestbuy.com/v1/products((search={query}))"
+    params = {
+        "format": "json",
+        "apiKey": api_key
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": product.get("name"),
+            "price": product.get("salePrice"),
+            "link": product.get("url"),
+            "image_url": product.get("image")
+        } for product in data.get("products", [])]
+    return []
+
+def search_target_product(query):
+    url = "https://target1.p.rapidapi.com/products/v3/search"
+    headers = {
+        "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",
+        "X-RapidAPI-Host": "target1.p.rapidapi.com"
+    }
+    params = {"keyword": query, "count": 10}
+
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("title"),
+            "price": item.get("price", {}).get("formatted_current_price"),
+            "link": item.get("url"),
+            "image_url": item.get("images", [{}])[0].get("base_url") + item.get("images", [{}])[0].get("primary")
+        } for item in data.get("data", {}).get("search", {}).get("products", [])]
+    return []
+
+def search_costco_product(query):
+    url = "https://costco4.p.rapidapi.com/search"
+    headers = {
+        "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",
+        "X-RapidAPI-Host": "costco4.p.rapidapi.com"
+    }
+    params = {"q": query}
+
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [{
+            "title": item.get("name"),
+            "price": item.get("price"),
+            "link": item.get("url"),
+            "image_url": item.get("image")
+        } for item in data.get("products", [])]
+    return []
+
+
+def fetch_image_from_bing(product_name):
+    api_key = "YOUR_BING_API_KEY"
+    search_url = "https://api.bing.microsoft.com/v7.0/images/search"
+    headers = {"Ocp-Apim-Subscription-Key": api_key}
+    params = {"q": product_name, "count": 1}  # Limit to 1 image for speed
+
+    try:
+        response = requests.get(search_url, headers=headers, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            if "value" in data and len(data["value"]) > 0:
+                return data["value"][0]["contentUrl"]  # Return the first image URL
+    except Exception as e:
+        print(f"Error fetching image: {e}")
+    
+    return "https://via.placeholder.com/150"  # Default image if no result
+     
 def check_product_input(product):
     """Check if the product input is valid based on multiple criteria."""
     # Check for non-empty input
@@ -250,8 +388,8 @@ def app():
         url = []
         price = []
         site = []
-        # rakuten = []
         rating = []
+        image = []
 
         import random
 
@@ -278,17 +416,20 @@ def app():
                     description.append(result['title'])
                     url.append(result['link'])
                     price_str = result['price']
-                    rating_value = get_random_value_from_list(my_list)
-
+                    rating_value = result.get('review', '0')  # Safely access 'review'
+                    print(rating_value)
+                    image.append(result['image_url'])
                     # Clean and extract price
                     clean_price_str = re.sub(r'[^\d\.\,]', '', price_str)  # Remove unwanted characters
                     match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?)', clean_price_str)
-
+                    rating_matches = re.findall(r"\d+(?:\.\d+)?", rating_value)
+                    print(rating_matches)
+                    rating_float = [float(match) for match in rating_matches[:1]]
                     if match:
                         price_str = match.group(0).replace(',', '')  # Remove commas for conversion
                         price_f = float(price_str)
                         price.append(price_f)
-                        rating.append(rating_value)  # Append rating only if price is valid
+                        rating.append(rating_float)  # Append rating only if price is valid
                     else:
                         print("Unable to extract a valid price from the string:", price_str)
                         price.append(None)  # Append None if price extraction fails
@@ -300,7 +441,22 @@ def app():
         if len(price):
 
             dataframe = pd.DataFrame(
-                {'Description': description, 'Price': price, 'Link': url, 'Website': site,'Ratings': rating})
+                {'Image_URL': image, 'Description': description, 'Price': price, 'Link': url, 'Website': site,'Ratings': rating})
+            
+            def add_http_if_not_present(url):
+                if url.startswith('http://') or url.startswith('https://'):
+                    return url
+                else:
+                    return 'https://' + url
+            dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
+
+            dataframe['Image'] = dataframe.apply(
+                lambda row: f'<a href="{row["Link"]}" target="_blank"><img src="{row["Image_URL"]}" style="width:50px;height:50px;"></a>',
+                axis=1
+            )
+            
+            dataframe = dataframe.drop(["Image_URL", "Link"], axis=1)
+
             dataframe['Description'] = dataframe['Description'].apply(
                 split_description)
             dataframe['Product'] = dataframe['Description'].str.split(
@@ -311,18 +467,29 @@ def app():
             dataframe.insert(0, 'Product', product_column)
 
             dataframe['Price'] = dataframe['Price'].apply(
-                lambda x: float(f'{x:.2f}'))
+                lambda x: float(f'{float(x):.2f}') if pd.notnull(x) and str(x).replace('.', '', 1).isdigit() else None
+            )
             # dataframe = dataframe.sort_values(by='Price', ascending=True)
             dataframe = dataframe.reset_index(drop=True)
-            dataframe['Price'] = [f'{x:.2f}' for x in dataframe['Price']]
+            dataframe['Price'] = dataframe['Price'].apply(lambda x: f'{x:.2f}' if x is not None else 'N/A')
 
-            def add_http_if_not_present(url):
-                if url.startswith('http://') or url.startswith('https://'):
-                    return url
-                else:
-                    return 'https://' + url
-            dataframe['Link'] = dataframe['Link'].apply(add_http_if_not_present)
+
             st.session_state['dataframe'] = dataframe
+
+            styled_table = (
+                dataframe.style
+                .set_properties(**{'text-align': 'center'})
+                .set_table_styles([
+                    {"selector": "th", "props": [("text-align", "center")]},
+                    {"selector": "td", "props": [("text-align", "center")]}
+                ])
+            )
+            
+            # st.markdown(
+            #     styled_table.to_html(escape=False),  # Allow HTML content
+            #     unsafe_allow_html=True
+            # )
+
             st.success("Data successfully scraped and cached.")
             st.session_state.dataframe = dataframe
 
@@ -454,13 +621,26 @@ def app():
         )
 
         # Display styled DataFrame
-        st.dataframe(
-            styled_df,
-            column_config={"Link": st.column_config.LinkColumn("URL to website")},
-            use_container_width=True  # Ensure the DataFrame uses the maximum width
+        # st.dataframe(
+        #     styled_df,
+        #     column_config={"Link": st.column_config.LinkColumn("URL to website")},
+        #     use_container_width=True  # Ensure the DataFrame uses the maximum width
+        # )
+        styled_table = (
+                filtered_df.style
+                .set_properties(**{'text-align': 'center'})
+                .set_table_styles([
+                    {"selector": "th", "props": [("text-align", "center")]},
+                    {"selector": "td", "props": [("text-align", "center")]}
+                ])
+            )
+            
+        st.markdown(
+            styled_table.to_html(escape=False),  # Allow HTML content
+            unsafe_allow_html=True
         )
-        st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Add for favourites</h1>",
-                    unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: left; margin-bottom: -65px; color: #343434; margin-bottom: -20px;'>Add for favourites</h1>",
+        #             unsafe_allow_html=True)
         # st.write('<span style="font-size: 24px;">Add for favorites</span>', unsafe_allow_html=True)
         # //////////////////////////////////////////////////////////////////////////////////////////////
         # Prints the websites names from filter and dataframe to check
@@ -474,63 +654,68 @@ def app():
         #///////////////////////////////////////////////////////////////////////////////////////////////
 
     if st.session_state.dataframe is not None:
+        # Add a label for the selectbox
         st.markdown('<span class="my-label">Select index to add to favourites</span>', unsafe_allow_html=True)
 
-        # Display the selectbox
-        selected_index = st.selectbox("", [None] + list(range(len(st.session_state.get("dataframe", [])))))
+        # Create a selectbox to choose an index from the dataframe
+        selected_index = st.selectbox(
+            "", 
+            [None] + list(range(len(st.session_state.dataframe))),  # Include 'None' for no selection
+            format_func=lambda x: f"Row {x}" if x is not None else "Select a row"
+        )
 
         # Close the container div
         st.markdown("</div></div>", unsafe_allow_html=True)
 
+        # Check if a valid row is selected
         if selected_index is not None:
-            fav = pd.DataFrame([st.session_state.dataframe.iloc[selected_index]])
+            # Extract the selected row with required columns
+            fav_row = st.session_state.dataframe.loc[
+                [selected_index], 
+                ['Product', 'Description', 'Price', 'Website', 'Ratings', 'Image']
+            ]
 
+            fav_row['Ratings'] = fav_row['Ratings'].apply(lambda x: x[0] if isinstance(x, list) and len(x) > 0 else None)
+
+            # Append the row to the favorites table in session state
             if 'fav' in st.session_state:
                 st.session_state.fav = pd.concat(
-                    [st.session_state.fav, fav], axis=0).drop_duplicates()
-                st.dataframe(st.session_state.fav.style, column_config={"Link": st.column_config.LinkColumn(
-                    "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
-
+                    [st.session_state.fav, fav_row], axis=0
+                ).drop_duplicates()
             else:
-                st.session_state.fav = fav.copy()
-                st.dataframe(fav.style, column_config={"Link": st.column_config.LinkColumn(
-                    "URL to website"), "Button": st.column_config.LinkColumn("Add to fav")},)
+                st.session_state.fav = fav_row
+
+            styled_table = (
+                st.session_state.fav.style
+                .set_properties(**{'text-align': 'center'})
+                .set_table_styles([
+                    {"selector": "th", "props": [("text-align", "center")]},
+                    {"selector": "td", "props": [("text-align", "center")]}
+                ])
+            )
             
+            st.markdown(
+                styled_table.to_html(escape=False),  # Allow HTML content
+                unsafe_allow_html=True
+            )
+            #st.dataframe(st.session_state.fav[['Product', 'Description', 'Price', 'Website', 'Ratings', 'Image']], use_container_width=True)
+
+            # Save the favorites table to Firestore
             user = auth.get_user_by_email(st.session_state.user_email)  # Replace with actual user email
             uid = user.uid
 
             # Reference to the user's document in "favourites" collection
             user_fav_ref = db.collection("favourites").document(uid)
 
-            # Get the user's current favorites data, or create a new structure if it doesn't exist
-            user_fav_doc = user_fav_ref.get()
-            
-            if user_fav_doc.exists:
-                # If the document exists, retrieve the current data
-                user_fav_data = user_fav_doc.to_dict()
-            else:
-                # Initialize empty arrays if document doesn't exist
-                user_fav_data = {
-                    "Description": [],
-                    "Link": [],
-                    "Price": [],
-                    "Product": [],
-                    # "Rating": [],
-                    "Website": []
-                }
+            # Convert favorites table to a dictionary format compatible with Firestore
+            user_fav_data = st.session_state.fav[['Product', 'Description', 'Price', 'Website', 'Ratings', 'Image']].to_dict(orient='list')
 
-            user_fav_data["Description"].append(fav["Description"].values[0])  # Access the actual value
-            user_fav_data["Link"].append(fav["Link"].values[0])  # Access the actual value
-            user_fav_data["Price"].append(fav["Price"].values[0])  # Access the actual value
-            user_fav_data["Product"].append(fav["Product"].values[0])  # Access the actual value
-            # user_fav_data["Rating"].append(fav["Rating"].values[0])  # Access the actual value
-            user_fav_data["Website"].append(fav["Website"].values[0])  # Access the actual value
-
-            # Update the user's document in Firestore with the new data
+            # Save to Firestore
             user_fav_ref.set(user_fav_data)
-            
-            st.success(f"{product} has been added to your favorites!")
 
+            st.success(f"{st.session_state.dataframe.loc[selected_index, 'Product']} has been added to your favorites!")
+        
+       
     # Add footer to UI
     footer = """
     <style>
