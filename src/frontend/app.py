@@ -6,6 +6,7 @@ import slash_user_interface as slash_user_interface
 import favourites
 import logout  # Import the logout module
 import json
+import history
 import slash_user_interface as slash_user_interface
 import time
 from streamlit_cookies_controller import CookieController
@@ -55,8 +56,8 @@ class MultiApp:
         with st.sidebar:
             app = option_menu(
                 menu_title='ShopSync',
-                options=['Account', 'Home', 'Favourites', 'Logout'],
-                icons=['person-circle', 'house-fill', 'star-fill', 'box-arrow-right'],
+                options=['Account', 'Home', 'Favourites', 'History', 'Logout'],
+                icons=['person-circle', 'house-fill', 'star-fill', 'box-arrow-right', 'box-arrow-right'],
                 menu_icon='shop',
                 default_index=default_index,
                 styles={
@@ -82,7 +83,13 @@ class MultiApp:
                 favourites.app()
             else:
                 st.warning("You need to log in to access the favourites page.")
-        
+                
+        elif app == "History":
+            if st.session_state.get('logged_in'):
+                history.app()
+            else:
+                st.warning("You need to log in to access the history page.")
+
         elif app == "Logout":
             logout.app()  # Call the logout function
 
@@ -92,4 +99,5 @@ if __name__ == '__main__':
     app.add_app("Account", account.app)
     app.add_app("Home", slash_user_interface.app)
     app.add_app("Favourites", favourites.app)
+    app.add_app("History", history.app)
     app.run()
