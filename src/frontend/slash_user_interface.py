@@ -137,11 +137,28 @@ def app():
             margin-top: -40px;
         }
         /* Adjust the select box width */
+        # .stSelectbox {
+        #     font-size: 400px !important;
+        #     width: 100% !important;
+        #     max-width: 500px;
+        #     margin-top: -40px;
+        # }
         .stSelectbox {
             font-size: 400px !important;
             width: 100% !important;
             max-width: 500px;
             margin-top: -40px;
+        }
+
+        /* Align checkboxes to the right */
+        div[data-testid="stHorizontalBlock"] {
+            display: flex;
+            justify-content: flex-end; /* Align checkboxes to the right */
+        }
+
+        label {
+            margin-left: auto; /* Push label text to the left */
+            text-align: right; /* Align text to the right */
         }
         .stSlider{
         margin-top: -30px;

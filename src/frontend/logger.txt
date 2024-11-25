@@ -54,3 +54,5 @@ amazon query:bag
 amazon query:shirt
 amazon query:bag
 amazon query:iphone
+amazon query:dunks
+amazon query:banana
