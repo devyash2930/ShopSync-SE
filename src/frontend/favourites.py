@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
 import pandas as pd
@@ -22,6 +23,21 @@ def initialize_firebase(mock=False):
         print(f"Error initializing Firebase: {e}")
         raise e
 
+# Found this workaround here: https://github.com/streamlit/streamlit/issues/688#issuecomment-1575704898
+# This is a known issue and something they're trying to implement properly into streamlit
+def dataframe_with_selections(df):
+    df_with_selections = df.copy()
+    df_with_selections.insert(0, "Select", False)
+    edited_df = st.data_editor(
+        df_with_selections,
+        hide_index=True,
+        column_config={"Select": st.column_config.CheckboxColumn(required=True)},
+        disabled=df.columns,
+    )
+    selected_indices = list(np.where(edited_df.Select)[0])
+    selected_rows = df[edited_df.Select]
+    return selected_indices
+
 def app(firestore_client=None):
     if not firebase_admin._apps:
         initialize_firebase(mock=False)
@@ -44,35 +60,29 @@ def app(firestore_client=None):
 
         # Convert user's favorites into a DataFrame
         favorites_df = pd.DataFrame({
-            "Image_URL": user_fav_data["Image_URL"],
+            "Product": user_fav_data["Product"],
             "Description": user_fav_data["Description"],
             "Price": user_fav_data["Price"],
-            "Product": user_fav_data["Product"],
             "Website": user_fav_data["Website"],
+            "Image": user_fav_data["Image"]
         })
 
         # Display the favorites DataFrame
-        print("there")
-        for index, row in favorites_df.iterrows():
-            st.write(f"### {row['Product']}")
-            st.write(f"**Description:** {row['Description']}")
-            st.write(f"**Price:** {row['Price']}")
-            st.write(f"**Website:** {row['Website']}")
-            st.markdown(f"[View Product]({row['Link']})", unsafe_allow_html=True)
-
-            # Add a "Remove from Favorites" button
-            print("here")
-            if st.button(f"Remove {row['Product']}", key=f"remove_{index}"):
-                # Remove the product from Firestore
-                updated_favorites = {
-                    "Description": [d for i, d in enumerate(user_fav_data["Description"]) if i != index],
-                    "Link": [l for i, l in enumerate(user_fav_data["Link"]) if i != index],
-                    "Price": [p for i, p in enumerate(user_fav_data["Price"]) if i != index],
-                    "Product": [p for i, p in enumerate(user_fav_data["Product"]) if i != index],
-                    "Website": [w for i, w in enumerate(user_fav_data["Website"]) if i != index],
-                }
-                user_fav_ref.set(updated_favorites)
-                st.success(f"{row['Product']} removed from favorites.")
-                #st.experimental_rerun()  # Refresh the page after removal
+        selection = dataframe_with_selections(favorites_df)
+        
+        if st.button(f"Remove"):
+            # st.write(selection)
+            # Remove the product from Firestore
+            updated_favorites = {
+                "Description": [d for i, d in enumerate(user_fav_data["Description"]) if i not in selection],
+                "Image": [k for i, k in enumerate(user_fav_data["Image"]) if i not in selection],
+                "Ratings": [l for i, l in enumerate(user_fav_data["Ratings"]) if i not in selection],
+                "Price": [p for i, p in enumerate(user_fav_data["Price"]) if i not in selection],
+                "Product": [p for i, p in enumerate(user_fav_data["Product"]) if i not in selection],
+                "Website": [w for i, w in enumerate(user_fav_data["Website"]) if i not in selection],
+            }
+            user_fav_ref.set(updated_favorites)
+            # st.success(f"{selection} removed from favorites.")
+            st.rerun()  # Refresh the page after removal
     else:
         st.write("You have no favorites yet.")
