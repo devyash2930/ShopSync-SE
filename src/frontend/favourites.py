@@ -14,7 +14,7 @@ def initialize_firebase(mock=False):
             firebase_admin.initialize_app()
         return True
 
-    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-9ecdc-firebase-adminsdk-60nyc-4715d07a10.json')
+    json_path = os.path.join(os.path.dirname(__file__), 'test-a2406-firebase-adminsdk-7r6vq-e3c4935c0d.json')
     try:
         cred = credentials.Certificate(json_path)
         firebase_admin.initialize_app(cred)
@@ -28,15 +28,17 @@ def initialize_firebase(mock=False):
 def dataframe_with_selections(df):
     df_with_selections = df.copy()
     df_with_selections.insert(0, "Select", False)
-
-    st.write(df_with_selections.to_html(escape=False), unsafe_allow_html=True)
-    selected_indices = []
-    for i, row in df.iterrows():
-        if st.checkbox(f"Select {row['Product']}", key=f"select_{i}"):
-            selected_indices.append(i)
+    df_with_selections = df_with_selections.drop(["Image"], axis=1)
+    edited_df = st.data_editor(
+        df_with_selections,
+        hide_index=True,
+        column_config={"Select": st.column_config.CheckboxColumn(required=True), "Image": st.column_config.ImageColumn()},
+        disabled=df.columns,
+    )
+    # edited_df = st.write(df_with_selections.to_html(escape=False), unsafe_allow_html=True, hide_index=True)
+    selected_indices = list(np.where(edited_df.Select)[0])
+    selected_rows = df[edited_df.Select]
     return selected_indices
-
-
 
 def app(firestore_client=None):
     if not firebase_admin._apps:
@@ -66,7 +68,7 @@ def app(firestore_client=None):
             "Website": user_fav_data["Website"],
             "Image": user_fav_data["Image"]
         })
-        
+
         # Display the favorites DataFrame
         selection = dataframe_with_selections(favorites_df)
         
