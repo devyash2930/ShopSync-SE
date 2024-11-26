@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
 import pandas as pd
@@ -9,14 +10,16 @@ def fetch_title():
 
 def initialize_firebase(mock=False):
     if mock:
-        # Mock initialization for testing purposes
         if not firebase_admin._apps:
             firebase_admin.initialize_app()
         return True
 
+<<<<<<< HEAD
     json_path = os.path.join(os.path.dirname(__file__), 'shopsync-9ecdc-firebase-adminsdk-60nyc-05d8e88f22.json')
+=======
+    json_path = os.path.join(os.path.dirname(__file__), 'shopsync-9ecdc-firebase-adminsdk-60nyc-7e5a173fe8.json')
+>>>>>>> 6d2765c472e7ccdaede006a8ff3cbc9cbc010295
     try:
-        # Path to Firebase service account key
         cred = credentials.Certificate(json_path)
         firebase_admin.initialize_app(cred)
         return True
@@ -24,19 +27,30 @@ def initialize_firebase(mock=False):
         print(f"Error initializing Firebase: {e}")
         raise e
 
-# db = firestore.client()
+# Found this workaround here: https://github.com/streamlit/streamlit/issues/688#issuecomment-1575704898
+# This is a known issue and something they're trying to implement properly into streamlit
+def dataframe_with_selections(df):
+    df_with_selections = df.copy()
+    df_with_selections.insert(0, "Select", False)
+    edited_df = st.data_editor(
+        df_with_selections,
+        hide_index=True,
+        column_config={"Select": st.column_config.CheckboxColumn(required=True)},
+        disabled=df.columns,
+    )
+    selected_indices = list(np.where(edited_df.Select)[0])
+    selected_rows = df[edited_df.Select]
+    return selected_indices
+
 def app(firestore_client=None):
-    # Allow mock initialization
     if not firebase_admin._apps:
         initialize_firebase(mock=False)
-    
-    # If firestore_client is None, initialize it
+
     if firestore_client is None:
         firestore_client = firestore.client()
 
     st.title("Favorites")
 
-    # Fetch the user ID (UID) from Firebase Authentication
     user_email = st.session_state.user_email  # Ensure this is set
     user = auth.get_user_by_email(user_email)  # Get the user by email
     uid = user.uid
@@ -48,21 +62,31 @@ def app(firestore_client=None):
     if user_fav_doc.exists:
         user_fav_data = user_fav_doc.to_dict()
 
-        # Create a DataFrame from the user's favorites
+        # Convert user's favorites into a DataFrame
         favorites_df = pd.DataFrame({
-            "Description": user_fav_data["Description"],
-            "Link": user_fav_data["Link"],
-            "Price": user_fav_data["Price"],
             "Product": user_fav_data["Product"],
+            "Description": user_fav_data["Description"],
+            "Price": user_fav_data["Price"],
             "Website": user_fav_data["Website"],
+            "Image": user_fav_data["Image"]
         })
 
         # Display the favorites DataFrame
-        st.dataframe(favorites_df.style, column_config={
-            "Link": st.column_config.LinkColumn("URL to Website"),
-            "Button": st.column_config.LinkColumn("Add to fav"),
-        })
+        selection = dataframe_with_selections(favorites_df)
+        
+        if st.button(f"Remove"):
+            # st.write(selection)
+            # Remove the product from Firestore
+            updated_favorites = {
+                "Description": [d for i, d in enumerate(user_fav_data["Description"]) if i not in selection],
+                "Image": [k for i, k in enumerate(user_fav_data["Image"]) if i not in selection],
+                "Ratings": [l for i, l in enumerate(user_fav_data["Ratings"]) if i not in selection],
+                "Price": [p for i, p in enumerate(user_fav_data["Price"]) if i not in selection],
+                "Product": [p for i, p in enumerate(user_fav_data["Product"]) if i not in selection],
+                "Website": [w for i, w in enumerate(user_fav_data["Website"]) if i not in selection],
+            }
+            user_fav_ref.set(updated_favorites)
+            # st.success(f"{selection} removed from favorites.")
+            st.rerun()  # Refresh the page after removal
     else:
         st.write("You have no favorites yet.")
-
-# In your main app file, call favourites.app() to use this
