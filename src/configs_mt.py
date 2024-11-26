@@ -23,33 +23,53 @@ WALMART = {
         'data-item-id': True
     },
     'title_indicator': 'span.lh-title',
-    'price_indicator': 'div.lh-copy',
-    'link_indicator': 'a'
+    'price_indicator': 'div[data-automation-id="product-price"] span.w_iUH7',
+    'link_indicator': 'a',
+    'image_indicator': 'img.absolute.top-0.left-0',
+    'review_indicator': 'span.stars-container'
 }
 
-AMAZON = {
-    'site': 'amazon',
-    'url': 'https://www.amazon.com/s?k=',
-    'item_component': 'div',
-    'item_indicator': {
-        'data-component-type': 's-search-result'
-    },
-    'title_indicator': 'h2 a span',
-    'price_indicator': 'span.a-price span',
-    'link_indicator': 'h2 a.a-link-normal'
-}
+# AMAZON = {
+#     'site': 'amazon',
+#     'url': 'https://www.amazon.com/s?k=',
+#     'item_component': 'div',
+#     'item_indicator': {
+#         'data-component-type': 's-search-result'
+#     },
+#     'title_indicator': 'h2 a span',
+#     'price_indicator': 'span.a-price span',
+#     'link_indicator': 'h2 a.a-link-normal',
+#     'image_indicator': 'img.s-image',
+#     'review_indicator': 'span.a-declarative a i span'
+# }
 
 COSTCO = {
     'site': 'costco',
     'url': 'https://www.costco.com/CatalogSearch?dept=All&keyword=',
     'item_component': 'div',
     'item_indicator': {
-        'class': 'product-tile-set'
+        'data-testid': 'Grid'
     },
-    'title_indicator': 'span a',
-    'price_indicator': 'div.price',
-    'link_indicator': 'span.description a',
+    'title_indicator': 'div[data-testid^="Text_ProductTile_"]',  # Extract the title from the span
+    'price_indicator': 'div.MuiTypography-root',  # Extract the price element
+    'link_indicator': 'a',  # Anchor element for the product link
+    'image_indicator': 'img',  # Use `img` tag for the product image
+    'review_indicator': 'div.product-rating'  # Review container (verify its presence)
 }
+
+# TARGET = {
+#     'site': 'target',
+#     'url': 'https://www.target.com/s?searchTerm=',
+#     'item_component': 'div',
+#     'item_indicator': {
+#         'data-test': '@web/ProductCard/ProductCardVariantDefault'
+#     },
+#     'title_indicator': 'a[data-test="product-title"]',
+#     'price_indicator': 'span[data-test="product-price"]',
+#     'link_indicator': 'a[data-test="product-title"]',
+#     'image_indicator': 'img[data-test="product-image"]',
+#     'review_indicator': 'div[data-test="average-rating"]'
+# }
 
 BESTBUY = {
     'site': 'bestbuy',
@@ -61,6 +81,8 @@ BESTBUY = {
     'title_indicator': 'h4.sku-title a',
     'price_indicator': 'div.priceView-customer-price span',
     'link_indicator': 'a.image-link',
+    'image_indicator': 'img.product-image',
+    'review_indicator': 'div.c-ratings-reviews p'  
 }
 
 
@@ -85,43 +107,9 @@ class scrape_target(Thread):
             List of items from the dict
         """
 
-        # api_url = 'https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v1'
-
-        # page = '/s/' + self.query
-        # params = {
-        #     'key': '5938CFDFD3FB4A7DB7C060583C86663C',
-        #     'channel': 'WEB',
-        #     'count': '24',
-        #     'default_purchasability_filter': 'false',
-        #     'include_sponsored': 'true',
-        #     'keyword': self.query,
-        #     'offset': '0',
-        #     'page': page,
-        #     'platform': 'desktop',
-        #     'pricing_store_id': '3991',
-        #     'useragent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0',
-        #     'visitor_id': 'AAA',
-        # }
-
-        # data = requests.get(api_url, params=params).json()
-        # items = []
-        # if 'search' in data['data']:
-        #     for p in data['data']['search']['products']:
-        #         item = {
-        #             'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        #             'title': html.unescape(p['item']['product_description']['title']),
-        #             'price': '$' + str(p['price']['current_retail']),
-        #             'website': 'target',
-        #             #'link': shorten_url(p['item']['enrichment']['buy_url'])
-        #             'link': p['item']['enrichment']['buy_url']
-        #         }
-        #         items.append(item)
-
-        #     self.result = items
-        # set up the request parameters
         params = {
-            'api_key': '5938CFDFD3FB4A7DB7C060583C86663C',
-            'search_term': 'Iphone',
+            'api_key': 'A6D50D2FA74944AEB91D4B18CBFDE4B0',
+            'search_term': self.query,
             'type': 'search',
             'sort_by': 'best_match'
             }
@@ -178,7 +166,7 @@ class scrape_ebay(Thread):
             self.result = []
 
         data = response.dict()
-
+        print(data)
         items = []
         for p in data['searchResult']['item']:
             item = {
@@ -187,11 +175,77 @@ class scrape_ebay(Thread):
                 'price': '$' + p['sellingStatus']['currentPrice']['value'],
                 'website': 'ebay',
                 #'link': shorten_url(p['viewItemURL'])
-                'link': p['viewItemURL']
+                'link': p['viewItemURL'],
+                'image_url': p['galleryURL'] if 'galleryURL' in p else 'https://via.placeholder.com/150',
+                'review': p['sellerInfo']['positiveFeedbackPercent'] + '%' if 'sellerInfo' in p and 'positiveFeedbackPercent' in p['sellerInfo'] else 'No Reviews'
             }
             items.append(item)
 
         self.result = items
 
 
-CONFIGS = [WALMART, AMAZON, COSTCO, BESTBUY]
+
+
+class scrape_amazon(Thread):
+    def __init__(self, query):
+        self.result = []
+        self.query = query
+        super(scrape_amazon, self).__init__()
+
+    def run(self):
+        """Scrape Amazon product data using Rainforest API
+
+        Parameters
+        ----------
+        query: str
+            Item to look for in the API
+
+        Returns
+        ----------
+        items: list
+            List of items from the API response
+        """
+        API_KEY = '34C1B2689C074F3BB120B22625C22F72'
+        BASE_URL = 'https://api.rainforestapi.com/request'
+
+        params = {
+            'api_key': API_KEY,
+            'type': 'search',
+            'amazon_domain': 'amazon.com',
+            'search_term': self.query,
+        }
+
+        try:
+            # Send request to Rainforest API
+            response = requests.get(BASE_URL, params=params)
+            data = response.json()
+
+            # Extract items from response
+            items = []
+            if "search_results" in data:
+                for product in data["search_results"]:
+                    try:
+                        item = {
+                            'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                            'title': product['title'] if 'title' in product else 'No Title',
+                            'price': f"${product['price']['value']}" if 'price' in product and 'value' in product['price'] else 'No Price',
+                            'currency': product['price']['currency'] if 'price' in product and 'currency' in product['price'] else 'USD',
+                            'website': 'amazon',
+                            'link': product['link'] if 'link' in product else 'No Link',
+                            'review': f"{product['rating']} stars" if 'rating' in product else 'No Rating',
+                            'image_url': product['image'] if 'image' in product else 'https://via.placeholder.com/150'
+                            
+                        }
+                        items.append(item)
+                    except Exception as e:
+                        print(f"Error processing product: {e}")
+                        continue
+
+            self.result = items
+
+        except Exception as e:
+            print(f"Error fetching data from Amazon API: {e}")
+            self.result = []
+
+
+CONFIGS = [WALMART, COSTCO, BESTBUY]

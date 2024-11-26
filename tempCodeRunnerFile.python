@@ -1,0 +1,21 @@
+def solution(n):
+    if n < 2:
+        return []
+
+    frame = []
+
+    for i in range(n):
+        if i == 0 or i == n - 1:
+            # Top and bottom rows
+            frame.append("*" * n)
+        else:
+            # Middle rows with spaces
+            frame.append("*" + " " * (n - 2) + "*")
+    
+    return frame
+
+# Example usage
+n = 8  # Change to the desired size
+result = solution(n)
+for line in result:
+    print(line)
