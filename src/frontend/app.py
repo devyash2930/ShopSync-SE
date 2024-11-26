@@ -57,7 +57,7 @@ class MultiApp:
             app = option_menu(
                 menu_title='ShopSync',
                 options=['Account', 'Home', 'Favourites', 'History', 'Logout'],
-                icons=['person-circle', 'house-fill', 'star-fill', 'box-arrow-right', 'box-arrow-right'],
+                icons=['person-circle', 'house-fill', 'star-fill', 'clock', 'box-arrow-right'],
                 menu_icon='shop',
                 default_index=default_index,
                 styles={
