@@ -2,7 +2,7 @@
 
 [![Made With](https://img.shields.io/badge/made%20with-python-blue)](https://www.python.org/)
 [![GitHub stars](https://badgen.net/github/stars/Neel317/ShopSync)](https://badgen.net/github/stars/Neel317/ShopSync)
-[![DOI](https://zenodo.org/badge/866275389.svg)](https://doi.org/10.5281/zenodo.14020467)
+[![DOI](https://zenodo.org/badge/889991961.svg)](https://doi.org/10.5281/zenodo.14219860)
 [![codecov](https://codecov.io/github/devyash2930/ShopSync-SE/branch/testing/graph/badge.svg?token=TP83NH85TA)](https://codecov.io/github/devyash2930/ShopSync-SE)
 [![Run Tests On Push](https://github.com/Neel317/ShopSync/actions/workflows/unit_test.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/unit_test.yml)
 [![Lint Python](https://github.com/Neel317/ShopSync/actions/workflows/main.yml/badge.svg)](https://github.com/devyash2930/ShopSync-SE/actions/workflows/main.yml)
