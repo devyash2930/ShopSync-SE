@@ -50,3 +50,13 @@ amazon query:iphone
 amazon query:iphone
 amazon query:ginger
 amazon query:Tomato
+amazon query:Apples
+amazon query:Apples
+amazon query:Apples
+amazon query:Apples
+amazon query:Apples
+amazon query:Apples
+amazon query:Apples
+amazon query:Apples
+amazon query:Apples
+amazon query:Milk
