@@ -1,1 +1,1 @@
-web: gunicorn -w 1 -b 0.0.0.0:8000 src.main:app & streamlit run src/frontend/app.py --server.port 8501
+web: uvicorn src.main:app --host=0.0.0.0 --port=${PORT:-5000}
